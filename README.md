@@ -1,7 +1,6 @@
 # Texturômetro
 
-* Nome do Projeto: Titan Texture 
-* Autor: Mateus Quintino
+* Nome do Projeto: Titan Texture
 * Data de Início: 01/07/2023
 * Descrição: Software de análise de textura desenvolvido para o projeto de TCC do curso de Engenharia de Controle e Automação
 
@@ -48,16 +47,25 @@ c:c:,......'loolllodxxxkkkOOkkxxdd::dkkdxxxdo...........
 .........''....  ..   ...',;,,,,,,'..... .' ........ ... 
 .........'......  .........,;;'............... ....   .. 
 .........'.....  . .. ...,,';:;'...........   ....    . 
-  ...............  .. .  .,;;:;,'..........  ...		    ```
+  ...............  .. .  .,;;:;,'..........  ...		
+```
 
-* -Padrão de estrutura de protocolo [L;valor][E;valor][LS;valor][LI;valor][M;comando;valor]
-* -L de Load Cell, E de Encoder, M de Motor, LS de limite superior, LI de limite inferior
-*   - Os comandos do motor podem ser UP, DW ou S
-*     - UP para subir, DW para descer e S de Stop
-* - "[ZERO]" Define o Zero Máquina do Texturômetro
-* - "[TARA]" Defiine a tara da célula de carga
-* - "[LCC;valor]" Define o valor para calibração da célula de carga
-* - "[CAL;valor]" Calibra célula de carga com base no valor de peso padrão
-* - "[W;tipo]" Define um alarme e o tipo
-*   - O de Overweight -> excesso de peso
-*   - 
+## Protocolo Serial
+
+Padrões de protocolo: 
+
+* __[L;valor]__
+* __[E;valor]__
+* __[LS;valor]__
+* __[LI;valor]__
+* __[M;comando;valor]__
+  * __UP__ para subir			
+  * __DW__ para descer	
+  * __S__ de Stop
+* __[ZERO]__ - Define o Zero Máquina do Texturômetro
+* __[TARA]__ - Defiine a tara da célula de carga
+* __[LCC;valor]__ - Define o valor para calibração da célula de carga
+* __[CAL;valor]__ - Calibra célula de carga com base no valor de peso padrão
+* __[W;tipo]__ - Define um alarme e o tipo
+	* Tipos de alarme:
+		* __O__ (Overweight) - Excesso de peso 
