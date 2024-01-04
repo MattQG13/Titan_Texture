@@ -91,7 +91,7 @@ namespace TexturometroClass {
 			_sensorLI=new Chave();
 
 
-            _serial=new SerialManager("COM1");
+            _serial=new SerialManager();
 
             _serial.LSDetected+=_atualizaLS;
 			_serial.LIDetected+=_atualizaLI;
