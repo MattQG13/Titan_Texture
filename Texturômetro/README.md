@@ -50,8 +50,6 @@ c:c:,......'loolllodxxxkkkOOkkxxdd::dkkdxxxdo...........
   ...............  .. .  .,;;:;,'..........  ...		
 ```
 
-
-
 ## Protocolo Serial
 
 Padrões de protocolo: 
@@ -62,7 +60,8 @@ Padrões de protocolo:
 * __[LI;valor]__
 * __[M;comando;valor]__
   * __UP__ para subir			
-  * __DW__ para descer	  * __S__ de Stop
+  * __DW__ para descer	
+  * __S__ de Stop
 * __[ZERO]__ - Define o Zero Máquina do Texturômetro
 * __[TARA]__ - Defiine a tara da célula de carga
 * __[LCC;valor]__ - Define o valor para calibração da célula de carga
