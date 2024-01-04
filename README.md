@@ -48,4 +48,16 @@ c:c:,......'loolllodxxxkkkOOkkxxdd::dkkdxxxdo...........
 .........''....  ..   ...',;,,,,,,'..... .' ........ ... 
 .........'......  .........,;;'............... ....   .. 
 .........'.....  . .. ...,,';:;'...........   ....    . 
-  ...............  .. .  .,;;:;,'..........  ...		```
+  ...............  .. .  .,;;:;,'..........  ...		    ```
+
+* -Padrão de estrutura de protocolo [L;valor][E;valor][LS;valor][LI;valor][M;comando;valor]
+* -L de Load Cell, E de Encoder, M de Motor, LS de limite superior, LI de limite inferior
+*   - Os comandos do motor podem ser UP, DW ou S
+*     - UP para subir, DW para descer e S de Stop
+* - "[ZERO]" Define o Zero Máquina do Texturômetro
+* - "[TARA]" Defiine a tara da célula de carga
+* - "[LCC;valor]" Define o valor para calibração da célula de carga
+* - "[CAL;valor]" Calibra célula de carga com base no valor de peso padrão
+* - "[W;tipo]" Define um alarme e o tipo
+*   - O de Overweight -> excesso de peso
+*   - 
