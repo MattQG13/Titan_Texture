@@ -34,7 +34,7 @@
   <Class Name="LoadCellTexturometro.LoadCell">
     <Position X="22" Y="13.75" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAGAAAAAABAAAAAA4ABBAAAAQAAAAAEAAAIQAAAIA=</HashCode>
+      <HashCode>AAAACAAAAAQBAAAAAA4ABBAAAAQAAABAEAAAIAAQCIA=</HashCode>
       <FileName>LoadCell.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -59,21 +59,21 @@
   <Class Name="SerialManagerTexturometro.SerialManager">
     <Position X="31" Y="13.75" Width="4.5" />
     <TypeIdentifier>
-      <HashCode>KAAAAAAAAAAAIABCAYABIAIAAAICCAAAAAAAAAHAEBA=</HashCode>
+      <HashCode>KAAAAAAAAAAAIABCAYABIAIAAAICKAACAAAAAAGAEBA=</HashCode>
       <FileName>SerialManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TexturometroClass.Texturometro">
     <Position X="23.75" Y="6.25" Width="4.25" />
-    <AssociationLine Name="_motor" Type="MotorTexturometro.Motor" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="_motor" Type="MotorTexturometro.Motor" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="26.625" Y="9.92" />
-        <Point X="26.625" Y="13.008" />
-        <Point X="29" Y="13.008" />
-        <Point X="29" Y="13.75" />
+        <Point X="26.562" Y="10.882" />
+        <Point X="26.562" Y="13.117" />
+        <Point X="28.812" Y="13.117" />
+        <Point X="28.812" Y="13.75" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.182" Y="-0.851" />
+        <Position X="-0.851" Y="0.182" />
       </MemberNameLabel>
     </AssociationLine>
     <AssociationLine Name="_sensorLS" Type="ClassesSuporteTexturometro.Chave">
@@ -83,7 +83,7 @@
     </AssociationLine>
     <AssociationLine Name="_sensorLI" Type="ClassesSuporteTexturometro.Chave" FixedToPoint="true">
       <Path>
-        <Point X="26.25" Y="9.92" />
+        <Point X="26.25" Y="10.882" />
         <Point X="26.25" Y="13.75" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
@@ -92,9 +92,9 @@
     </AssociationLine>
     <AssociationLine Name="_teste" Type="EnsaioTextuometro.Ensaio" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="24.75" Y="9.92" />
-        <Point X="24.75" Y="11.857" />
-        <Point X="14.75" Y="11.857" />
+        <Point X="24.562" Y="10.882" />
+        <Point X="24.562" Y="12.527" />
+        <Point X="14.75" Y="12.527" />
         <Point X="14.75" Y="14" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
@@ -103,38 +103,38 @@
     </AssociationLine>
     <AssociationLine Name="_dadosTeste" Type="DadosDeEnsaio.DataTest" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="25.125" Y="9.92" />
-        <Point X="25.125" Y="12.383" />
-        <Point X="20.125" Y="12.383" />
+        <Point X="25" Y="10.882" />
+        <Point X="25" Y="12.923" />
+        <Point X="20.125" Y="12.923" />
         <Point X="20.125" Y="13.75" />
       </Path>
     </AssociationLine>
     <AssociationLine Name="_loadCell" Type="LoadCellTexturometro.LoadCell" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="25.5" Y="9.92" />
-        <Point X="25.5" Y="12.903" />
-        <Point X="23.25" Y="12.903" />
+        <Point X="25.5" Y="10.882" />
+        <Point X="25.5" Y="13.2" />
+        <Point X="23.25" Y="13.2" />
         <Point X="23.25" Y="13.75" />
       </Path>
     </AssociationLine>
     <AssociationLine Name="_serial" Type="SerialManagerTexturometro.SerialManager" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="27" Y="9.92" />
-        <Point X="27" Y="12.633" />
-        <Point X="33.25" Y="12.633" />
-        <Point X="33.25" Y="13.75" />
+        <Point X="26.938" Y="10.882" />
+        <Point X="26.938" Y="12.845" />
+        <Point X="33.312" Y="12.845" />
+        <Point X="33.312" Y="13.75" />
       </Path>
     </AssociationLine>
     <AssociationLine Name="_produto" Type="ProdutoTexturometro.CorpoDeProva" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="27.375" Y="9.92" />
-        <Point X="27.375" Y="12.196" />
-        <Point X="37.125" Y="12.196" />
+        <Point X="27.312" Y="10.882" />
+        <Point X="27.312" Y="12.527" />
+        <Point X="37.125" Y="12.527" />
         <Point X="37.125" Y="13.75" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>ECAgEgAAAgQgCQAAgAMAIAAAAAACAICABAAAIAAAAAA=</HashCode>
+      <HashCode>ECBgEgAECgQgCQAAgAMAIAAAAAACAICABQAQIAAAAAA=</HashCode>
       <FileName>Texturometro.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

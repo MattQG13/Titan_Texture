@@ -63,51 +63,57 @@ using System.Windows.Forms;
 using EnsaioTextuometro;
 using DadosDeEnsaio;
 using System.Drawing;
+using System.Configuration;
+using System.IO.Ports;
 
 
 namespace TexturometroClass {
 	public class Texturometro {
-		private Motor _motor;
-        private Chave _sensorLS;
-        private Chave _sensorLI;
-        private Ensaio _teste;
-		private DataTest _dadosTeste;
-		private LoadCell _loadCell;
-        private SerialManager _serial;
-		private CorpoDeProva _produto;
-		private bool _settingZero;
+        public Motor Motor;
+        public Chave SensorLS;
+        public Chave SensorLI;
+        public Ensaio Teste;
+        public DataTest DadosTeste;
+        public LoadCell LoadCell;
+        public SerialManager Serial;
+		public CorpoDeProva Produto;
+        private bool _settingZero;
 		private Timer _timer;
 		private Timer _keybaordTimer;
 
-
         public Texturometro(DataTest DadosDoTeste) {
-            _dadosTeste = DadosDoTeste;
+            DadosTeste = DadosDoTeste;
 
-			_teste = EnsaioFactoryMethod.criarTeste(_dadosTeste.Tipo);
+			Teste = EnsaioFactoryMethod.criarTeste(DadosTeste.Tipo);
 
-			_loadCell = new LoadCell(_dadosTeste.LoadCellValMax);
+			LoadCell = new LoadCell(DadosTeste.LoadCellValMax);
 
-            _sensorLS=new Chave();
-			_sensorLI=new Chave();
+            SensorLS=new Chave();
+			SensorLI=new Chave();
 
 
-            _serial=new SerialManager();
+            Serial=new SerialManager();
 
-            _serial.LSDetected+=_atualizaLS;
-			_serial.LIDetected+=_atualizaLI;
-			_serial.LoadCellDetected+=_atualizaLoadCell;
-			_serial.EncoderDetected+=_atualizaEncoder;
+            Serial.LSDetected+=_atualizaLS;
+			Serial.LIDetected+=_atualizaLI;
+			Serial.LoadCellDetected+=_atualizaLoadCell;
+			Serial.EncoderDetected+=_atualizaEncoder;
+			
 
-            _motor=new Motor();
-            _motor.SPVel= _dadosTeste.VelMotor;
-			_motor.SPVelManual= _dadosTeste.VelMotorManual;
-			_motor.MotorStarted+=_enviaSerialMotor;
-			_motor.MotorStopped+=_enviaSerialMotor;
-			_motor.ZeroSeated+=_serial.EnvZeroPosicao;
-			_loadCell.ZeroSeated += _serial.EnvZeroLoad;
+            Motor=new Motor();
+            Motor.SPVel= DadosTeste.VelMotor;
+			Motor.SPVelManual= DadosTeste.VelMotorManual;
+			Motor.MotorStarted+=_enviaSerialMotor;
+			Motor.MotorStopped+=_enviaSerialMotor;
+			Motor.ZeroSeated+=Serial.EnvZeroPosicao;
+
+			LoadCell.ZeroSet+=Serial.EnvTARA;
+			LoadCell.Calibration+=Serial.CalLC;
 
 			_keybaordTimer=new Timer();
 			_keybaordTimer.Tick+=_keyboardUper;
+
+			Produto=new CorpoDeProva(1);
         }	
 
 		public void _keyboardUper(object sender, EventArgs e) {
@@ -116,20 +122,21 @@ namespace TexturometroClass {
 
 		public void TesteStart(object sender, EventArgs e) {
 			try {
-				if(_serial.IsOpen) {
-					_serial.Close();
-				}
-				_serial.Open();
+				if(Serial.IsOpen) {
+					Serial.Close();
+                }
+                Serial.DiscardNull=true;
+                Serial.Open();
 			}catch(Exception ex) { 
 				MessageBox.Show(ex.Message); 
 			}
 
-			if(_teste.ZeroSeated) {
+			if(Teste.ZeroSeated) {
 				ExecTeste();
 			} else {
 				var result = MessageBox.Show("Zero Máquina não definido!\nDefinir Zero Máquina?","Aviso!",MessageBoxButtons.OKCancel ,MessageBoxIcon.Warning);
 				if(result == DialogResult.OK) {
-                    _motor.Manual = true;
+                    Motor.Manual = true;
 					_settingZero=true;
                 }
 			}
@@ -137,21 +144,22 @@ namespace TexturometroClass {
 
         #region SetSensores
         private void _atualizaLS(object sender, SerialMessageArgument e) {
-			_sensorLS.Estado = e.boolValue;	
+			SensorLS.Estado = e.boolValue;	
 					
 		}
 
 		private void _atualizaLI(object sender,SerialMessageArgument e) {
-            _sensorLI.Estado=e.boolValue;
+            SensorLI.Estado=e.boolValue;
         }
 
-		private void _atualizaLoadCell(object sender,SerialMessageArgument e) { 
-            _loadCell.ValorLoad=e.intValue;
+		private void _atualizaLoadCell(object sender,SerialMessageArgument e) {
+			Produto.Resultado.Add(e.doubleValue,Produto.Resultado.Count+1,0);
+            LoadCell.ValorLoad=e.intValue;
 
         }
 
         private void _atualizaEncoder(object sender,SerialMessageArgument e) {
-            _motor.Posicao = e.intValue;
+            Motor.Posicao = e.intValue;
         }
         #endregion
 
@@ -159,19 +167,37 @@ namespace TexturometroClass {
 			//?????
 		}
 
-		private void _settingZeroMaquina() {
-            _motor.StartSetZero(ModoMotor.Descer);
-			_loadCell.CargaDetected+=_setZero;
+		public void setSerial(string com,string baud = "115200") {
+			Serial.SetCOM(com,Convert.ToInt32(baud));
+			
+		}
+
+        public void iniciaSerial() {
+            try {
+                if(Serial.IsOpen) {
+                    Serial.Close();
+                }
+                Serial.Open();
+            } catch(Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+        private void _settingZeroMaquina() {
+            Motor.StartSetZero(ModoMotor.Descer);
+			LoadCell.CargaDetected+=_setZero;
         }
 
 		private void _setZero(object sender, EventArgs e) {
-			_motor.Stop();
-			_teste.ZeroSeated=true;
-			_loadCell.CargaDetected-=_setZero;
+			Motor.Stop();
+			Teste.ZeroSeated=true;
+			LoadCell.CargaDetected-=_setZero;
 		}
 
 		private void _enviaSerialMotor(object sender, MotorArgument e) {
-			_serial.EnvComandoMotor(e.Modo,e.Vel);
+			Serial.EnvComandoMotor(e.Modo,e.Vel);
 		}
+
 	}
 }

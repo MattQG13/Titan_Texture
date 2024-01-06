@@ -20,7 +20,7 @@ namespace ProdutoTexturometro {
         }
 
         public double Altura { get; set; }
-        public Tabela Resultado { get; set; }
+        public Tabela Resultado { get; set; } = new Tabela();
 
         public CorpoDeProva(double Altura)
         {

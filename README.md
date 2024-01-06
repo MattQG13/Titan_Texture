@@ -54,18 +54,18 @@ c:c:,......'loolllodxxxkkkOOkkxxdd::dkkdxxxdo...........
 
 Padrões de protocolo: 
 
-* __[L;valor]__
-* __[E;valor]__
-* __[LS;valor]__
-* __[LI;valor]__
-* __[M;comando;valor]__
+* __[L;valor]__ - Valor de leitura da célula de carga [g]
+* __[E;valor]__ - Valor de posição do encoder [mm]
+* __[LS;valor]__ - Valor do sensor de limite superior [bool] 
+* __[LI;valor]__ - Valor do sensor de limite inferior [bool]
+* __[M;comando;valor]__ - Controle do motor com direção e velocidade [mm/s]
   * __UP__ para subir			
   * __DW__ para descer	
   * __S__ de Stop
 * __[ZERO]__ - Define o Zero Máquina do Texturômetro
-* __[TARA]__ - Defiine a tara da célula de carga
-* __[LCC;valor]__ - Define o valor para calibração da célula de carga
-* __[CAL;valor]__ - Calibra célula de carga com base no valor de peso padrão
+* __[TARA]__ - Define a tara da célula de carga
+* __[LCC;valor]__ - Define o valor para escala de calibração da célula de carga
+* __[CAL;valor]__ - Envia comando para calibração da célula de carga com valor do peso padrão [g]
 * __[W;tipo]__ - Define um alarme e o tipo
 	* Tipos de alarme:
 		* __O__ (Overweight) - Excesso de peso 

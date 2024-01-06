@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ClassesSuporteTexturometro;
 
 namespace LoadCellTexturometro {
 	public class LoadCell {
@@ -7,11 +8,13 @@ namespace LoadCellTexturometro {
         private double _cargaMax;
         private double _val;
         private const double _g = 9.81;
-        private const double _valDeteccao = 0;
+        private const double _valDeteccao = 1;
 
-        public EventHandler ZeroSeated;
+        public EventHandler ZeroSet;
         public EventHandler LoadLimitreached;
         public EventHandler CargaDetected;
+        public EventHandler<SerialMessageArgument> Calibration;
+
 
         public LoadCell(double valorMax) {
             _cargaMax=valorMax;
@@ -56,8 +59,14 @@ namespace LoadCellTexturometro {
             }
         }
 
-        public void SetZero() {
-            ZeroSeated?.Invoke(this,EventArgs.Empty);
+        public void Tarar() {
+            ZeroSet?.Invoke(this,EventArgs.Empty);
+        }
+
+        public void Cal(double loadCal) {
+            SerialMessageArgument args = new SerialMessageArgument();
+            args.doubleValue=loadCal;
+            Calibration?.Invoke(this,args);
         }
 
     }

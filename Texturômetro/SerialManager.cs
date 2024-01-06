@@ -1,7 +1,10 @@
 using ClassesSuporteTexturometro;
 using System;
+using System.Globalization;
 using System.IO.Ports;
 using System.Text;
+using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace SerialManagerTexturometro{
     public class SerialManager {
@@ -14,6 +17,9 @@ namespace SerialManagerTexturometro{
         public EventHandler<SerialMessageArgument> EncoderDetected;
         public EventHandler<SerialMessageArgument> MotorDetected;
 
+        private CultureInfo culture = new CultureInfo("en-US"); //CultureInfo.InvariantCulture;
+
+        private char endChar = '!';
 
         public SerialManager(string portName,int baudRate) {
             _serialPort=new SerialPort(portName,baudRate);
@@ -34,13 +40,19 @@ namespace SerialManagerTexturometro{
         public void SetCOM (string portName,int baudRate) {
             _serialPort.PortName=portName;
             _serialPort.BaudRate=baudRate;
+            _serialPort.ReadTimeout=2048;
+            _serialPort.WriteTimeout=2048;
         }
         public void SetCOM(string portName) {
             _serialPort.PortName=portName;
+            _serialPort.ReadTimeout=2048;
+            _serialPort.WriteTimeout=2048;
         }
 
         public void SetCOM(int baudRate) {
             _serialPort.BaudRate=baudRate;
+            _serialPort.ReadTimeout=2048;
+            _serialPort.WriteTimeout=2048;
         }
 
         public bool IsOpen {
@@ -69,15 +81,18 @@ namespace SerialManagerTexturometro{
         public void Write(string message) {
             if (IsOpen)
             {
-                _serialPort.Write(message);
+                _serialPort.Write(message+endChar);
             }
         }
 
         private void _dataReceived(object sender,SerialDataReceivedEventArgs e) {
-            string mensagem = _serialPort.ReadTo("\r");
+            string mensagem = _serialPort.ReadTo(endChar.ToString());
             string[] partesDaMensagem = _processaSerial(mensagem);
+            if(partesDaMensagem[0]=="LCC"||partesDaMensagem[0]=="TARA")
+                mensagem=mensagem;
             _interpretaMensagem(partesDaMensagem);
         }
+
         #endregion
 
         private static string[] _processaSerial(string mensagem) {
@@ -87,22 +102,27 @@ namespace SerialManagerTexturometro{
         }
 
         private void _interpretaMensagem(string[] partesDaMensagem) {
-            //chama os eventos
             SerialMessageArgument args = new SerialMessageArgument();
             args.Objeto=partesDaMensagem[0];
 
             switch(partesDaMensagem.Length) {
+                case 1:
+                    break;
                 case 2: //Load cell ou Encoder
                     if(args.Objeto=="LS"||args.Objeto=="LI") {
                         args.boolValue=partesDaMensagem[1]=="1" ? true : false;
                     }
                     if(args.Objeto=="E"||args.Objeto=="L") {
-                        args.intValue=int.Parse(partesDaMensagem[1]);
+                        args.doubleValue=double.Parse(partesDaMensagem[1],culture);
                     }
+                    if(args.Objeto=="CAL") {
+                        args.doubleValue=double.Parse(partesDaMensagem[1],culture);
+                    }
+
                     break;
                 case 3: //Motor X
                     args.Comando=partesDaMensagem[1];
-                    args.doubleValue=double.Parse(partesDaMensagem[2]);
+                    args.doubleValue=double.Parse(partesDaMensagem[2],culture);
                     break;
                 default:
                     break;
@@ -133,28 +153,33 @@ namespace SerialManagerTexturometro{
             sB.Append("[M;");
             switch(comando) {
                 case ModoMotor.Parado:
-                    sB.Append("S");
+                    sB.Append("S;");
                     break;
                 case ModoMotor.Subir:
-                    sB.Append("UP");
+                    sB.Append("UP;");
                     break;
                 case ModoMotor.Descer:
-                    sB.Append("DW");
+                    sB.Append("DN;");
                     break;
             }
             sB.Append(valor.ToString());
-            sB.Append("]\r");
+            sB.Append("]");
 
             Write(sB.ToString());
         }
 
         public void EnvZeroPosicao(object sender, EventArgs e) {
-            Write("[E;ZERO]\r");
+            Write("[E;ZERO]");
         }
 
-        public void EnvZeroLoad(object sender, EventArgs e)
-        {
-            Write("[L;ZERO]\r");
+        public void CalLC(object sender,SerialMessageArgument e) {
+            string s = "[CAL;"+e.doubleValue.ToString(culture) +"]";
+            Write(s);
+        }
+
+        public void EnvTARA(object sender,EventArgs e) {
+            string s = "[TARA]";
+            Write(s);
         }
     }
 }

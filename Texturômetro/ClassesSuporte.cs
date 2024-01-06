@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace ClassesSuporteTexturometro {
 
@@ -70,7 +71,7 @@ namespace ClassesSuporteTexturometro {
     }
 
     public class Coord {
-        public double X { get; }
+         public double X { get; }
         public double Y { get;}
         public double Z { get;}
 
@@ -94,7 +95,11 @@ namespace ClassesSuporteTexturometro {
         public void Add(double x,double y, double z) {
             _table.Add(new Coord(x,y,z));
         }
-
+        public int Count{
+            get {
+                return _table.Count;
+            }
+        }
         public void Add(Coord xyz) {
             _table.Add(xyz);
         }
