@@ -1,4 +1,4 @@
-﻿namespace Classes {
+﻿namespace Texturometer {
     partial class TexturometroForms {
         /// <summary>
         /// Variável de designer necessária.
@@ -34,13 +34,13 @@
             this.pnBackground = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lbLoad = new System.Windows.Forms.Label();
             this.btnDN = new System.Windows.Forms.Button();
             this.btnUP = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.Graph = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.arquivoStripMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.exibirStripMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,13 +48,15 @@
             this.TAStripMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.rodarTesteStripMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.calibrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tararToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configuraçõesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnBackground.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Graph)).BeginInit();
-            this.panel3.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -85,6 +87,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.lbLoad);
             this.panel2.Controls.Add(this.btnDN);
             this.panel2.Controls.Add(this.btnUP);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -92,6 +95,18 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(794, 144);
             this.panel2.TabIndex = 1;
+            // 
+            // lbLoad
+            // 
+            this.lbLoad.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lbLoad.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbLoad.Font = new System.Drawing.Font("SansSerif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.lbLoad.Location = new System.Drawing.Point(142, 35);
+            this.lbLoad.Name = "lbLoad";
+            this.lbLoad.Size = new System.Drawing.Size(120, 46);
+            this.lbLoad.TabIndex = 0;
+            this.lbLoad.Text = "000.0 g";
+            this.lbLoad.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnDN
             // 
@@ -144,10 +159,26 @@
             // Graph
             // 
             this.Graph.BackColor = System.Drawing.SystemColors.Control;
+            chartArea1.AxisX.IsLabelAutoFit = false;
             chartArea1.AxisX.Maximum = 12000D;
+            chartArea1.AxisX.MaximumAutoSize = 90F;
             chartArea1.AxisX.Minimum = 0D;
-            chartArea1.AxisY.Crossing = -1.7976931348623157E+308D;
-            chartArea1.AxisY.IsStartedFromZero = false;
+            chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.LightGray;
+            chartArea1.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            chartArea1.AxisX.Title = "t(s)";
+            chartArea1.AxisX.TitleAlignment = System.Drawing.StringAlignment.Far;
+            chartArea1.AxisX.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            chartArea1.AxisY.IsLabelAutoFit = false;
+            chartArea1.AxisY.LabelStyle.Format = "0.0";
+            chartArea1.AxisY.MaximumAutoSize = 90F;
+            chartArea1.AxisY.MinorGrid.Enabled = true;
+            chartArea1.AxisY.MinorGrid.LineColor = System.Drawing.Color.Gray;
+            chartArea1.AxisY.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            chartArea1.AxisY.ScaleView.SmallScrollMinSize = 10D;
+            chartArea1.AxisY.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
+            chartArea1.AxisY.Title = "F(g)";
+            chartArea1.AxisY.TitleAlignment = System.Drawing.StringAlignment.Far;
+            chartArea1.AxisY.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             chartArea1.Name = "ChartArea1";
             this.Graph.ChartAreas.Add(chartArea1);
             this.Graph.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -176,22 +207,11 @@
             // 
             // panel3
             // 
-            this.panel3.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.textBox1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 3);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(194, 264);
             this.panel3.TabIndex = 1;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(4, 4);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(185, 255);
-            this.textBox1.TabIndex = 0;
             // 
             // menuStrip
             // 
@@ -199,7 +219,9 @@
             this.arquivoStripMenu,
             this.exibirStripMenu,
             this.resultadosStripMenu,
-            this.TAStripMenu});
+            this.TAStripMenu,
+            this.configuraçõesToolStripMenuItem,
+            this.sobreToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(800, 24);
@@ -228,7 +250,8 @@
             // 
             this.TAStripMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rodarTesteStripMenu,
-            this.calibrarToolStripMenuItem});
+            this.calibrarToolStripMenuItem,
+            this.tararToolStripMenuItem});
             this.TAStripMenu.Name = "TAStripMenu";
             this.TAStripMenu.Size = new System.Drawing.Size(39, 20);
             this.TAStripMenu.Text = "T.A.";
@@ -236,16 +259,37 @@
             // rodarTesteStripMenu
             // 
             this.rodarTesteStripMenu.Name = "rodarTesteStripMenu";
-            this.rodarTesteStripMenu.Size = new System.Drawing.Size(142, 22);
+            this.rodarTesteStripMenu.Size = new System.Drawing.Size(180, 22);
             this.rodarTesteStripMenu.Text = "Rodar teste...";
             this.rodarTesteStripMenu.Click += new System.EventHandler(this.rodarTesteToolStripMenuItem_Click);
             // 
             // calibrarToolStripMenuItem
             // 
             this.calibrarToolStripMenuItem.Name = "calibrarToolStripMenuItem";
-            this.calibrarToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
-            this.calibrarToolStripMenuItem.Text = "Calibrar";
+            this.calibrarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.calibrarToolStripMenuItem.Text = "Calibrar...";
             this.calibrarToolStripMenuItem.Click += new System.EventHandler(this.calibrarToolStripMenuItem_Click);
+            // 
+            // tararToolStripMenuItem
+            // 
+            this.tararToolStripMenuItem.Name = "tararToolStripMenuItem";
+            this.tararToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.tararToolStripMenuItem.Text = "Tarar...";
+            this.tararToolStripMenuItem.Click += new System.EventHandler(this.tararToolStripMenuItem_Click);
+            // 
+            // configuraçõesToolStripMenuItem
+            // 
+            this.configuraçõesToolStripMenuItem.Name = "configuraçõesToolStripMenuItem";
+            this.configuraçõesToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
+            this.configuraçõesToolStripMenuItem.Text = "Configurações";
+            this.configuraçõesToolStripMenuItem.Click += new System.EventHandler(this.configuraçõesToolStripMenuItem_Click);
+            // 
+            // sobreToolStripMenuItem
+            // 
+            this.sobreToolStripMenuItem.Name = "sobreToolStripMenuItem";
+            this.sobreToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
+            this.sobreToolStripMenuItem.Text = "Sobre";
+            this.sobreToolStripMenuItem.Click += new System.EventHandler(this.sobreToolStripMenuItem_Click);
             // 
             // TexturometroForms
             // 
@@ -268,8 +312,6 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Graph)).EndInit();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -289,11 +331,14 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolStripMenuItem calibrarToolStripMenuItem;
         private System.Windows.Forms.DataVisualization.Charting.Chart Graph;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ToolStripMenuItem configuraçõesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sobreToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tararToolStripMenuItem;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label lbLoad;
     }
 }
 

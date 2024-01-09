@@ -38,21 +38,21 @@ namespace SerialManagerTexturometro{
         #region SerialPort
 
         public void SetCOM (string portName,int baudRate) {
-            _serialPort.PortName=portName;
-            _serialPort.BaudRate=baudRate;
-            _serialPort.ReadTimeout=2048;
-            _serialPort.WriteTimeout=2048;
+            if(!string.IsNullOrEmpty(portName))_serialPort.PortName=portName;
+                _serialPort.BaudRate=baudRate;
+                _serialPort.ReadTimeout=2048;
+                _serialPort.WriteTimeout=2048;
         }
         public void SetCOM(string portName) {
-            _serialPort.PortName=portName;
-            _serialPort.ReadTimeout=2048;
-            _serialPort.WriteTimeout=2048;
+            if(!string.IsNullOrEmpty(portName))_serialPort.PortName=portName;
+                _serialPort.ReadTimeout=2048;
+                _serialPort.WriteTimeout=2048;
         }
 
         public void SetCOM(int baudRate) {
-            _serialPort.BaudRate=baudRate;
-            _serialPort.ReadTimeout=2048;
-            _serialPort.WriteTimeout=2048;
+                _serialPort.BaudRate=baudRate;
+                _serialPort.ReadTimeout=2048;
+                _serialPort.WriteTimeout=2048;
         }
 
         public bool IsOpen {
@@ -71,11 +71,27 @@ namespace SerialManagerTexturometro{
         }
 
         public void Open() {
-            _serialPort.Open();
+            if(!string.IsNullOrEmpty(_serialPort.PortName)) {
+                try {
+                    _serialPort.Open();
+                } catch(Exception e) {
+                    MessageBox.Show("Erro de conexão com texturômetro!","ERRO",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                }
+            }
         }
 
         public void Close() {
+            LSDetected=null;
+            LIDetected=null;
+            LoadCellDetected=null;
+            EncoderDetected=null;
+            MotorDetected=null;
+            MessageInterpreted=null;
             _serialPort.Close();
+        }
+
+        public void DiscardInBuffer() {
+            _serialPort.DiscardInBuffer();
         }
 
         public void Write(string message) {
@@ -162,7 +178,7 @@ namespace SerialManagerTexturometro{
                     sB.Append("DN;");
                     break;
             }
-            sB.Append(valor.ToString());
+            sB.Append(valor.ToString(culture));
             sB.Append("]");
 
             Write(sB.ToString());

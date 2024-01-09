@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Classes {
+namespace Texturometer {
     partial class Sobre : Form {
         public Sobre() {
             InitializeComponent();

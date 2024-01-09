@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using DadosDeEnsaio;
 
-namespace Classes {
+namespace Texturometer {
     public partial class ConfiguracaoEnsaio : Form {
         int i = 0;
         public DataTest DadosDeEnsaio { get; private set; }

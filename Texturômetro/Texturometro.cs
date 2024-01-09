@@ -128,7 +128,7 @@ namespace TexturometroClass {
                 Serial.DiscardNull=true;
                 Serial.Open();
 			}catch(Exception ex) { 
-				MessageBox.Show(ex.Message); 
+				MessageBox.Show("Erro de conexão com texturômetro!","ERRO",MessageBoxButtons.OK,MessageBoxIcon.Error); 
 			}
 
 			if(Teste.ZeroSeated) {
@@ -169,7 +169,6 @@ namespace TexturometroClass {
 
 		public void setSerial(string com,string baud = "115200") {
 			Serial.SetCOM(com,Convert.ToInt32(baud));
-			
 		}
 
         public void iniciaSerial() {

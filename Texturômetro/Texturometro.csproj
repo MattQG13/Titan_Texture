@@ -77,6 +77,12 @@
     <Compile Include="ConfiguracaoEnsaio.Designer.cs">
       <DependentUpon>ConfiguracaoEnsaio.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConfiguracaoPrograma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfiguracaoPrograma.Designer.cs">
+      <DependentUpon>ConfiguracaoPrograma.cs</DependentUpon>
+    </Compile>
     <Compile Include="CorpoDeProva.cs" />
     <Compile Include="DadosDoEnsaio.cs" />
     <Compile Include="Probe.cs" />
@@ -105,6 +111,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ConfiguracaoEnsaio.resx">
       <DependentUpon>ConfiguracaoEnsaio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfiguracaoPrograma.resx">
+      <DependentUpon>ConfiguracaoPrograma.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

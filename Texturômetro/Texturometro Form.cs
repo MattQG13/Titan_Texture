@@ -7,24 +7,28 @@ using DadosDeEnsaio;
 using System.Windows.Input;
 using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 using System.Drawing;
-using Texturometer;
 using System.Reflection;
 using System.ComponentModel;
+using System.IO.Ports;
+using System.Threading;
+using System.Threading.Tasks;
+using Timer = System.Windows.Forms.Timer;
 
-
-namespace Classes {
+namespace Texturometer {
     public partial class TexturometroForms : Form {
 
         static Texturometro tex;
         Series series = new Series("Pontos");
         static Timer tick = new Timer();
         static BackgroundWorker bkWork = new BackgroundWorker();
+        CancellationTokenSource cancelTokenSrc = new CancellationTokenSource();
 
         public TexturometroForms() {
             InitializeComponent();
             tick.Interval = 10;
             tick.Tick +=new EventHandler(atGraph);
             bkWork.DoWork+= bkWork_DoWork;
+            bkWork.WorkerSupportsCancellation = true;
             typeof(Chart).InvokeMember("DoubleBuffered",
             BindingFlags.NonPublic|BindingFlags.Instance|BindingFlags.SetProperty,
             null,Graph,new object[] { true });
@@ -35,17 +39,18 @@ namespace Classes {
         private void Texturometro_Load(object sender,EventArgs e) {
             DataTest dt = new DataTest();
             tex = new Texturometro(dt);
-            tex.setSerial("COM6");
+            tex.setSerial(Properties.Settings.Default.PortaCOM,Properties.Settings.Default.Baudrate.ToString());
 
-            series.ChartType=SeriesChartType.Spline;
             series.ChartType=SeriesChartType.Line;
-            //series.Color = Color.Black;
 
             Graph.Series.Clear();
             Graph.Series.Add(series);
             Graph.Update();
+            tick.Start();
 
             tex.iniciaSerial();
+
+            tex.Serial.LoadCellDetected+=atualizaLbLoad;
         }
        
         protected override bool ProcessCmdKey(ref Message msg,Keys keyData) {
@@ -77,10 +82,7 @@ namespace Classes {
 
         private void calibrarToolStripMenuItem_Click(object sender,EventArgs e) {
             Calibracao FCal = new Calibracao(tex);
-
             FCal.ShowDialog();
-            tick.Start();
-
         }
 
         
@@ -108,17 +110,52 @@ namespace Classes {
         }
 
         private void btnUP_Click(object sender,EventArgs e) {
-            tex.Serial.Write(textBox1.Text);
         }
         private void btnDN_Click(object sender,EventArgs e) {
-            tex.Motor.SPVel=5;
+            tex.Motor.SPVel=0.125;
             tex.Motor.Start(ModoMotor.Subir);
         }
 
         private void TexturometroForms_FormClosing(object sender,FormClosingEventArgs e) {
-            if(tex.Serial.IsOpen) {
-                tex.Serial.Close();
-            }
+            try {
+                tex.Serial.LoadCellDetected-=atualizaLbLoad;
+
+                cancelTokenSrc.Cancel();
+                tick.Stop();
+                bkWork.CancelAsync();
+
+                if(tex.Serial.IsOpen) {
+                    tex.Serial.DiscardInBuffer();
+                    tex.Serial.Close();
+                }
+            } finally { }
+        }
+
+        private void sobreToolStripMenuItem_Click(object sender,EventArgs e) {
+            Sobre sb = new Sobre();
+            sb.ShowDialog();
+
+        }
+
+        private void tararToolStripMenuItem_Click(object sender,EventArgs e) {
+            tex.LoadCell.Tarar();
+        }
+
+        private void atualizaLbLoad(object sender,SerialMessageArgument e) {
+            Task.Run(() =>
+            {
+                this.Invoke(new Action(() =>
+                {
+                    if(!cancelTokenSrc.Token.IsCancellationRequested) {
+                        lbLoad.Text=e.doubleValue.ToString()+" g";
+                    }
+                }));
+            },cancelTokenSrc.Token);
+        }
+
+        private void configuraçõesToolStripMenuItem_Click(object sender,EventArgs e) {
+            ConfiguracaoPrograma confP = new ConfiguracaoPrograma();
+            confP.ShowDialog();
         }
     }
 }

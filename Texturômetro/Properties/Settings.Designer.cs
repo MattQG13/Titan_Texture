@@ -22,5 +22,29 @@ namespace Texturometer.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PortaCOM {
+            get {
+                return ((string)(this["PortaCOM"]));
+            }
+            set {
+                this["PortaCOM"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("115200")]
+        public int Baudrate {
+            get {
+                return ((int)(this["Baudrate"]));
+            }
+            set {
+                this["Baudrate"] = value;
+            }
+        }
     }
 }

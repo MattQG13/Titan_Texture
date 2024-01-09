@@ -1,4 +1,4 @@
-﻿namespace Classes {
+﻿namespace Texturometer {
     partial class ConfiguracaoEnsaio {
         /// <summary>
         /// Required designer variable.
