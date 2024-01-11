@@ -46,8 +46,11 @@ namespace ClassesSuporteTexturometro {
         public string Objeto { get; set;}
         public string Comando { get; set;}
         public double doubleValue { get; set;}
+        public double doubleValue1 { get; set; }
+        public double doubleValue2 { get; set; }
         public bool boolValue { get; set;}
         public int intValue { get; set;}
+        public string stringValue { get; set;}
     }
     
 
@@ -102,6 +105,10 @@ namespace ClassesSuporteTexturometro {
         }
         public void Add(Coord xyz) {
             _table.Add(xyz);
+        }
+
+        public void Clear() { 
+            _table.Clear();
         }
 
         public List<double> GetXvalues() {

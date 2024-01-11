@@ -98,7 +98,7 @@ namespace TexturometroClass {
 			Serial.LIDetected+=_atualizaLI;
 			Serial.LoadCellDetected+=_atualizaLoadCell;
 			Serial.EncoderDetected+=_atualizaEncoder;
-			
+			Serial.TimeSeted+=StartAddResults;
 
             Motor=new Motor();
             Motor.SPVel= DadosTeste.VelMotor;
@@ -109,6 +109,7 @@ namespace TexturometroClass {
 
 			LoadCell.ZeroSet+=Serial.EnvTARA;
 			LoadCell.Calibration+=Serial.CalLC;
+			LoadCell.ZerarTime+=Serial.EnvZeroTime;
 
 			_keybaordTimer=new Timer();
 			_keybaordTimer.Tick+=_keyboardUper;
@@ -153,13 +154,20 @@ namespace TexturometroClass {
         }
 
 		private void _atualizaLoadCell(object sender,SerialMessageArgument e) {
-			Produto.Resultado.Add(e.doubleValue,Produto.Resultado.Count+1,0);
-            LoadCell.ValorLoad=e.intValue;
-
+            LoadCell.ValorLoad=e.doubleValue1;
+        }
+		public void StartAddResults(object sender,SerialMessageArgument e) {
+			Serial.LoadCellDetected+=_atualizaResultado;
+        }
+		public void StopAddResults() {
+            Serial.LoadCellDetected-=_atualizaResultado;
         }
 
+        private void _atualizaResultado(object sender,SerialMessageArgument e) {
+            Produto.Resultado.Add(e.doubleValue1,e.doubleValue2,0);
+        }
         private void _atualizaEncoder(object sender,SerialMessageArgument e) {
-            Motor.Posicao = e.intValue;
+            Motor.Posicao = e.doubleValue;
         }
         #endregion
 
@@ -167,8 +175,8 @@ namespace TexturometroClass {
 			//?????
 		}
 
-		public void setSerial(string com,string baud = "115200") {
-			Serial.SetCOM(com,Convert.ToInt32(baud));
+		public void setSerial(string com,int baud = 115200) {
+			Serial.SetCOM(com,baud);
 		}
 
         public void iniciaSerial() {

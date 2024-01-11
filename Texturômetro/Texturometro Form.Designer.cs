@@ -160,7 +160,7 @@
             // 
             this.Graph.BackColor = System.Drawing.SystemColors.Control;
             chartArea1.AxisX.IsLabelAutoFit = false;
-            chartArea1.AxisX.Maximum = 12000D;
+            chartArea1.AxisX.Maximum = 90D;
             chartArea1.AxisX.MaximumAutoSize = 90F;
             chartArea1.AxisX.Minimum = 0D;
             chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.LightGray;
@@ -259,21 +259,21 @@
             // rodarTesteStripMenu
             // 
             this.rodarTesteStripMenu.Name = "rodarTesteStripMenu";
-            this.rodarTesteStripMenu.Size = new System.Drawing.Size(180, 22);
+            this.rodarTesteStripMenu.Size = new System.Drawing.Size(142, 22);
             this.rodarTesteStripMenu.Text = "Rodar teste...";
             this.rodarTesteStripMenu.Click += new System.EventHandler(this.rodarTesteToolStripMenuItem_Click);
             // 
             // calibrarToolStripMenuItem
             // 
             this.calibrarToolStripMenuItem.Name = "calibrarToolStripMenuItem";
-            this.calibrarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.calibrarToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.calibrarToolStripMenuItem.Text = "Calibrar...";
             this.calibrarToolStripMenuItem.Click += new System.EventHandler(this.calibrarToolStripMenuItem_Click);
             // 
             // tararToolStripMenuItem
             // 
             this.tararToolStripMenuItem.Name = "tararToolStripMenuItem";
-            this.tararToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.tararToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.tararToolStripMenuItem.Text = "Tarar...";
             this.tararToolStripMenuItem.Click += new System.EventHandler(this.tararToolStripMenuItem_Click);
             // 

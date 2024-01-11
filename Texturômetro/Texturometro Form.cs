@@ -39,7 +39,7 @@ namespace Texturometer {
         private void Texturometro_Load(object sender,EventArgs e) {
             DataTest dt = new DataTest();
             tex = new Texturometro(dt);
-            tex.setSerial(Properties.Settings.Default.PortaCOM,Properties.Settings.Default.Baudrate.ToString());
+            tex.setSerial(Properties.Settings.Default.PortaCOM,Properties.Settings.Default.Baudrate);
 
             series.ChartType=SeriesChartType.Line;
 
@@ -49,10 +49,15 @@ namespace Texturometer {
             tick.Start();
 
             tex.iniciaSerial();
-
+            tex.Serial.Write("[LIMPAMEMORIA]!");
+            tex.LoadCell.ZeroTime();
             tex.Serial.LoadCellDetected+=atualizaLbLoad;
+            tex.Serial.DiscardInBuffer();
+            
+            tex.Produto.Resultado.Clear();
+
         }
-       
+
         protected override bool ProcessCmdKey(ref Message msg,Keys keyData) {
             Key key = KeyInterop.KeyFromVirtualKey((int)keyData);
             KeyEventArgs e = new KeyEventArgs(keyData);
@@ -147,15 +152,38 @@ namespace Texturometer {
                 this.Invoke(new Action(() =>
                 {
                     if(!cancelTokenSrc.Token.IsCancellationRequested) {
-                        lbLoad.Text=e.doubleValue.ToString()+" g";
+                        lbLoad.Text=e.doubleValue1.ToString()+" g";
                     }
                 }));
             },cancelTokenSrc.Token);
         }
 
         private void configuraçõesToolStripMenuItem_Click(object sender,EventArgs e) {
-            ConfiguracaoPrograma confP = new ConfiguracaoPrograma();
+            ConfiguracaoPrograma confP = new ConfiguracaoPrograma(this);
             confP.ShowDialog();
+        }
+
+        public void reconfigura() {
+            try {
+                tex.Serial.LoadCellDetected-=atualizaLbLoad;
+
+                cancelTokenSrc.Cancel();
+                tick.Stop();
+                bkWork.CancelAsync();
+
+                if(tex.Serial.IsOpen) {
+                    tex.Serial.DiscardInBuffer();
+                    tex.Serial.Close();
+                }
+            } finally { }
+
+            tex.setSerial(Properties.Settings.Default.PortaCOM,Properties.Settings.Default.Baudrate);
+            tex.Serial.LoadCellDetected+=atualizaLbLoad;
+            cancelTokenSrc=new CancellationTokenSource();
+            tex.iniciaSerial();
+            tick.Start();
+
+
         }
     }
 }

@@ -16,7 +16,7 @@ namespace SerialManagerTexturometro{
         public EventHandler<SerialMessageArgument> LoadCellDetected;
         public EventHandler<SerialMessageArgument> EncoderDetected;
         public EventHandler<SerialMessageArgument> MotorDetected;
-
+        public EventHandler<SerialMessageArgument> TimeSeted;
         private CultureInfo culture = new CultureInfo("en-US"); //CultureInfo.InvariantCulture;
 
         private char endChar = '!';
@@ -24,15 +24,21 @@ namespace SerialManagerTexturometro{
         public SerialManager(string portName,int baudRate) {
             _serialPort=new SerialPort(portName,baudRate);
             _serialPort.DataReceived+=_dataReceived;
+            _serialPort.ReadTimeout=2048;
+            _serialPort.WriteTimeout=2048;
         }
 
         public SerialManager(string portName) {
             _serialPort=new SerialPort(portName,115200);
             _serialPort.DataReceived+=_dataReceived;
+            _serialPort.ReadTimeout=2048;
+            _serialPort.WriteTimeout=2048;
         }
         public SerialManager() {
             _serialPort=new SerialPort();
             _serialPort.DataReceived+=_dataReceived;
+            _serialPort.ReadTimeout=2048;
+            _serialPort.WriteTimeout=2048;
         }
 
         #region SerialPort
@@ -40,19 +46,13 @@ namespace SerialManagerTexturometro{
         public void SetCOM (string portName,int baudRate) {
             if(!string.IsNullOrEmpty(portName))_serialPort.PortName=portName;
                 _serialPort.BaudRate=baudRate;
-                _serialPort.ReadTimeout=2048;
-                _serialPort.WriteTimeout=2048;
         }
         public void SetCOM(string portName) {
             if(!string.IsNullOrEmpty(portName))_serialPort.PortName=portName;
-                _serialPort.ReadTimeout=2048;
-                _serialPort.WriteTimeout=2048;
         }
 
         public void SetCOM(int baudRate) {
                 _serialPort.BaudRate=baudRate;
-                _serialPort.ReadTimeout=2048;
-                _serialPort.WriteTimeout=2048;
         }
 
         public bool IsOpen {
@@ -70,10 +70,13 @@ namespace SerialManagerTexturometro{
             }
         }
 
+
         public void Open() {
             if(!string.IsNullOrEmpty(_serialPort.PortName)) {
                 try {
                     _serialPort.Open();
+                    _serialPort.DiscardInBuffer();
+
                 } catch(Exception e) {
                     MessageBox.Show("Erro de conexão com texturômetro!","ERRO",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 }
@@ -81,12 +84,12 @@ namespace SerialManagerTexturometro{
         }
 
         public void Close() {
-            LSDetected=null;
+            /*LSDetected=null;
             LIDetected=null;
             LoadCellDetected=null;
             EncoderDetected=null;
             MotorDetected=null;
-            MessageInterpreted=null;
+            MessageInterpreted=null;*/
             _serialPort.Close();
         }
 
@@ -102,11 +105,11 @@ namespace SerialManagerTexturometro{
         }
 
         private void _dataReceived(object sender,SerialDataReceivedEventArgs e) {
-            string mensagem = _serialPort.ReadTo(endChar.ToString());
-            string[] partesDaMensagem = _processaSerial(mensagem);
-            if(partesDaMensagem[0]=="LCC"||partesDaMensagem[0]=="TARA")
-                mensagem=mensagem;
-            _interpretaMensagem(partesDaMensagem);
+            try {
+                string mensagem = _serialPort.ReadTo(endChar.ToString());
+                string[] partesDaMensagem = _processaSerial(mensagem);
+                _interpretaMensagem(partesDaMensagem);
+            }catch(TimeoutException) { _serialPort.Close(); }
         }
 
         #endregion
@@ -122,23 +125,30 @@ namespace SerialManagerTexturometro{
             args.Objeto=partesDaMensagem[0];
 
             switch(partesDaMensagem.Length) {
-                case 1:
-                    break;
                 case 2: //Load cell ou Encoder
                     if(args.Objeto=="LS"||args.Objeto=="LI") {
                         args.boolValue=partesDaMensagem[1]=="1" ? true : false;
                     }
-                    if(args.Objeto=="E"||args.Objeto=="L") {
+                    if(args.Objeto=="E"){
                         args.doubleValue=double.Parse(partesDaMensagem[1],culture);
                     }
                     if(args.Objeto=="CAL") {
                         args.doubleValue=double.Parse(partesDaMensagem[1],culture);
                     }
-
+                    if(args.Objeto=="L") {
+                        args.doubleValue1=double.Parse(partesDaMensagem[1],culture);
+                    }
                     break;
-                case 3: //Motor X
-                    args.Comando=partesDaMensagem[1];
-                    args.doubleValue=double.Parse(partesDaMensagem[2],culture);
+                case 3: //Motor
+                    if(args.Objeto=="M") {
+                        args.Comando=partesDaMensagem[1];
+                        args.doubleValue=double.Parse(partesDaMensagem[2],culture);
+                    }
+
+                    if(args.Objeto=="L") {
+                        args.doubleValue1=double.Parse(partesDaMensagem[1],culture);
+                        args.doubleValue2=double.Parse(partesDaMensagem[2],culture);
+                    }
                     break;
                 default:
                     break;
@@ -160,7 +170,10 @@ namespace SerialManagerTexturometro{
                         break; 
                 case "M": 
                         MotorDetected?.Invoke(this, args);  
-                        break; 
+                        break;
+                case "INITIME":
+                        TimeSeted?.Invoke(this, args);
+                        break;
             }
         }
 
@@ -195,6 +208,11 @@ namespace SerialManagerTexturometro{
 
         public void EnvTARA(object sender,EventArgs e) {
             string s = "[TARA]";
+            Write(s);
+        }
+
+        public void EnvZeroTime(object sender, EventArgs e) {
+            string s = "[INITIME]";
             Write(s);
         }
     }
