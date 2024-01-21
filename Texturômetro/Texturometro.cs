@@ -156,19 +156,25 @@ namespace TexturometroClass {
 		private void _atualizaLoadCell(object sender,SerialMessageArgument e) {
             LoadCell.ValorLoad=e.doubleValue1;
         }
-		public void StartAddResults(object sender,SerialMessageArgument e) {
-			Serial.LoadCellDetected+=_atualizaResultado;
+        private void _atualizaEncoder(object sender,SerialMessageArgument e) {
+            Motor.Posicao=e.doubleValue;
+        }
+        public void StartAddResults(object sender,SerialMessageArgument e) {
+			Serial.LoadCellDetected+=_atualizaResultadoL;
+			Serial.EncoderDetected+=_atualizaResultadoE;
         }
 		public void StopAddResults() {
-            Serial.LoadCellDetected-=_atualizaResultado;
+            Serial.LoadCellDetected-=_atualizaResultadoL;
+            Serial.EncoderDetected-=_atualizaResultadoE;
         }
 
-        private void _atualizaResultado(object sender,SerialMessageArgument e) {
-            Produto.Resultado.Add(e.doubleValue1,e.doubleValue2,0);
+        private void _atualizaResultadoL(object sender,SerialMessageArgument e) {
+            Produto.Resultado.AddXZvalue(e.doubleValue1,e.doubleValue2);
         }
-        private void _atualizaEncoder(object sender,SerialMessageArgument e) {
-            Motor.Posicao = e.doubleValue;
+        private void _atualizaResultadoE(object sender,SerialMessageArgument e) {
+            Produto.Resultado.AddYZvalue(e.doubleValue1,e.doubleValue2);
         }
+
         #endregion
 
         private void ExecTeste() {

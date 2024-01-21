@@ -74,9 +74,9 @@ namespace ClassesSuporteTexturometro {
     }
 
     public class Coord {
-         public double X { get; }
-        public double Y { get;}
-        public double Z { get;}
+        public double X { get; set; }
+        public double Y { get; set; }
+        public double Z { get; set; }
 
         public Coord() {
             X=0;
@@ -136,6 +136,23 @@ namespace ClassesSuporteTexturometro {
         public List<Coord> GetTable()
         {
             return _table;
+        }
+
+        public void AddXZvalue(double X, double Z) {
+            int i = _table.FindIndex(lista => lista.Z==Z && lista.X==0);
+            if(i!=-1) {
+                _table[i].X=X;
+            } else {
+                Add(X,0,Z);
+            }
+        }
+        public void AddYZvalue(double Y,double Z) {
+            int i = _table.FindIndex(lista => lista.Z==Z&&lista.Y==0);
+            if(i!=-1) {
+                _table[i].Y=Y;
+            } else {
+                Add(0,Y,Z);
+            }
         }
     }
 

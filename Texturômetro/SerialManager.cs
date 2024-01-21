@@ -1,8 +1,11 @@
 using ClassesSuporteTexturometro;
 using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO.Ports;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -18,7 +21,6 @@ namespace SerialManagerTexturometro{
         public EventHandler<SerialMessageArgument> MotorDetected;
         public EventHandler<SerialMessageArgument> TimeSeted;
         private CultureInfo culture = new CultureInfo("en-US"); //CultureInfo.InvariantCulture;
-
         private char endChar = '!';
 
         public SerialManager(string portName,int baudRate) {
@@ -33,6 +35,7 @@ namespace SerialManagerTexturometro{
             _serialPort.DataReceived+=_dataReceived;
             _serialPort.ReadTimeout=2048;
             _serialPort.WriteTimeout=2048;
+
         }
         public SerialManager() {
             _serialPort=new SerialPort();
@@ -105,11 +108,13 @@ namespace SerialManagerTexturometro{
         }
 
         private void _dataReceived(object sender,SerialDataReceivedEventArgs e) {
-            try {
-                string mensagem = _serialPort.ReadTo(endChar.ToString());
-                string[] partesDaMensagem = _processaSerial(mensagem);
-                _interpretaMensagem(partesDaMensagem);
-            }catch(TimeoutException) { _serialPort.Close(); }
+            while(_serialPort.BytesToRead>0) {
+                try {
+                    string mensagem = _serialPort.ReadTo("!");
+                    string[] partesDaMensagem = _processaSerial(mensagem);
+                    _interpretaMensagem(partesDaMensagem);
+                } catch(TimeoutException) { _serialPort.Close(); }
+            }
         }
 
         #endregion
@@ -198,7 +203,7 @@ namespace SerialManagerTexturometro{
         }
 
         public void EnvZeroPosicao(object sender, EventArgs e) {
-            Write("[E;ZERO]");
+            Write("[ZEROMAQ]");
         }
 
         public void CalLC(object sender,SerialMessageArgument e) {

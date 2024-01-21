@@ -50,10 +50,15 @@ namespace Texturometer {
 
             tex.iniciaSerial();
             tex.Serial.Write("[LIMPAMEMORIA]!");
+            tex.Serial.Write("[LIMPADENOVO]!");
+            tex.Serial.Write("[LIMPADENOVO]!");
+            tex.Serial.Write("[LIMPADENOVO]!");
+
             tex.LoadCell.ZeroTime();
             tex.Serial.LoadCellDetected+=atualizaLbLoad;
+            tex.Serial.EncoderDetected+=atualizaLbPosition;
+
             tex.Serial.DiscardInBuffer();
-            
             tex.Produto.Resultado.Clear();
 
         }
@@ -104,7 +109,7 @@ namespace Texturometer {
                     tick.Stop();
                     Graph.SuspendLayout();
                     try {
-                        series.Points.DataBindXY(tex.Produto.Resultado.GetYvalues(),tex.Produto.Resultado.GetXvalues());
+                       series.Points.DataBindXY(tex.Produto.Resultado.GetZvalues(),tex.Produto.Resultado.GetXvalues());
                     } catch(Exception ex) { }
                     
                     Graph.Invalidate();
@@ -147,15 +152,40 @@ namespace Texturometer {
         }
 
         private void atualizaLbLoad(object sender,SerialMessageArgument e) {
-            Task.Run(() =>
-            {
-                this.Invoke(new Action(() =>
-                {
+            /*Task.Run(() => {
+                this.Invoke(new Action(() => {
                     if(!cancelTokenSrc.Token.IsCancellationRequested) {
-                        lbLoad.Text=e.doubleValue1.ToString()+" g";
+                        lbLoad.Text=e.doubleValue.ToString()+" g";
                     }
                 }));
-            },cancelTokenSrc.Token);
+            },cancelTokenSrc.Token);*/
+
+            if(lbLoad.InvokeRequired) {
+                lbLoad.BeginInvoke((MethodInvoker)delegate {
+                    lbLoad.Text=e.doubleValue1.ToString()+" g";
+                });
+            } else {
+                lbLoad.Text=e.doubleValue1.ToString()+" g";
+            }
+        }
+
+        private void atualizaLbPosition(object sender,SerialMessageArgument e) {
+            /*Task.Run(() => {
+                this.Invoke(new Action(() => {
+                    if(!cancelTokenSrc.Token.IsCancellationRequested) {
+                        lbPosition.Text=e.doubleValue1.ToString()+" mm";
+                    }
+                }));
+            },cancelTokenSrc.Token);*/
+
+            if(lbPosition.InvokeRequired) {
+                lbPosition.BeginInvoke((MethodInvoker)delegate {
+                    lbPosition.Text=e.doubleValue1.ToString()+" mm";
+                });
+            } else {
+                lbPosition.Text=e.doubleValue1.ToString()+" mm";
+            }
+
         }
 
         private void configuraçõesToolStripMenuItem_Click(object sender,EventArgs e) {
@@ -166,6 +196,7 @@ namespace Texturometer {
         public void reconfigura() {
             try {
                 tex.Serial.LoadCellDetected-=atualizaLbLoad;
+                tex.Serial.EncoderDetected-=atualizaLbPosition;
 
                 cancelTokenSrc.Cancel();
                 tick.Stop();
@@ -179,11 +210,16 @@ namespace Texturometer {
 
             tex.setSerial(Properties.Settings.Default.PortaCOM,Properties.Settings.Default.Baudrate);
             tex.Serial.LoadCellDetected+=atualizaLbLoad;
+            tex.Serial.EncoderDetected+=atualizaLbPosition;
+
             cancelTokenSrc=new CancellationTokenSource();
             tex.iniciaSerial();
             tick.Start();
 
+        }
 
+        private void TexturometroForms_SizeChanged(object sender,EventArgs e) {
+            lbXAxe.Location= new Point(Graph.Size.Width-lbXAxe.Size.Width-25,Graph.Size.Height-lbXAxe.Size.Height);
         }
     }
 }
