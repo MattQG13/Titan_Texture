@@ -97,7 +97,9 @@ namespace SerialManagerTexturometro{
         }
 
         public void DiscardInBuffer() {
-            _serialPort.DiscardInBuffer();
+            if(IsOpen) {
+                _serialPort.DiscardInBuffer();
+            }
         }
 
         public void Write(string message) {
@@ -111,6 +113,8 @@ namespace SerialManagerTexturometro{
             while(_serialPort.BytesToRead>0) {
                 try {
                     string mensagem = _serialPort.ReadTo("!");
+                    if(mensagem.Contains("CAL"))
+                        mensagem=mensagem;
                     string[] partesDaMensagem = _processaSerial(mensagem);
                     _interpretaMensagem(partesDaMensagem);
                 } catch(TimeoutException) { _serialPort.Close(); }

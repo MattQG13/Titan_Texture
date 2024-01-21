@@ -53,7 +53,7 @@ namespace Texturometer {
             tex.Serial.Write("[LIMPADENOVO]!");
             tex.Serial.Write("[LIMPADENOVO]!");
             tex.Serial.Write("[LIMPADENOVO]!");
-
+            
             tex.LoadCell.ZeroTime();
             tex.Serial.LoadCellDetected+=atualizaLbLoad;
             tex.Serial.EncoderDetected+=atualizaLbPosition;

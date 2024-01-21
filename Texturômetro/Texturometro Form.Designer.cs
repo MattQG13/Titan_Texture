@@ -227,7 +227,7 @@
             // 
             this.Graph.BackColor = System.Drawing.SystemColors.Control;
             chartArea1.AxisX.IsLabelAutoFit = false;
-            chartArea1.AxisX.Maximum = 600D;
+            chartArea1.AxisX.Maximum = 120D;
             chartArea1.AxisX.MaximumAutoSize = 90F;
             chartArea1.AxisX.Minimum = 0D;
             chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.LightGray;
