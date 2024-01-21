@@ -105,7 +105,7 @@ namespace SerialManagerTexturometro{
         public void Write(string message) {
             if (IsOpen)
             {
-                _serialPort.Write(message+endChar);
+                _serialPort.Write(message+endChar.ToString(culture));
             }
         }
 

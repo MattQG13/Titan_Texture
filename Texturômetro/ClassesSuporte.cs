@@ -113,25 +113,26 @@ namespace ClassesSuporteTexturometro {
 
         public List<double> GetXvalues() {
             List<double> list = new List<double>();
-            foreach(var x in _table) {
-                list.Add(x.X);
-            }
+            if(_table.Count>0)
+                foreach(var x in _table) {
+                    list.Add(x.X);
+                }
             return list;
         }
         public List<double> GetYvalues() {
             List<double> list = new List<double>();
             if(_table.Count>0)
                 foreach(var y in _table) {
-                list.Add(y.Y);
-            }
+                    list.Add(y.Y);
+                }
             return list;
         }
         public List<double> GetZvalues() {
             List<double> list = new List<double>();
             if( _table.Count > 0 )
-            foreach(var z in _table) {
-               list.Add(z.Z);
-            }
+                foreach(var z in _table) {
+                   list.Add(z.Z);
+                }
             return list;
         }
 

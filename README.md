@@ -66,6 +66,7 @@ Padrões de protocolo:
   * __S__ de Stop
 * __[ZERAR;velocidade;carga]__ - Define velocidade e carga limite para rotira de Zero Máquina [mm/s][g]
 * __[ZERO]__ - Define o Zero Máquina do Texturômetro
+* __[INITIME]__ - Inicia envio de tempo a partir do envio do comando
 * __[TARA]__ - Define a tara da célula de carga
 * __[LCC;valor]__ - Define o valor para escala de calibração da célula de carga
 * __[CAL;valor]__ - Envia comando para calibração da célula de carga com valor do peso padrão [g]

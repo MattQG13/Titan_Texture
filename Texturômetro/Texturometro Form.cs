@@ -152,14 +152,6 @@ namespace Texturometer {
         }
 
         private void atualizaLbLoad(object sender,SerialMessageArgument e) {
-            /*Task.Run(() => {
-                this.Invoke(new Action(() => {
-                    if(!cancelTokenSrc.Token.IsCancellationRequested) {
-                        lbLoad.Text=e.doubleValue.ToString()+" g";
-                    }
-                }));
-            },cancelTokenSrc.Token);*/
-
             if(lbLoad.InvokeRequired) {
                 lbLoad.BeginInvoke((MethodInvoker)delegate {
                     lbLoad.Text=e.doubleValue1.ToString()+" g";

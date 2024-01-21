@@ -36,7 +36,7 @@
 
 long double ReadLoad();
 void tarar(char n = 10);
-static double calibrar(double val, char n = 15);
+double calibrar(double val, char n = 15);
 
 void executaComando(SerialInterpreter com);
 void atualizaMotor(double vel);
@@ -55,7 +55,7 @@ int intervalo;
 long contador = 0;
 char endChar = '!';
 Filter FMM(8, 0.01);
-Filter FFMM(16, 0.5);
+Filter FFMM(16, 1);
 
 
 static double posicao = 0;
@@ -114,15 +114,14 @@ void setup() {
   
   OCR3A=624;
   TCNT3 = 0;
-  
-  TIMSK3 |= (1 << OCIE3A);
+  //TIMSK3 |= (1 << OCIE3A);
   
 }
 
 
 void loop() {
   if (Serial.available()) {    
-    TIMSK3 &= ~(1 << OCIE3A);
+    //TIMSK3 &= ~(1 << OCIE3A);
     
     String mens = Serial.readStringUntil(endChar);
     Mensagem.AtMensagem(mens);
@@ -130,22 +129,8 @@ void loop() {
     mens +=endChar;
     Serial.print(mens);
     
-    TIMSK3 |= (1 << OCIE3A);
+    //TIMSK3 |= (1 << OCIE3A);
    }
-
-  /*if (!(PIND & (1 << LS))) {
-    TIMSK1 &= ~(1 << OCIE1A);
-    PORTB &= ~(1 << pulso);
-    PORTB |= (1 << enMotor);
-
-    //Serial.println("LS");
-  }
-  if (!(PIND & (1 << LI))) {
-    TIMSK1 &= ~(1 << OCIE1A);
-    PORTB &= ~(1 << pulso);
-    PORTB |= (1 << enMotor);
-    //Serial.println("LI");
-  }*/
 
   if(!digitalRead(LS)){
     TIMSK1 &= ~(1 << OCIE1A);
@@ -158,7 +143,9 @@ void loop() {
     digitalWrite(pulso,0);
     digitalWrite(enMotor,1);
   }
-  
+
+    envMens();
+    delay(10);
 }
 
 void atualizaMotor(double vel) {
@@ -190,7 +177,7 @@ ISR(TIMER1_COMPA_vect)
     digitalWrite(pulso,0);
     digitalWrite(enMotor,1);
     //PORTB &= ~(1 << pulso);
-    //PORTB |= (1 << enMotor);
+    //PORTB |= (1 << enMotprintor);
   } else {
     digitalWrite(pulso, digitalRead(pulso)^1); //PORTB ^= (1 << pulso);
     //if (!(PINB & (1 << pulso))) contador += PORTB & (1 << direcao) ? 1 : -1;
@@ -202,42 +189,46 @@ ISR(TIMER1_COMPA_vect)
 }
 
 ISR(TIMER3_COMPA_vect) {
-  TCNT3 = 0;
   envMens();
+  TCNT3 = 0;
 }
 
 void executaComando(SerialInterpreter com) {
   switch (com.lenght) {
-    case 1 :
-      if (com.Comando == "TARA"){
-        tarar(100);
-      }
-      if (com.Comando == "INITIME"){
-        iniTimer=millis();
-      }
-      if (com.Comando == "ZEROMAQ"){
-        posicao=0;
-      }
-      String S ="["+com.Comando+"]"+endChar;
-        Serial.print(S);
-      break;
-    case 2 :
-      if (com.Comando == "CAL") {
-        double cal = calibrar(com.Valor);
-        String mens ="[LCC;";
-        mens+=String(cal,8);
-        mens+="]";
-        mens+=endChar;
-        Serial.print(mens);
-      }
-      break;
+    case 1:
+        if (com.Comando == "TARA"){
+          tarar(100);
+        }
+        if (com.Comando == "INITIME"){
+          iniTimer=millis();
+        }
+        if (com.Comando == "ZEROMAQ"){
+          posicao=0;
+        }
+        //String S ="["+com.Comando+"]"+endChar;
+        Serial.print("["+com.Comando+"]"+endChar);
+        
+        break;
+        
+    case 2:
+        if (com.Comando == "CAL") {
+          double cal = calibrar(com.Valor);
+          String mens ="[LCC;";
+          mens+=String(cal,8);
+          mens+="]";
+          mens+=endChar;
+          Serial.print(mens);
+        }
+        break;
+        
     case 3:
-      if (com.Comando == "M") atualizaMotor((com.Modo == "UP" ? 1 : -1)*com.Valor);
-      break;
+        if (com.Comando == "M") atualizaMotor((com.Modo == "UP" ? 1 : -1)*com.Valor);
+        break;
     default:
-      break;
+        break;
   }
 }
+
 
 #ifdef WITH_ADC_CS5530
   long double ReadLoad(){
@@ -272,7 +263,7 @@ void executaComando(SerialInterpreter com) {
   }
 #endif
 
-static double calibrar(double val, char n = 15) {
+ double calibrar(double val, char n = 15) {
   long double cal = 0;
   for (int i = 0; i < n; i++){
     delay(20);
@@ -306,7 +297,6 @@ void envMens(){
     bufferText+=";";
     bufferText += String (difTimer,3);
   }
-
   bufferText += "]";
   bufferText += endChar;
 
