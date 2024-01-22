@@ -40,6 +40,7 @@ namespace ClassesSuporteTexturometro {
     public class MotorArgument : EventArgs {
         public ModoMotor Modo { get; set; }
         public double Vel { get; set; }
+        public double FinalPosition { get; set; }
     }
 
     public class SerialMessageArgument : EventArgs {
@@ -113,26 +114,29 @@ namespace ClassesSuporteTexturometro {
 
         public List<double> GetXvalues() {
             List<double> list = new List<double>();
-            if(_table.Count>0)
+            try {
                 foreach(var x in _table) {
-                    list.Add(x.X);
+                    if(x!=null)list.Add(x.X);
                 }
+            } finally { }
             return list;
         }
         public List<double> GetYvalues() {
             List<double> list = new List<double>();
-            if(_table.Count>0)
+            try {
                 foreach(var y in _table) {
-                    list.Add(y.Y);
+                   if(y!=null) list.Add(y.Y);
                 }
+             }finally { }
             return list;
         }
         public List<double> GetZvalues() {
             List<double> list = new List<double>();
-            if( _table.Count > 0 )
+            try {
                 foreach(var z in _table) {
-                   list.Add(z.Z);
+                    if(z!=null)list.Add(z.Z);
                 }
+            } finally { }
             return list;
         }
 

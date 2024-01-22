@@ -13,7 +13,7 @@ namespace MotorTexturometro {
         public EventHandler EstadoMotorChanged;
         public EventHandler<MotorArgument> MotorStarted;
         public EventHandler<MotorArgument> MotorStopped;
-        public EventHandler ZeroSeated;
+        public EventHandler<SerialMessageArgument> ZeroSeating;
 
         public bool Manual { get; set; }
 
@@ -50,24 +50,19 @@ namespace MotorTexturometro {
 
         public void Start(ModoMotor modo) {
             MotorArgument args = new MotorArgument();
-			args.Modo = modo;
+            args.Modo = modo;
 			args.Vel=_SPVel;
             MotorStarted?.Invoke(this,args);
         }
 
-		public void StartManual(ModoMotor modo) {
+        public void StartManual(ModoMotor modo) {
             MotorArgument args = new MotorArgument();
             args.Modo=modo;
             args.Vel=_SPVelManual;
             MotorStarted?.Invoke(this,args);
 		}
 
-		public void StartSetZero(ModoMotor modo) {
-			MotorArgument args=new MotorArgument();
-			args.Modo=modo;
-			args.Vel=_SPVel/5; //Rapaz, tá certo isso? 
-			MotorStarted?.Invoke(this,args);
-		}
+
 
 		public void Stop() {
             MotorArgument args = new MotorArgument();
@@ -81,8 +76,15 @@ namespace MotorTexturometro {
             EstadoMotorChanged?.Invoke(this, EventArgs.Empty);
 	    }
 
+        public void ZerarPosicao(double vel,double carga) { 
+			SerialMessageArgument args = new SerialMessageArgument();
+			args.doubleValue1 = vel;
+			args.doubleValue2 = carga;
+			ZeroSeating?.Invoke(this, args);
+		}
 
-	}
+
+    }
 
 }
 

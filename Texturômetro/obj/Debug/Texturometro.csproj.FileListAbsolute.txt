@@ -36,3 +36,4 @@ C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Softwa
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Texturometer.TexturometroForms.resources
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Texturometer.ConfiguracaoEnsaio.resources
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Texturometer.Sobre.resources
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Texturometer.ZeroMaquina.resources

@@ -20,6 +20,7 @@ namespace SerialManagerTexturometro{
         public EventHandler<SerialMessageArgument> EncoderDetected;
         public EventHandler<SerialMessageArgument> MotorDetected;
         public EventHandler<SerialMessageArgument> TimeSeted;
+        public EventHandler<SerialMessageArgument> ZeroSeated;
         private CultureInfo culture = new CultureInfo("en-US"); //CultureInfo.InvariantCulture;
         private char endChar = '!';
 
@@ -113,7 +114,7 @@ namespace SerialManagerTexturometro{
             while(_serialPort.BytesToRead>0) {
                 try {
                     string mensagem = _serialPort.ReadTo("!");
-                    if(mensagem.Contains("CAL"))
+                    if(mensagem.Contains("Load"))
                         mensagem=mensagem;
                     string[] partesDaMensagem = _processaSerial(mensagem);
                     _interpretaMensagem(partesDaMensagem);
@@ -139,7 +140,7 @@ namespace SerialManagerTexturometro{
                         args.boolValue=partesDaMensagem[1]=="1" ? true : false;
                     }
                     if(args.Objeto=="E"){
-                        args.doubleValue=double.Parse(partesDaMensagem[1],culture);
+                        args.doubleValue1=double.Parse(partesDaMensagem[1],culture);
                     }
                     if(args.Objeto=="CAL") {
                         args.doubleValue=double.Parse(partesDaMensagem[1],culture);
@@ -155,6 +156,10 @@ namespace SerialManagerTexturometro{
                     }
 
                     if(args.Objeto=="L") {
+                        args.doubleValue1=double.Parse(partesDaMensagem[1],culture);
+                        args.doubleValue2=double.Parse(partesDaMensagem[2],culture);
+                    }
+                    if(args.Objeto=="E") {
                         args.doubleValue1=double.Parse(partesDaMensagem[1],culture);
                         args.doubleValue2=double.Parse(partesDaMensagem[2],culture);
                     }
@@ -183,10 +188,13 @@ namespace SerialManagerTexturometro{
                 case "INITIME":
                         TimeSeted?.Invoke(this, args);
                         break;
+                case "ZERO":
+                        ZeroSeated?.Invoke(this, args);
+                    break;
             }
         }
 
-        public void EnvComandoMotor(ModoMotor comando,double valor) {
+        public void EnvComandoMotor(ModoMotor comando,double vel) {
             StringBuilder sB = new StringBuilder("");
             sB.Append("[M;");
             switch(comando) {
@@ -200,18 +208,40 @@ namespace SerialManagerTexturometro{
                     sB.Append("DN;");
                     break;
             }
-            sB.Append(valor.ToString(culture));
+            sB.Append(vel.ToString(culture));
+            sB.Append("]");
+
+            Write(sB.ToString());
+        }
+        public void EnvComandoMotor(ModoMotor comando,double vel,double finalPosition) {
+            StringBuilder sB = new StringBuilder("");
+            sB.Append("[M;");
+            switch(comando) {
+                case ModoMotor.Parado:
+                    sB.Append("S;");
+                    break;
+                case ModoMotor.Subir:
+                    sB.Append("UP;");
+                    break;
+                case ModoMotor.Descer:
+                    sB.Append("DN;");
+                    break;
+            }
+            sB.Append(vel.ToString(culture));
+            sB.Append(";");
+            sB.Append(finalPosition.ToString(culture));
             sB.Append("]");
 
             Write(sB.ToString());
         }
 
-        public void EnvZeroPosicao(object sender, EventArgs e) {
-            Write("[ZEROMAQ]");
-        }
-
         public void CalLC(object sender,SerialMessageArgument e) {
             string s = "[CAL;"+e.doubleValue.ToString(culture) +"]";
+            Write(s);
+        }
+
+        public void EnvZeroMaquina(object sender,SerialMessageArgument e) {
+            string s = "[ZERAR;"+e.doubleValue1.ToString(culture)+";"+e.doubleValue2.ToString(culture)+"]";
             Write(s);
         }
 

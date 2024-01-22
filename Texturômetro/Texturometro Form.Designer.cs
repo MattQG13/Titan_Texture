@@ -56,6 +56,7 @@
             this.tararToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraçõesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zeroMáquinaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnBackground.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -316,7 +317,8 @@
             this.TAStripMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rodarTesteStripMenu,
             this.calibrarToolStripMenuItem,
-            this.tararToolStripMenuItem});
+            this.tararToolStripMenuItem,
+            this.zeroMáquinaToolStripMenuItem});
             this.TAStripMenu.Name = "TAStripMenu";
             this.TAStripMenu.Size = new System.Drawing.Size(39, 20);
             this.TAStripMenu.Text = "T.A.";
@@ -324,21 +326,21 @@
             // rodarTesteStripMenu
             // 
             this.rodarTesteStripMenu.Name = "rodarTesteStripMenu";
-            this.rodarTesteStripMenu.Size = new System.Drawing.Size(142, 22);
+            this.rodarTesteStripMenu.Size = new System.Drawing.Size(180, 22);
             this.rodarTesteStripMenu.Text = "Rodar teste...";
             this.rodarTesteStripMenu.Click += new System.EventHandler(this.rodarTesteToolStripMenuItem_Click);
             // 
             // calibrarToolStripMenuItem
             // 
             this.calibrarToolStripMenuItem.Name = "calibrarToolStripMenuItem";
-            this.calibrarToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.calibrarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.calibrarToolStripMenuItem.Text = "Calibrar...";
             this.calibrarToolStripMenuItem.Click += new System.EventHandler(this.calibrarToolStripMenuItem_Click);
             // 
             // tararToolStripMenuItem
             // 
             this.tararToolStripMenuItem.Name = "tararToolStripMenuItem";
-            this.tararToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.tararToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.tararToolStripMenuItem.Text = "Tarar...";
             this.tararToolStripMenuItem.Click += new System.EventHandler(this.tararToolStripMenuItem_Click);
             // 
@@ -355,6 +357,13 @@
             this.sobreToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
             this.sobreToolStripMenuItem.Text = "Sobre";
             this.sobreToolStripMenuItem.Click += new System.EventHandler(this.sobreToolStripMenuItem_Click);
+            // 
+            // zeroMáquinaToolStripMenuItem
+            // 
+            this.zeroMáquinaToolStripMenuItem.Name = "zeroMáquinaToolStripMenuItem";
+            this.zeroMáquinaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.zeroMáquinaToolStripMenuItem.Text = "Zero Máquina...";
+            this.zeroMáquinaToolStripMenuItem.Click += new System.EventHandler(this.zeroMáquinaToolStripMenuItem_Click);
             // 
             // TexturometroForms
             // 
@@ -411,6 +420,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lbPosition;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem zeroMáquinaToolStripMenuItem;
     }
 }
 

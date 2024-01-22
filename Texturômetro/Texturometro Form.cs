@@ -13,12 +13,15 @@ using System.IO.Ports;
 using System.Threading;
 using System.Threading.Tasks;
 using Timer = System.Windows.Forms.Timer;
+using System.Xml.Serialization;
 
 namespace Texturometer {
     public partial class TexturometroForms : Form {
 
         static Texturometro tex;
         Series series = new Series("Pontos");
+        Series series2 = new Series("XZ");
+
         static Timer tick = new Timer();
         static BackgroundWorker bkWork = new BackgroundWorker();
         CancellationTokenSource cancelTokenSrc = new CancellationTokenSource();
@@ -42,9 +45,12 @@ namespace Texturometer {
             tex.setSerial(Properties.Settings.Default.PortaCOM,Properties.Settings.Default.Baudrate);
 
             series.ChartType=SeriesChartType.Line;
+            series2.ChartType=SeriesChartType.Line;
+
 
             Graph.Series.Clear();
             Graph.Series.Add(series);
+            Graph.Series.Add(series2);
             Graph.Update();
             tick.Start();
 
@@ -110,6 +116,8 @@ namespace Texturometer {
                     Graph.SuspendLayout();
                     try {
                        series.Points.DataBindXY(tex.Produto.Resultado.GetZvalues(),tex.Produto.Resultado.GetXvalues());
+                        series2.Points.DataBindXY(tex.Produto.Resultado.GetZvalues(),tex.Produto.Resultado.GetYvalues());
+
                     } catch(Exception ex) { }
                     
                     Graph.Invalidate();
@@ -122,15 +130,15 @@ namespace Texturometer {
         private void btnUP_Click(object sender,EventArgs e) {
         }
         private void btnDN_Click(object sender,EventArgs e) {
-            tex.Motor.SPVel=0.125;
+            tex.Motor.SPVel=5;
             tex.Motor.Start(ModoMotor.Subir);
         }
 
         private void TexturometroForms_FormClosing(object sender,FormClosingEventArgs e) {
             try {
-                tex.Serial.LoadCellDetected-=atualizaLbLoad;
-
-                cancelTokenSrc.Cancel();
+                tex.Serial.LoadCellDetected=null;
+                tex.Serial.EncoderDetected=null;
+                tex.Serial.MotorDetected=null;
                 tick.Stop();
                 bkWork.CancelAsync();
 
@@ -212,6 +220,11 @@ namespace Texturometer {
 
         private void TexturometroForms_SizeChanged(object sender,EventArgs e) {
             lbXAxe.Location= new Point(Graph.Size.Width-lbXAxe.Size.Width-25,Graph.Size.Height-lbXAxe.Size.Height);
+        }
+
+        private void zeroMáquinaToolStripMenuItem_Click(object sender,EventArgs e) {
+            ZeroMaquina zm = new ZeroMaquina(tex);
+            zm.ShowDialog();
         }
     }
 }

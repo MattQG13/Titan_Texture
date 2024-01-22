@@ -100,14 +100,16 @@ namespace TexturometroClass {
 			Serial.EncoderDetected+=_atualizaEncoder;
 			Serial.TimeSeted+=StartAddResults;
 
+
             Motor=new Motor();
             Motor.SPVel= DadosTeste.VelMotor;
 			Motor.SPVelManual= DadosTeste.VelMotorManual;
 			Motor.MotorStarted+=_enviaSerialMotor;
 			Motor.MotorStopped+=_enviaSerialMotor;
-			Motor.ZeroSeated+=Serial.EnvZeroPosicao;
+			Motor.ZeroSeating+= Serial.EnvZeroMaquina;
 
-			LoadCell.ZeroSet+=Serial.EnvTARA;
+
+            LoadCell.ZeroSet+=Serial.EnvTARA;
 			LoadCell.Calibration+=Serial.CalLC;
 			LoadCell.ZerarTime+=Serial.EnvZeroTime;
 
@@ -198,8 +200,8 @@ namespace TexturometroClass {
 
 
         private void _settingZeroMaquina() {
-            Motor.StartSetZero(ModoMotor.Descer);
-			LoadCell.CargaDetected+=_setZero;
+           // Motor.StartSetZero(ModoMotor.Descer);
+			//LoadCell.CargaDetected+=_setZero;
         }
 
 		private void _setZero(object sender, EventArgs e) {
@@ -211,6 +213,7 @@ namespace TexturometroClass {
 		private void _enviaSerialMotor(object sender, MotorArgument e) {
 			Serial.EnvComandoMotor(e.Modo,e.Vel);
 		}
+
 
 	}
 }
