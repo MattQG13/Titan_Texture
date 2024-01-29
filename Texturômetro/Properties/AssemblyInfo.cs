@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // As informações gerais sobre um assembly são controladas por
 // conjunto de atributos. Altere estes valores de atributo para modificar as informações
 // associadas a um assembly.
-[assembly: AssemblyTitle("Texturômetro")]
-[assembly: AssemblyDescription("Software de análise de textura")]
+[assembly: AssemblyTitle("Titan Texture")]
+[assembly: AssemblyDescription("Software de análise de textura desenvolvido para o projeto de TCC do curso de Engenharia de Controle e Automação.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Texturômetro")]
-[assembly: AssemblyCopyright("Copyright ©  2023")]
+[assembly: AssemblyCompany("BHMMO")]
+[assembly: AssemblyProduct("Titan Texture")]
+[assembly: AssemblyCopyright("Copyright ©  2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

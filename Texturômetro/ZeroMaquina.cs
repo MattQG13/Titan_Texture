@@ -44,5 +44,17 @@ namespace Texturometer {
         private void goToFinalPosition(object sender,SerialMessageArgument e) {
             tex.Serial.EnvComandoMotor(ModoMotor.Subir,Convert.ToDouble(txbVelociadeZero.Text),Convert.ToDouble(txbFinalPosition.Text));
         }
+
+        private void number_KeyPress(object sender,KeyPressEventArgs e) {
+            if(!char.IsControl(e.KeyChar)&&!char.IsDigit(e.KeyChar)&&(e.KeyChar!=',')&&!((sender as TextBox).Text.Length>1)) {
+                e.Handled=true;
+            }
+            if(e.KeyChar==','&&((sender as TextBox).Text.Length==0||(sender as TextBox).SelectionStart==0)) {
+                e.Handled=true;
+            }
+            if((e.KeyChar==',')&&((sender as TextBox).Text.IndexOf(',')>-1)) {
+                e.Handled=true;
+            }
+        }
     }
 }

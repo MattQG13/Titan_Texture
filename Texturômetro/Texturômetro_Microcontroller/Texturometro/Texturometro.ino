@@ -136,7 +136,7 @@ void loop() {
     Serial.print(mens);
     
     //TIMSK3 |= (1 << OCIE3A);
-   }else if(!digitalRead(0)){
+   }else if(digitalRead(0)){
       atualizaMotor(0);
     }
 

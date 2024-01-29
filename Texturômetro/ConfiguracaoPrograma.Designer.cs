@@ -101,6 +101,9 @@
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnSalvar);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ConfiguracaoPrograma";
             this.Text = "Configurações";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConfiguracaoPrograma_FormClosing);

@@ -33,10 +33,26 @@ namespace Texturometer {
         }
 
         private void btnOk_Click(object sender,EventArgs e) {
-            tex.LoadCell.Cal(Convert.ToDouble(txCal.Text));
-            this.Close();
+            try {
+               if(txCal.Text!=string.Empty||Convert.ToDouble(txCal.Text!=string.Empty ? txCal.Text : "0")!=0){
+                    tex.LoadCell.Cal(Convert.ToDouble(txCal.Text!=string.Empty ? txCal.Text : "0"));
+                    this.Close();
+                } else {
+                    MessageBox.Show("Digite valor maior que 0","Entrada errada de dados!",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                }
+            } finally { }
         }
 
-
+        private void txCal_KeyPress(object sender,KeyPressEventArgs e) {
+            if(!char.IsControl(e.KeyChar)&&!char.IsDigit(e.KeyChar)&&(e.KeyChar!=',')&&!((sender as TextBox).Text.Length>1)) {
+                e.Handled=true;
+            }
+            if(e.KeyChar==','&&((sender as TextBox).Text.Length==0||(sender as TextBox).SelectionStart==0)) {
+                e.Handled=true;
+            }
+            if((e.KeyChar==',')&&((sender as TextBox).Text.IndexOf(',')>-1)) {
+                e.Handled=true;
+            }
+        }
     }
 }

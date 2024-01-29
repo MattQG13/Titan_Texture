@@ -22,18 +22,18 @@ C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Softwa
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Classes\bin\Debug\Texturometro.pdb
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Classes\obj\Debug\Texturometro.exe
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Classes\obj\Debug\Texturometro.pdb
-C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\Texturometro.exe.config
-C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\Texturometro.exe
-C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\Texturometro.pdb
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Texturometro.csproj.AssemblyReference.cache
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Texturometer.Properties.Resources.resources
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Texturometro.csproj.GenerateResource.cache
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Texturometro.csproj.CoreCompileInputs.cache
-C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Texturometro.exe
-C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Texturometro.pdb
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Texturometer.Calibracao.resources
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Texturometer.ConfiguracaoPrograma.resources
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Texturometer.TexturometroForms.resources
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Texturometer.ConfiguracaoEnsaio.resources
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Texturometer.Sobre.resources
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Texturometer.ZeroMaquina.resources
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\Titan Texture.exe.config
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\Titan Texture.exe
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\Titan Texture.pdb
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Titan Texture.exe
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Titan Texture.pdb

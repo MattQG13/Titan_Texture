@@ -23,19 +23,30 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Calibracao));
             this.tabs = new System.Windows.Forms.TabControl();
             this.tab1 = new System.Windows.Forms.TabPage();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.btnCancel1 = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
             this.tab2 = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txCal = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.btnCancel2 = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
-            this.txCal = new System.Windows.Forms.TextBox();
             this.tabs.SuspendLayout();
             this.tab1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.tab2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabs
@@ -47,24 +58,44 @@
             this.tabs.Multiline = true;
             this.tabs.Name = "tabs";
             this.tabs.SelectedIndex = 0;
-            this.tabs.Size = new System.Drawing.Size(300, 264);
+            this.tabs.Size = new System.Drawing.Size(340, 264);
             this.tabs.TabIndex = 6;
             // 
             // tab1
             // 
             this.tab1.BackColor = System.Drawing.Color.Transparent;
-            this.tab1.Controls.Add(this.btnCancel1);
-            this.tab1.Controls.Add(this.btnNext);
+            this.tab1.Controls.Add(this.pictureBox1);
+            this.tab1.Controls.Add(this.panel1);
             this.tab1.Location = new System.Drawing.Point(4, 22);
             this.tab1.Name = "tab1";
             this.tab1.Padding = new System.Windows.Forms.Padding(3);
-            this.tab1.Size = new System.Drawing.Size(292, 238);
+            this.tab1.Size = new System.Drawing.Size(332, 238);
             this.tab1.TabIndex = 0;
             this.tab1.Text = "tab1";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(8, 6);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(138, 195);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btnCancel1);
+            this.panel1.Controls.Add(this.btnNext);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(3, 206);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(326, 29);
+            this.panel1.TabIndex = 10;
+            // 
             // btnCancel1
             // 
-            this.btnCancel1.Location = new System.Drawing.Point(8, 207);
+            this.btnCancel1.Location = new System.Drawing.Point(5, 4);
             this.btnCancel1.Name = "btnCancel1";
             this.btnCancel1.Size = new System.Drawing.Size(75, 23);
             this.btnCancel1.TabIndex = 1;
@@ -74,7 +105,7 @@
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(209, 207);
+            this.btnNext.Location = new System.Drawing.Point(248, 3);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(75, 23);
             this.btnNext.TabIndex = 0;
@@ -85,17 +116,47 @@
             // tab2
             // 
             this.tab2.BackColor = System.Drawing.Color.Transparent;
+            this.tab2.Controls.Add(this.label2);
+            this.tab2.Controls.Add(this.label1);
             this.tab2.Controls.Add(this.txCal);
-            this.tab2.Controls.Add(this.btnCancel2);
-            this.tab2.Controls.Add(this.btnOk);
             this.tab2.Controls.Add(this.button4);
             this.tab2.Controls.Add(this.button5);
+            this.tab2.Controls.Add(this.pictureBox2);
+            this.tab2.Controls.Add(this.panel2);
             this.tab2.Location = new System.Drawing.Point(4, 22);
             this.tab2.Name = "tab2";
             this.tab2.Padding = new System.Windows.Forms.Padding(3);
-            this.tab2.Size = new System.Drawing.Size(292, 238);
+            this.tab2.Size = new System.Drawing.Size(332, 238);
             this.tab2.TabIndex = 1;
             this.tab2.Text = "tab2";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label2.Location = new System.Drawing.Point(185, 56);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(116, 12);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Carga para calibração:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label1.Location = new System.Drawing.Point(306, 75);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(11, 12);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "g";
+            // 
+            // txCal
+            // 
+            this.txCal.Location = new System.Drawing.Point(181, 68);
+            this.txCal.Name = "txCal";
+            this.txCal.Size = new System.Drawing.Size(117, 20);
+            this.txCal.TabIndex = 6;
+            this.txCal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txCal_KeyPress);
             // 
             // button4
             // 
@@ -115,9 +176,29 @@
             this.button5.Text = "Next";
             this.button5.UseVisualStyleBackColor = true;
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(8, 8);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(168, 196);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 7;
+            this.pictureBox2.TabStop = false;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.btnCancel2);
+            this.panel2.Controls.Add(this.btnOk);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(3, 206);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(326, 29);
+            this.panel2.TabIndex = 11;
+            // 
             // btnCancel2
             // 
-            this.btnCancel2.Location = new System.Drawing.Point(8, 207);
+            this.btnCancel2.Location = new System.Drawing.Point(5, 4);
             this.btnCancel2.Name = "btnCancel2";
             this.btnCancel2.Size = new System.Drawing.Size(75, 23);
             this.btnCancel2.TabIndex = 5;
@@ -127,7 +208,7 @@
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(209, 207);
+            this.btnOk.Location = new System.Drawing.Point(248, 3);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 4;
@@ -135,25 +216,26 @@
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
-            // txCal
-            // 
-            this.txCal.Location = new System.Drawing.Point(17, 103);
-            this.txCal.Name = "txCal";
-            this.txCal.Size = new System.Drawing.Size(100, 20);
-            this.txCal.TabIndex = 6;
-            // 
             // Calibracao
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(300, 264);
+            this.ClientSize = new System.Drawing.Size(340, 264);
             this.Controls.Add(this.tabs);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Calibracao";
-            this.Text = "Calibracao";
+            this.Text = "Calibração";
             this.tabs.ResumeLayout(false);
             this.tab1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.tab2.ResumeLayout(false);
             this.tab2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -170,5 +252,11 @@
         private System.Windows.Forms.Button btnCancel2;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.TextBox txCal;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
     }
 }
