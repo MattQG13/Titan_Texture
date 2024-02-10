@@ -130,8 +130,7 @@ namespace Texturometer {
         private void btnUP_Click(object sender,EventArgs e) {
         }
         private void btnDN_Click(object sender,EventArgs e) {
-            tex.Motor.SPVel=5;
-            tex.Motor.Start(ModoMotor.Subir);
+            tex.Serial.EnvComandoMotor(ModoMotor.Subir,2,20);
         }
 
         private void TexturometroForms_FormClosing(object sender,FormClosingEventArgs e) {

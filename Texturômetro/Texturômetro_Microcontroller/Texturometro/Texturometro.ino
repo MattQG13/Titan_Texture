@@ -16,7 +16,7 @@
   #define WITH_ADC_CS5530
 //=================================
 //_________________________________
-//========DEFINE MODULO ADC========
+//====DEFINE LEITOR DE POSIÇÃO=====
   //#define WITH_ENCODER
   #define WITHOUT_ENCODER
 //=================================
@@ -45,8 +45,9 @@ void envMens();
 
 const double passo = 5;
 const double ppr = 800;
-
-static double scale = -53.8071 ;// -26.90355;  //ESCALA PARA AJUSTE
+const double dirUP  = 1;
+ 
+static double scale = 224.419;//-53.8071 ;// -26.90355;  //ESCALA PARA AJUSTE
 static double load;
 static double filtredload;
 static long double tara  = 0;
@@ -56,7 +57,7 @@ int intervalo;
 long contador = 0;
 char endChar = '!';
 Filter FMM(8, 0.01);
-Filter FFMM(16, 1);
+Filter FFMM(16, 0.5);
 
 
 static double posicao = 0;
@@ -136,7 +137,7 @@ void loop() {
     Serial.print(mens);
     
     //TIMSK3 |= (1 << OCIE3A);
-   }else if(digitalRead(0)){
+   }else if(!digitalRead(0)){
       atualizaMotor(0);
     }
 
@@ -166,8 +167,8 @@ void atualizaMotor(double vel) {
     TCNT1 = OCR1A - 1;
     TIMSK1 |= (1 << OCIE1A);
 
-    if (vel > 0) digitalWrite(direcao,1);
-    if (vel < 0) digitalWrite(direcao,0); 
+    if (vel > 0) digitalWrite(direcao,0);
+    if (vel < 0) digitalWrite(direcao,1); 
     //PORTB &= ~(1 << enMotor);
     digitalWrite(enMotor,0);
 
@@ -188,20 +189,22 @@ ISR(TIMER1_COMPA_vect)
     digitalWrite(pulso, digitalRead(pulso)^1); 
     
     #ifdef WITHOUT_ENCODER
-      if (!digitalRead(pulso))contador += digitalRead(direcao)?1:-1;
+      if (!digitalRead(pulso))contador += digitalRead(direcao)? -dirUP : dirUP;
       posicao = ((double)contador/ppr)*passo;
     #endif
-    if(zerandoMaquina&&filtredload>=zeroMaquinaLoad){
-        atualizaMotor(0);
-        contador=0;
-        zerandoMaquina=false;
-        Serial.print("[ZERO]!");
-      }
+    
     if(positionLimited&&posicao>=finalPosition){
         atualizaMotor(0);
         positionLimited=false;
     }
-    
+    if(zerandoMaquina){
+      if(filtredload>=zeroMaquinaLoad){
+        atualizaMotor(0);
+        contador=0;
+        //zerandoMaquina=false;
+        Serial.println("[ZERO]!");
+      }
+    }
   }
 }
 
@@ -220,8 +223,7 @@ void executaComando(SerialInterpreter com) {
           iniTimer=millis();
         }
         //String S ="["+com.Comando+"]"+endChar;
-        Serial.print("["+com.Comando+"]"+endChar);
-        
+
         break;
         
     case 2:
@@ -237,7 +239,13 @@ void executaComando(SerialInterpreter com) {
         
     case 3:
         if (com.Comando == "M") {
-          atualizaMotor((com.Modo == "UP" ? 1 : -1)*com.Valor);
+          if(com.Modo=="UP"){
+             atualizaMotor(dirUP*abs(com.Valor));
+          }else if (com.Modo=="DN"){
+            atualizaMotor(-dirUP*abs(com.Valor));
+          }else if (com.Modo=="S"){
+              atualizaMotor(0);
+          }
           positionLimited=false;
         }
         if (com.Comando == "ZERAR"){
@@ -246,7 +254,13 @@ void executaComando(SerialInterpreter com) {
         break;
     case 4:
         if (com.Comando == "M"){
-          atualizaMotor((com.Modo == "UP" ? 1 : -1)*com.Valor);
+          if(com.Modo=="UP"){
+             atualizaMotor(dirUP*abs(com.Valor));
+          }else if (com.Modo=="DN"){
+            atualizaMotor(-dirUP*abs(com.Valor));
+          }else if (com.Modo=="S"){
+              atualizaMotor(0);
+          }
           positionLimited = true;
           finalPosition = com.Valor2;
         }
@@ -258,9 +272,8 @@ void executaComando(SerialInterpreter com) {
 
 void rotinaZeroMaquina(double vel, double carga){
     zerandoMaquina=true;
-    atualizaMotor(-abs(vel));
-    zeroMaquinaLoad = abs(carga);
-    
+    zeroMaquinaLoad = carga;
+    atualizaMotor(-dirUP*abs(vel));
 }
 
 #ifdef WITH_ADC_CS5530
@@ -303,9 +316,9 @@ void rotinaZeroMaquina(double vel, double carga){
     cal += (ReadLoad() / n);
   }
 
-  scale *= cal / val;
+  scale *= cal /(-val);
   tarar(100);
-  tara -= val;
+  tara += val;
   return scale;
 }
 

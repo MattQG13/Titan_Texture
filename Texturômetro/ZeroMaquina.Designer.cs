@@ -207,7 +207,7 @@
             this.txbFinalPosition.Location = new System.Drawing.Point(156, 142);
             this.txbFinalPosition.Name = "txbFinalPosition";
             this.txbFinalPosition.Size = new System.Drawing.Size(100, 20);
-            this.txbFinalPosition.TabIndex = 10;
+            this.txbFinalPosition.TabIndex = 11;
             this.txbFinalPosition.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.number_KeyPress);
             // 
             // txbVelociadeZero
@@ -223,7 +223,7 @@
             this.txbCargaLimite.Location = new System.Drawing.Point(156, 95);
             this.txbCargaLimite.Name = "txbCargaLimite";
             this.txbCargaLimite.Size = new System.Drawing.Size(100, 20);
-            this.txbCargaLimite.TabIndex = 8;
+            this.txbCargaLimite.TabIndex = 10;
             this.txbCargaLimite.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.number_KeyPress);
             // 
             // button4
@@ -296,6 +296,7 @@
             this.MinimizeBox = false;
             this.Name = "ZeroMaquina";
             this.Text = "Zero Maquina";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ZeroMaquina_FormClosing);
             this.tabs.ResumeLayout(false);
             this.tab1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

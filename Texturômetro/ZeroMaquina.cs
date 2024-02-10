@@ -13,9 +13,24 @@ using TexturometroClass;
 
 namespace Texturometer {
     public partial class ZeroMaquina : Form {
-        Texturometro tex;
-       // private CultureInfo culture = new CultureInfo("en-US"); 
-
+        private Texturometro tex;
+        private bool Z = false; 
+        private bool zerando {
+            get {
+                return Z;
+            }
+            set {
+                Z= value;
+                if (value) {
+                    btnOk.Enabled=false;
+                    btnCancel2.Enabled=false;
+                }
+                else{
+                    btnOk.Enabled=true;
+                    btnCancel2.Enabled=true;
+                }
+            }
+        }
 
         public ZeroMaquina(Texturometro tex) {
             InitializeComponent();
@@ -24,7 +39,6 @@ namespace Texturometer {
             tabs.Appearance=TabAppearance.FlatButtons;
             tabs.ItemSize=new Size(0,1);
             tabs.SizeMode=TabSizeMode.Fixed;
-
             tex.Serial.ZeroSeated+=goToFinalPosition;
         }
 
@@ -39,10 +53,17 @@ namespace Texturometer {
 
         private void btnOk_Click(object sender,EventArgs e) {
             tex.Motor.ZerarPosicao(Convert.ToDouble(txbVelociadeZero.Text.Trim()),Convert.ToDouble(txbCargaLimite.Text.Trim()));
+            zerando =true;
         }
 
         private void goToFinalPosition(object sender,SerialMessageArgument e) {
             tex.Serial.EnvComandoMotor(ModoMotor.Subir,Convert.ToDouble(txbVelociadeZero.Text),Convert.ToDouble(txbFinalPosition.Text));
+
+            Task.Run(() => {
+                this.Invoke(new Action(() => {
+                    zerando=false;
+                }));
+            });
         }
 
         private void number_KeyPress(object sender,KeyPressEventArgs e) {
@@ -55,6 +76,12 @@ namespace Texturometer {
             if((e.KeyChar==',')&&((sender as TextBox).Text.IndexOf(',')>-1)) {
                 e.Handled=true;
             }
+        }
+
+        private void ZeroMaquina_FormClosing(object sender,FormClosingEventArgs e) {
+            if(zerando) {
+                e.Cancel=true;
+            }else tex.Serial.ZeroSeated-=goToFinalPosition;
         }
     }
 }

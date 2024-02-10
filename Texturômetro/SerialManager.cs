@@ -114,7 +114,7 @@ namespace SerialManagerTexturometro{
             while(_serialPort.BytesToRead>0) {
                 try {
                     string mensagem = _serialPort.ReadTo("!");
-                    if(mensagem.Contains("Load"))
+                    if(mensagem.Contains("ZERO"))
                         mensagem=mensagem;
                     string[] partesDaMensagem = _processaSerial(mensagem);
                     _interpretaMensagem(partesDaMensagem);
@@ -194,7 +194,7 @@ namespace SerialManagerTexturometro{
             }
         }
 
-        public void EnvComandoMotor(ModoMotor comando,double vel) {
+        public void EnvComandoMotor(ModoMotor comando,double vel=0) {
             StringBuilder sB = new StringBuilder("");
             sB.Append("[M;");
             switch(comando) {

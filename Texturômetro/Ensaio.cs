@@ -25,7 +25,6 @@ namespace EnsaioTextuometro {
                 integrager=0;
             }
             integrager++;
-            AcaoAtual=Acoes[integrager];
         }
     }
     public class EnsaioCompressao : Ensaio{
