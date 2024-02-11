@@ -96,6 +96,7 @@
     <Compile Include="Motor.cs" />
     <Compile Include="SerialManager.cs" />
     <Compile Include="Ensaio.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Sobre.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -22,12 +22,13 @@ namespace Texturometer {
             set {
                 Z= value;
                 if (value) {
-                    btnOk.Enabled=false;
                     btnCancel2.Enabled=false;
+                    btnFinsh.Enabled=false; 
                 }
                 else{
-                    btnOk.Enabled=true;
+                    btnZerar.Enabled=true;
                     btnCancel2.Enabled=true;
+                    btnFinsh.Enabled=true;
                 }
             }
         }
@@ -40,6 +41,7 @@ namespace Texturometer {
             tabs.ItemSize=new Size(0,1);
             tabs.SizeMode=TabSizeMode.Fixed;
             tex.Serial.ZeroSeated+=goToFinalPosition;
+            btnFinsh.Enabled = false;
         }
 
         private void btnCancel_Click(object sender,EventArgs e) {
@@ -70,6 +72,9 @@ namespace Texturometer {
             if(!char.IsControl(e.KeyChar)&&!char.IsDigit(e.KeyChar)&&(e.KeyChar!=',')&&!((sender as TextBox).Text.Length>1)) {
                 e.Handled=true;
             }
+            if(!char.IsControl(e.KeyChar)&&!char.IsDigit(e.KeyChar)&&(e.KeyChar!=',')) {
+                e.Handled=true;
+            }
             if(e.KeyChar==','&&((sender as TextBox).Text.Length==0||(sender as TextBox).SelectionStart==0)) {
                 e.Handled=true;
             }
@@ -82,6 +87,10 @@ namespace Texturometer {
             if(zerando) {
                 e.Cancel=true;
             }else tex.Serial.ZeroSeated-=goToFinalPosition;
+        }
+
+        private void btnFinsh_Click(object sender,EventArgs e) {
+            this.Close();
         }
     }
 }

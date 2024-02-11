@@ -31,6 +31,9 @@ namespace Texturometer {
             } finally{ }
 
             cbBaud.SelectedItem=Properties.Settings.Default.Baudrate.ToString();
+            cbDistancia.SelectedItem=Properties.Settings.Default.UnDistance.ToString();
+            cbForca.SelectedItem=Properties.Settings.Default.UnForce.ToString();
+            cbTempo.SelectedItem=Properties.Settings.Default.UnTime.ToString();
 
             salvo=true;
         }
@@ -87,6 +90,10 @@ namespace Texturometer {
 
             Properties.Settings.Default.PortaCOM=nomePorta(cbCOM.Text);
             Properties.Settings.Default.Baudrate=Convert.ToInt32(cbBaud.Text);
+            Properties.Settings.Default.UnTime = cbTempo.Text;
+            Properties.Settings.Default.UnForce = cbForca.Text;
+            Properties.Settings.Default.UnDistance = cbDistancia.Text;
+
             Properties.Settings.Default.Save();
             salvo=true;
             this.Close();

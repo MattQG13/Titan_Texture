@@ -14,30 +14,78 @@ namespace Texturometer {
             tabs.ItemSize=new Size(0,1);
             tabs.SizeMode=TabSizeMode.Fixed;
         }
+        private void ConfiguracaoEnsaio_Load(object sender,EventArgs e) {
+            cbTipo.SelectedIndex = 0;
+            cbTarget.SelectedIndex=0;
+            cbTrigger.SelectedIndex=0;
+            cbTara.SelectedIndex=0;
+        }
+        private void btnIniciar_Click(object sender,EventArgs e) {
 
-        private void button2_Click(object sender,EventArgs e) {
 
-            tabs.TabPages[i].Hide();
-            i++;
-            if(i>tabs.TabCount-1)
-                i=0;
-            tabs.TabPages[i].Show();
+            if(capturaDados()) {
+                DialogResult=DialogResult.OK;
+                this.Close();
+            } else {
+                MessageBox.Show("Por favor, preencha todos os dados","Erro de preenchimento",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            }
+
+
+            
         }
 
-        private void button3_Click(object sender,EventArgs e) {
-            tabs.TabPages[i].Hide();
-            i--;
-            if(i<0)
-                i=tabs.TabCount-1;
-            tabs.TabPages[i].Show();
+        private bool capturaDados() {
+
+
+
+            return false;
         }
 
-        private void btnOk_Click(object sender,EventArgs e) {
+        private void txb_KeyPress(object sender,KeyPressEventArgs e) {
+            if(!char.IsControl(e.KeyChar)&&!char.IsDigit(e.KeyChar)&&(e.KeyChar!=',')&&!((sender as TextBox).Text.Length>1)) {
+                e.Handled=true;
+            }
+            if(!char.IsControl(e.KeyChar)&&!char.IsDigit(e.KeyChar)&&(e.KeyChar!=',')) {
+                e.Handled=true;
+            }
+            if(e.KeyChar==','&&((sender as TextBox).Text.Length==0||(sender as TextBox).SelectionStart==0)) {
+                e.Handled=true;
+            }
+            if((e.KeyChar==',')&&((sender as TextBox).Text.IndexOf(',')>-1)) {
+                e.Handled=true;
+            }
+        }
 
-            DialogResult=DialogResult.OK;
-             
+        private void cb_SelectedIndexChanged(object sender,EventArgs e) {
+
+            switch(cbTarget.SelectedItem){
+                case "Distância":
+                    lbTarget.Text="Distância:..........................";
+                    lbUnTarget.Text="mm"; 
+                    break;
+                case "Força":
+                    lbTarget.Text="Força:...............................";
+                    lbUnTarget.Text="g";
+                    break;
+                default:
+                    break;
+            }
+            switch(cbTrigger.SelectedItem) {
+                case "Distância":
+                    lbTrigger.Text="Distância de detecção:......";
+                    lbUnTrigger.Text="mm";
+                    break;
+                case "Auto (força)":
+                    lbTrigger.Text="Força de detecção...........";
+                    lbUnTrigger.Text="g";
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void btnCancel_Click(object sender,EventArgs e) {
             this.Close();
         }
-
     }
 }

@@ -46,5 +46,41 @@ namespace Texturometer.Properties {
                 this["Baudrate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("s")]
+        public string UnTime {
+            get {
+                return ((string)(this["UnTime"]));
+            }
+            set {
+                this["UnTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("g")]
+        public string UnForce {
+            get {
+                return ((string)(this["UnForce"]));
+            }
+            set {
+                this["UnForce"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("mm")]
+        public string UnDistance {
+            get {
+                return ((string)(this["UnDistance"]));
+            }
+            set {
+                this["UnDistance"] = value;
+            }
+        }
     }
 }

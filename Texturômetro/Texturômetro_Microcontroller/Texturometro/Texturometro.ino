@@ -1,130 +1,34 @@
-#include <CS5530.h>
-#include <Filter_MM.h>
-#include <Interpreter_S.h>
-
-#define pulso 10 //PB2 //10 Pulso 
-#define direcao 11 //PB3 //11
-#define enMotor 12 //PB4 //12
+#include "LoadCell.h"
+#include "Interpreter_S.h";
+#include "Motor_C.h"
+#include "VARS.h"
 
 #define LI 6 //PD6 //6
 #define LS 7 //PD7 //7
 
-
-
-//========DEFINE MODULO ADC========
-  //#define WITH_ADC_HX711
-  #define WITH_ADC_CS5530
-//=================================
-//_________________________________
-//====DEFINE LEITOR DE POSIÇÃO=====
-  //#define WITH_ENCODER
-  #define WITHOUT_ENCODER
-//=================================
-
-#ifdef WITH_ADC_CS5530
-  const int CSPinCS5530 = 2;
-  const int MOSIPinCS5530 = 3;
-  const int MISOPinCS5530 = 4;
-  const int SCLKPinCS5530 = 5;
   
-  CS5530 myADC (MOSIPinCS5530, MISOPinCS5530, SCLKPinCS5530, CSPinCS5530);
-#endif
-
-#ifdef WITH_ADC_HX711
-  #define  ADDO  8 //PB0 //8
-  #define  ADSK  9 //PB1 //9
-#endif
-
-long double ReadLoad();
-void tarar(char n = 10);
-double calibrar(double val, char n = 15);
-
 void executaComando(SerialInterpreter com);
-void atualizaMotor(double vel);
 void envMens();
 
-const double passo = 5;
-const double ppr = 800;
-const double dirUP  = 1;
- 
-static double scale = 224.419;//-53.8071 ;// -26.90355;  //ESCALA PARA AJUSTE
-static double load;
-static double filtredload;
-static long double tara  = 0;
-
-double timerValue = 0;
-int intervalo;
-long contador = 0;
 char endChar = '!';
-Filter FMM(8, 0.01);
-Filter FFMM(16, 0.5);
 
-
-static double posicao = 0;
 static long iniTimer=0;
 SerialInterpreter Mensagem;
 
-bool zerandoMaquina = false;
-double zeroMaquinaLoad = 0;
-
-bool positionLimited = false;
-double finalPosition =0;
 void setup() {
 
   Serial.begin(115200);
   
-  pinMode(pulso, OUTPUT);
-  pinMode(direcao, OUTPUT);
-  pinMode (enMotor, OUTPUT);
-  digitalWrite(pulso,0);
-  digitalWrite(direcao,0);
-  digitalWrite(enMotor,0);
-
-#ifdef WITH_ADC_HX711
-  pinMode(ADSK, OUTPUT);
-  pinMode(ADDO,INPUT_PULLUP);
-  digitalWrite(ADSK, 0);
-#endif
-
+   configMotor();
 
   pinMode(LI,INPUT_PULLUP);
   pinMode(LS,INPUT_PULLUP);
-
-  TCCR1A = 0;
-
   
-  TCCR1B |=  (1 << CS10);
-  TCCR1B |=  (1 << CS11);
-  TCCR1B &= ~(1 << CS12);
 
-  TCNT1 = 0;
-  OCR1A = 0;
-
-  #ifdef WITH_ADC_CS5530
-        myADC.Init();
-        delay(1000);
-  #endif
   while (!Serial);
   
-  tara=0;
-  tarar(100);
-
-  
-
-  TCCR3A = 0;
-  TCCR3B = 0;
-  
-  
-  TCCR3B &=  ~(1 << CS30);
-  TCCR3B &=  ~(1 << CS31);
-  TCCR3B |= (1 << CS32);
-  
-  OCR3A=624;
-  TCNT3 = 0;
-  //TIMSK3 |= (1 << OCIE3A);
-  
+  configADC();
 }
-
 
 void loop() {
   if (Serial.available()) {    
@@ -155,62 +59,6 @@ void loop() {
 
     envMens();
     delay(10);
-}
-
-void atualizaMotor(double vel) {
-  if (vel > 0.001 || vel < -0.001) {
-    TIMSK1 &= ~(1 << OCIE1A);
-    
-    timerValue = (passo * 1000) / (ppr * (vel > 0 ? vel : -vel) * 2);
-    intervalo = (int)(timerValue * 250);
-    OCR1A = intervalo;
-    TCNT1 = OCR1A - 1;
-    TIMSK1 |= (1 << OCIE1A);
-
-    if (vel > 0) digitalWrite(direcao,0);
-    if (vel < 0) digitalWrite(direcao,1); 
-    //PORTB &= ~(1 << enMotor);
-    digitalWrite(enMotor,0);
-
-  } else {
-    intervalo = (int)(((passo * 1000) / (ppr * 0.001 * 2)) * 250);
-    OCR1A = intervalo;
-  }
-}
-
-ISR(TIMER1_COMPA_vect)
-{
-  TCNT1 = 0;
-  if (OCR1A >= (int)(((passo * 1000) / (ppr * 0.001 * 2)) * 250)) {
-    TIMSK1 &= ~(1 << OCIE1A);
-    digitalWrite(pulso,0);
-    digitalWrite(enMotor,1);
-  } else {
-    digitalWrite(pulso, digitalRead(pulso)^1); 
-    
-    #ifdef WITHOUT_ENCODER
-      if (!digitalRead(pulso))contador += digitalRead(direcao)? -dirUP : dirUP;
-      posicao = ((double)contador/ppr)*passo;
-    #endif
-    
-    if(positionLimited&&posicao>=finalPosition){
-        atualizaMotor(0);
-        positionLimited=false;
-    }
-    if(zerandoMaquina){
-      if(filtredload>=zeroMaquinaLoad){
-        atualizaMotor(0);
-        contador=0;
-        //zerandoMaquina=false;
-        Serial.println("[ZERO]!");
-      }
-    }
-  }
-}
-
-ISR(TIMER3_COMPA_vect) {
-  envMens();
-  TCNT3 = 0;
 }
 
 void executaComando(SerialInterpreter com) {
@@ -270,67 +118,6 @@ void executaComando(SerialInterpreter com) {
   }
 }
 
-void rotinaZeroMaquina(double vel, double carga){
-    zerandoMaquina=true;
-    zeroMaquinaLoad = carga;
-    atualizaMotor(-dirUP*abs(vel));
-}
-
-#ifdef WITH_ADC_CS5530
-  long double ReadLoad(){
-    long valor;
-    myADC.LePeso((long *)&valor);
-  
-    return (((long double)valor) / scale) - tara;
-  }
-
-#endif
-
-#ifdef WITH_ADC_HX711
-  long double ReadLoad(){
-    unsigned long Count = 0;
-  
-    digitalWrite(ADSK,0); //PORTB &= ~(1 << ADSK);
-    
-    while (digitalRead(ADDO));//(PINB & (1 << ADDO)));
-  
-    for (char i = 0; i < 24; i++){
-      digitalWrite(ADSK,1);//PORTB |= (1 << ADSK);
-      Count = Count << 1;
-      digitalWrite(ADSK,0);//PORTB &= ~(1 << ADSK);
-      if(digitalRead(ADDO))Count++; //if (PINB & (1 << ADDO)) Count++;
-    }
-  
-    digitalWrite(ADSK,1); //PORTB |= (1 << ADSK);
-    Count = Count ^ 0x800000;
-    digitalWrite(ADSK,0);//PORTB &= ~(1 << ADSK);
-  
-    return (((double)Count) / scale) - tara;
-  }
-#endif
-
- double calibrar(double val, char n = 15) {
-  long double cal = 0;
-  for (int i = 0; i < n; i++){
-    delay(20);
-    cal += (ReadLoad() / n);
-  }
-
-  scale *= cal /(-val);
-  tarar(100);
-  tara += val;
-  return scale;
-}
-
-void tarar(char n=10) {
-  long double _tara = 0;
-  for (int i = 0; i < n; i++) {
-    delay(20);
-    _tara += (ReadLoad() / n);
-  }
-  tara += _tara;
-}
-
 void envMens(){
   String bufferText = "";
   
@@ -359,6 +146,10 @@ void envMens(){
   Serial.print(bufferText);
 }
 
+ISR(TIMER3_COMPA_vect) {
+  envMens();
+  TCNT3 = 0;
+}
 /*
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   xxxxxxxxxxxxxxxxxxxxxddddddddxxxxxxxxxxxxxxxxxxxxxxxxxxx
