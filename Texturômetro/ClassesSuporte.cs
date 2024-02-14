@@ -13,7 +13,7 @@ namespace ClassesSuporteTexturometro {
     public enum TipoDeTeste {
         Compressao,
         Tracao,
-        CicloDuploCompressao,
+        TPA,
         CicloDuploTracao
     };
 
@@ -23,10 +23,20 @@ namespace ClassesSuporteTexturometro {
         Descer
     };
 
-    public enum TipoLimite {
+    public enum TipoTarget {
         Deformacao,
+        Distancia,
+        Forca
+    }
+
+    public enum TipoTrigger{ 
         Forca,
-        Tempo
+        Distancia
+    }
+
+    public enum TipoTara {
+        Auto,
+        Manual
     }
 
     public enum TipoProbe{

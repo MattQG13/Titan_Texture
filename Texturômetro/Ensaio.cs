@@ -53,7 +53,7 @@ namespace EnsaioTextuometro {
     }
     public class EnsaioCicloCompressao : Ensaio {
         public EnsaioCicloCompressao() {
-            Tipo=TipoDeTeste.CicloDuploCompressao;
+            Tipo=TipoDeTeste.TPA;
             Acoes=new List<Acao> {
                 Acao.Parar,
                 Acao.Descer,
@@ -79,7 +79,7 @@ namespace EnsaioTextuometro {
                 case TipoDeTeste.Tracao:
                     teste=new EnsaioTracao();
                     break;
-                case TipoDeTeste.CicloDuploCompressao:
+                case TipoDeTeste.TPA:
                     teste=new EnsaioCicloCompressao();
                     break;
                 default:

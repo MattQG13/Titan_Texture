@@ -1,6 +1,10 @@
 #include "Motor_C.h"
 #include "VARS.h"
 
+bool zerandoMaquina = false;
+double zeroMaquinaLoad = 0;
+int intervalo = 0;
+
 void atualizaMotor(double vel) {
   if (vel > 0.001 || vel < -0.001) {
     TIMSK1 &= ~(1 << OCIE1A);

@@ -6,143 +6,149 @@
 #define LI 6 //PD6 //6
 #define LS 7 //PD7 //7
 
-  
+
 void executaComando(SerialInterpreter com);
 void envMens();
 
 char endChar = '!';
 
-static long iniTimer=0;
+static long iniTimer = 0;
 SerialInterpreter Mensagem;
 
+Filter FMM(8, 0.01);
+Filter FFMM (16, 0.5);
+
+double load = 0;
+double filtredload = 0;
+
 void setup() {
-
   Serial.begin(115200);
-  
-   configMotor();
-
-  pinMode(LI,INPUT_PULLUP);
-  pinMode(LS,INPUT_PULLUP);
-  
-
   while (!Serial);
-  
+
+  configMotor();
   configADC();
+  
+  pinMode(LI, INPUT_PULLUP);
+  pinMode(LS, INPUT_PULLUP);
 }
 
 void loop() {
-  if (Serial.available()) {    
+  if (Serial.available()) {
     //TIMSK3 &= ~(1 << OCIE3A);
-    
+
     String mens = Serial.readStringUntil(endChar);
     Mensagem.AtMensagem(mens);
     executaComando(Mensagem);
-    mens +=endChar;
+    mens += endChar;
     Serial.print(mens);
-    
+
     //TIMSK3 |= (1 << OCIE3A);
-   }else if(!digitalRead(0)){
-      atualizaMotor(0);
-    }
-
-  if(!digitalRead(LS)){
-    TIMSK1 &= ~(1 << OCIE1A);
-    digitalWrite(pulso,0);
-    digitalWrite(enMotor,1);
+  } else if (!digitalRead(0)) {
+    atualizaMotor(0);
   }
 
-  if(!digitalRead(LI)){
+  if (!digitalRead(LS)) {
     TIMSK1 &= ~(1 << OCIE1A);
-    digitalWrite(pulso,0);
-    digitalWrite(enMotor,1);
+    digitalWrite(pulso, 0);
+    digitalWrite(enMotor, 1);
   }
 
-    envMens();
-    delay(10);
+  if (!digitalRead(LI)) {
+    TIMSK1 &= ~(1 << OCIE1A);
+    digitalWrite(pulso, 0);
+    digitalWrite(enMotor, 1);
+  }
+
+  envMens();
+  delay(10);
 }
 
 void executaComando(SerialInterpreter com) {
   switch (com.lenght) {
     case 1:
-        if (com.Comando == "TARA"){
-          tarar(100);
-        }
-        if (com.Comando == "INITIME"){
-          iniTimer=millis();
-        }
-        //String S ="["+com.Comando+"]"+endChar;
+      if (com.Comando == "TARA") {
+        tarar(100);
+      }
+      if (com.Comando == "INITIME") {
+        iniTimer = millis();
+      }
+      //String S ="["+com.Comando+"]"+endChar;
 
-        break;
-        
+      break;
+
     case 2:
-        if (com.Comando == "CAL") {
-          double cal = calibrar(com.Valor);
-          String mens ="[LCC;";
-          mens+=String(cal,8);
-          mens+="]";
-          mens+=endChar;
-          Serial.print(mens);
-        }
-        break;
-        
+      if (com.Comando == "CAL") {
+        double cal = calibrar(com.Valor);
+        String mens = "[LCC;";
+        mens += String(cal, 8);
+        mens += "]";
+        mens += endChar;
+        Serial.print(mens);
+      }
+      if(com.Comando == "LCC"){
+        scale = com.Valor;
+        tarar(50);
+      }
+      break;
+
     case 3:
-        if (com.Comando == "M") {
-          if(com.Modo=="UP"){
-             atualizaMotor(dirUP*abs(com.Valor));
-          }else if (com.Modo=="DN"){
-            atualizaMotor(-dirUP*abs(com.Valor));
-          }else if (com.Modo=="S"){
-              atualizaMotor(0);
-          }
-          positionLimited=false;
+      if (com.Comando == "M") {
+        if (com.Modo == "UP") {
+          atualizaMotor(dirUP * abs(com.Valor));
+        } else if (com.Modo == "DN") {
+          atualizaMotor(-dirUP * abs(com.Valor));
+        } else if (com.Modo == "S") {
+          atualizaMotor(0);
         }
-        if (com.Comando == "ZERAR"){
-            rotinaZeroMaquina(com.Valor, com.Valor2);
-        }
-        break;
+        positionLimited = false;
+      }
+      if (com.Comando == "ZERAR") {
+        rotinaZeroMaquina(com.Valor, com.Valor2);
+      }
+      break;
     case 4:
-        if (com.Comando == "M"){
-          if(com.Modo=="UP"){
-             atualizaMotor(dirUP*abs(com.Valor));
-          }else if (com.Modo=="DN"){
-            atualizaMotor(-dirUP*abs(com.Valor));
-          }else if (com.Modo=="S"){
-              atualizaMotor(0);
-          }
-          positionLimited = true;
-          finalPosition = com.Valor2;
+      if (com.Comando == "M") {
+        if (com.Modo == "UP") {
+          atualizaMotor(dirUP * abs(com.Valor));
+        } else if (com.Modo == "DN") {
+          atualizaMotor(-dirUP * abs(com.Valor));
+        } else if (com.Modo == "S") {
+          atualizaMotor(0);
         }
-        break;
+        positionLimited = true;
+        finalPosition = com.Valor2;
+      }
+      break;
     default:
-        break;
+      break;
   }
 }
 
-void envMens(){
+void envMens() {
   String bufferText = "";
-  
+
   load = ReadLoad();
   filtredload = FFMM.filtrar(FMM.filtrar(load));
-  double difTimer = (double)(millis()-iniTimer)/1000;
-  bufferText +="[L;";
-  bufferText += String (filtredload,1);
-  if(iniTimer>0){
-    bufferText+=";";
-    bufferText += String (difTimer,3);
+  double difTimer = (double)(millis() - iniTimer) / 1000;
+  bufferText += "[L;";
+  bufferText += String (filtredload, 1);
+  if (iniTimer > 0) {
+    bufferText += ";";
+    bufferText += String (difTimer, 3);
   }
   bufferText += "]";
   bufferText += endChar;
 
   bufferText += "[E;";
-  bufferText += String (posicao,1);
-  if (iniTimer>0){
-    bufferText+=";";
-    bufferText += String (difTimer,3); 
+  bufferText += String (posicao, 1);
+  if (iniTimer > 0) {
+    bufferText += ";";
+    bufferText += String (difTimer, 3);
   }
-  
+
   bufferText += "]";
   bufferText += endChar;
-  
+
   Serial.print(bufferText);
 }
 

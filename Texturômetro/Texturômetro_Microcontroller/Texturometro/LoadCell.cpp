@@ -2,6 +2,10 @@
 #include "VARS.h"
 #include "CS5530.h"
 
+//========DEFINE MODULO ADC========
+  //#define WITH_ADC_HX711
+  #define WITH_ADC_CS5530
+//=================================
 
 #ifdef WITH_ADC_CS5530
   const int CSPinCS5530 = 2;
@@ -17,6 +21,7 @@
   #define  ADSK  9 //PB1 //9
 #endif
 
+long double tara  = 0;
 
 void configADC(){
     #ifdef WITH_ADC_HX711
@@ -75,11 +80,11 @@ void configADC(){
     Count = Count ^ 0x800000;
     digitalWrite(ADSK,0);//PORTB &= ~(1 << ADSK);
   
-    return (((double)Count) / scale) - tara;
+    return  (((double)Count) / scale) - tara;
   }
 #endif
 
- double calibrar(double val, char n = 15) {
+double calibrar(double val, char n = 15) {
   long double cal = 0;
   for (int i = 0; i < n; i++){
     delay(20);

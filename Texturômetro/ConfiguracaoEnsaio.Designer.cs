@@ -29,7 +29,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label15 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.txID = new System.Windows.Forms.TextBox();
             this.lbUnTrigger = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.lbUnTarget = new System.Windows.Forms.Label();
@@ -105,7 +105,7 @@
             // 
             this.panel1.AutoScroll = true;
             this.panel1.Controls.Add(this.label15);
-            this.panel1.Controls.Add(this.textBox6);
+            this.panel1.Controls.Add(this.txID);
             this.panel1.Controls.Add(this.lbUnTrigger);
             this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.lbUnTarget);
@@ -144,12 +144,12 @@
             this.label15.TabIndex = 37;
             this.label15.Text = "ID do Arquivo:";
             // 
-            // textBox6
+            // txID
             // 
-            this.textBox6.Location = new System.Drawing.Point(7, 346);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(496, 20);
-            this.textBox6.TabIndex = 36;
+            this.txID.Location = new System.Drawing.Point(7, 346);
+            this.txID.Name = "txID";
+            this.txID.Size = new System.Drawing.Size(496, 20);
+            this.txID.TabIndex = 36;
             // 
             // lbUnTrigger
             // 
@@ -292,6 +292,7 @@
             this.cbTarget.FormattingEnabled = true;
             this.cbTarget.Items.AddRange(new object[] {
             "Distância",
+            "Deformação",
             "Força"});
             this.cbTarget.Location = new System.Drawing.Point(143, 93);
             this.cbTarget.Name = "cbTarget";
@@ -315,7 +316,7 @@
             this.cbTrigger.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbTrigger.FormattingEnabled = true;
             this.cbTrigger.Items.AddRange(new object[] {
-            "Auto (força)",
+            "Auto (Força)",
             "Distância"});
             this.cbTrigger.Location = new System.Drawing.Point(143, 178);
             this.cbTrigger.Name = "cbTrigger";
@@ -339,7 +340,8 @@
             this.cbTara.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbTara.FormattingEnabled = true;
             this.cbTara.Items.AddRange(new object[] {
-            "Auto"});
+            "Auto",
+            "Manual"});
             this.cbTara.Location = new System.Drawing.Point(143, 235);
             this.cbTara.Name = "cbTara";
             this.cbTara.Size = new System.Drawing.Size(188, 21);
@@ -365,7 +367,9 @@
             this.cbTipo.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbTipo.FormattingEnabled = true;
             this.cbTipo.Items.AddRange(new object[] {
-            "g"});
+            "TPA",
+            "Compressão",
+            "Tração"});
             this.cbTipo.Location = new System.Drawing.Point(143, 8);
             this.cbTipo.Name = "cbTipo";
             this.cbTipo.Size = new System.Drawing.Size(188, 21);
@@ -495,6 +499,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cbTarget;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox txID;
     }
 }

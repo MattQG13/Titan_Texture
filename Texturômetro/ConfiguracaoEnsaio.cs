@@ -1,6 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using ClassesSuporteTexturometro;
 using DadosDeEnsaio;
 
 namespace Texturometer {
@@ -13,32 +15,61 @@ namespace Texturometer {
             tabs.Appearance=TabAppearance.FlatButtons;
             tabs.ItemSize=new Size(0,1);
             tabs.SizeMode=TabSizeMode.Fixed;
+
+            DadosDeEnsaio = new DataTest();
         }
         private void ConfiguracaoEnsaio_Load(object sender,EventArgs e) {
             cbTipo.SelectedIndex = 0;
             cbTarget.SelectedIndex=0;
             cbTrigger.SelectedIndex=0;
             cbTara.SelectedIndex=0;
+
+            txID.Text=DateTime.Now.Year.ToString()+DateTime.Now.Month.ToString().PadLeft(2,'0')+DateTime.Now.Day.ToString().PadLeft(2,'0')+DateTime.Now.Hour.ToString().PadLeft(2,'0')+DateTime.Now.Minute.ToString().PadLeft(2,'0')+DateTime.Now.Second.ToString().PadLeft(2,'0');
         }
         private void btnIniciar_Click(object sender,EventArgs e) {
-
-
             if(capturaDados()) {
                 DialogResult=DialogResult.OK;
                 this.Close();
             } else {
                 MessageBox.Show("Por favor, preencha todos os dados","Erro de preenchimento",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
-
-
-            
         }
 
         private bool capturaDados() {
+            if(Preenchido(this)) {
+                DadosDeEnsaio.Tipo=cbTipo.Text=="TPA" ? TipoDeTeste.TPA:cbTipo.Text=="Compressão"?TipoDeTeste.Compressao:cbTipo.Text=="Tração"?TipoDeTeste.Tracao:TipoDeTeste.CicloDuploTracao;
+                DadosDeEnsaio.VelPreTeste=Convert.ToDouble(txVelPT.Text);
+                DadosDeEnsaio.VelTeste = Convert.ToDouble(txVel.Text);
+                DadosDeEnsaio.TipoLimite=cbTarget.Text=="Distância" ? TipoTarget.Distancia:cbTarget.Text=="Deformação"?TipoTarget.Deformacao:TipoTarget.Forca;
+                DadosDeEnsaio.ValorLimite=Convert.ToDouble(txTarget.Text);
+                DadosDeEnsaio.Tempo = Convert.ToDouble(txTime.Text);
+                DadosDeEnsaio.TipoDeteccao=cbTrigger.Text=="Auto (Força)" ? TipoTrigger.Forca:TipoTrigger.Distancia;
+                DadosDeEnsaio.ValorDeteccao = Convert.ToDouble(txTrigger.Text);
+                DadosDeEnsaio.TipoTara=cbTara.Text=="Auto" ? TipoTara.Auto:TipoTara.Manual;
 
-
-
+                return true;
+            }
             return false;
+        }
+
+        private bool Preenchido(Control container) {
+            foreach(Control control in container.Controls) {
+                if(control is TextBox textBox) {
+                    if(string.IsNullOrWhiteSpace(textBox.Text)) {
+                        return false;
+                    }
+                } else if(control is ComboBox comboBox) {
+                    if(string.IsNullOrWhiteSpace(comboBox.Text)) {  
+                        return false; 
+                    }
+                }else if(control.HasChildren) {
+                    if(!Preenchido(control)) {
+                        return false;
+                    }
+                }
+            }   
+
+            return true;
         }
 
         private void txb_KeyPress(object sender,KeyPressEventArgs e) {

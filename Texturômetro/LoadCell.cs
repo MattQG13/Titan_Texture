@@ -20,6 +20,9 @@ namespace LoadCellTexturometro {
             _cargaMax=valorMax;
         }
 
+        public LoadCell() {
+        }
+
         public bool CargaLimitada { get; set; }
         public double CargaLimite { get; set; }
         public double Scale { get; set; }

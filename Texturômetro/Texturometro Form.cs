@@ -134,6 +134,7 @@ namespace Texturometer {
         }
 
         private void btnUP_Click(object sender,EventArgs e) {
+            tex.Serial.EnvCalibration(20);
         }
         private void btnDN_Click(object sender,EventArgs e) {
             tex.Serial.EnvComandoMotor(ModoMotor.Subir,2,20);
@@ -232,25 +233,28 @@ namespace Texturometer {
             zm.ShowDialog();
         }
 
-        private void Graph_MouseMove(object sender,System.Windows.Forms.MouseEventArgs e) {        
+        private void Graph_MouseMove(object sender,System.Windows.Forms.MouseEventArgs e) {
 
-             if(Graph.ChartAreas[0].AxisX.PixelPositionToValue(e.X)>Graph.ChartAreas[0].AxisX.Minimum&&
-                Graph.ChartAreas[0].AxisX.PixelPositionToValue(e.X)<Graph.ChartAreas[0].AxisX.Maximum&&
-                Graph.ChartAreas[0].AxisY.PixelPositionToValue(e.Y)>Graph.ChartAreas[0].AxisY.Minimum&&
-                Graph.ChartAreas[0].AxisY.PixelPositionToValue(e.Y)<Graph.ChartAreas[0].AxisY.Maximum) {
-                
-                double mouseX = Graph.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
-                double mouseY = Graph.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
-                lxy.Visible=true;
+            try {
 
-                Graph.ChartAreas[0].CursorX.Position=mouseX;
-                Graph.ChartAreas[0].CursorY.Position=mouseY;
+                if(Graph.ChartAreas[0].AxisX.PixelPositionToValue(e.X)>Graph.ChartAreas[0].AxisX.Minimum&&
+                   Graph.ChartAreas[0].AxisX.PixelPositionToValue(e.X)<Graph.ChartAreas[0].AxisX.Maximum&&
+                   Graph.ChartAreas[0].AxisY.PixelPositionToValue(e.Y)>Graph.ChartAreas[0].AxisY.Minimum&&
+                   Graph.ChartAreas[0].AxisY.PixelPositionToValue(e.Y)<Graph.ChartAreas[0].AxisY.Maximum) {
 
-                lxy.Text=$"x:{mouseX:F1}  y:{mouseY:F1}";
-                lxy.Location=new Point(e.X+5,e.Y-20);
-            } else {
-                lxy.Visible=false;
-            }
+                    double mouseX = Graph.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
+                    double mouseY = Graph.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
+                    lxy.Visible=true;
+
+                    Graph.ChartAreas[0].CursorX.Position=mouseX;
+                    Graph.ChartAreas[0].CursorY.Position=mouseY;
+
+                    lxy.Text=$"x:{mouseX:F1}  y:{mouseY:F1}";
+                    lxy.Location=new Point(e.X+5,e.Y-20);
+                } else {
+                    lxy.Visible=false;
+                }
+            } finally { }
         }
     }
 }

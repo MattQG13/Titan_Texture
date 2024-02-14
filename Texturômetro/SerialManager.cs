@@ -254,5 +254,10 @@ namespace SerialManagerTexturometro{
             string s = "[INITIME]";
             Write(s);
         }
+
+        public void EnvCalibration(double Cal) {
+            string s = "[LCC;"+Cal+"]";
+            Write(s);
+        }
     }
 }

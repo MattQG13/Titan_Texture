@@ -86,7 +86,7 @@ namespace TexturometroClass {
 
 			Teste = EnsaioFactoryMethod.criarTeste(DadosTeste.Tipo);
 
-			LoadCell = new LoadCell(DadosTeste.LoadCellValMax);
+			LoadCell = new LoadCell();
 
             SensorLS=new Chave();
 			SensorLI=new Chave();
@@ -102,8 +102,7 @@ namespace TexturometroClass {
 
 
             Motor=new Motor();
-            Motor.SPVel= DadosTeste.VelMotor;
-			Motor.SPVelManual= DadosTeste.VelMotorManual;
+            Motor.SPVel= DadosTeste.VelTeste;
 			Motor.MotorStarted+=_enviaSerialMotor;
 			Motor.MotorStopped+=_enviaSerialMotor;
 			Motor.ZeroSeating+= Serial.EnvZeroMaquina;
