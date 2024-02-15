@@ -26,7 +26,7 @@ long double tara  = 0;
 void configADC(){
     #ifdef WITH_ADC_HX711
         pinMode(ADSK, OUTPUT);
-        pinMode(ADDO,INPUT_PULLUP);
+        pinMode(ADDO,INPUT_PULLUP); u
         digitalWrite(ADSK, 0);
     #endif
 

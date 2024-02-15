@@ -50,7 +50,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cbTara = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.cbTipo = new System.Windows.Forms.ComboBox();
             this.txVelPT = new System.Windows.Forms.TextBox();
             this.txVel = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -58,6 +57,7 @@
             this.tab2 = new System.Windows.Forms.TabPage();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.cbTipo = new System.Windows.Forms.ComboBox();
             this.tabs.SuspendLayout();
             this.tab1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -357,24 +357,6 @@
             this.label3.TabIndex = 14;
             this.label3.Text = "Tipo de teste:....................";
             // 
-            // cbTipo
-            // 
-            this.cbTipo.AutoCompleteCustomSource.AddRange(new string[] {
-            "T.P.A.",
-            "Compressão",
-            "Tração"});
-            this.cbTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTipo.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cbTipo.FormattingEnabled = true;
-            this.cbTipo.Items.AddRange(new object[] {
-            "TPA",
-            "Compressão",
-            "Tração"});
-            this.cbTipo.Location = new System.Drawing.Point(143, 8);
-            this.cbTipo.Name = "cbTipo";
-            this.cbTipo.Size = new System.Drawing.Size(188, 21);
-            this.cbTipo.TabIndex = 4;
-            // 
             // txVelPT
             // 
             this.txVelPT.Location = new System.Drawing.Point(143, 37);
@@ -441,6 +423,24 @@
             this.button5.Text = "Next";
             this.button5.UseVisualStyleBackColor = true;
             // 
+            // cbTipo
+            // 
+            this.cbTipo.AutoCompleteCustomSource.AddRange(new string[] {
+            "T.P.A.",
+            "Compressão",
+            "Tração"});
+            this.cbTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTipo.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cbTipo.FormattingEnabled = true;
+            this.cbTipo.Items.AddRange(new object[] {
+            "TPA",
+            "Compressão",
+            "Tração"});
+            this.cbTipo.Location = new System.Drawing.Point(143, 8);
+            this.cbTipo.Name = "cbTipo";
+            this.cbTipo.Size = new System.Drawing.Size(188, 21);
+            this.cbTipo.TabIndex = 4;
+            // 
             // ConfiguracaoEnsaio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -475,7 +475,6 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.ComboBox cbTipo;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbTrigger;
@@ -500,5 +499,6 @@
         private System.Windows.Forms.ComboBox cbTarget;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox txID;
+        private System.Windows.Forms.ComboBox cbTipo;
     }
 }

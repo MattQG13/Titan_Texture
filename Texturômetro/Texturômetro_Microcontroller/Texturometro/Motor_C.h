@@ -10,5 +10,8 @@
   const double passo = 5;
   const int ppr = 800;
   const char dirUP = 1;
-#endif
 
+  static bool zerandoMaquina = false;
+static double zeroMaquinaLoad = 0;
+static int intervalo = 0;
+#endif

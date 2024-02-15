@@ -1,7 +1,8 @@
 #include "LoadCell.h"
-#include "Interpreter_S.h";
+#include "Interpreter_S.h"
 #include "Motor_C.h"
 #include "VARS.h"
+#include "Encoder_C.h"
 
 #define LI 6 //PD6 //6
 #define LS 7 //PD7 //7
@@ -27,7 +28,7 @@ void setup() {
 
   configMotor();
   configADC();
-  
+  configEncoder();
   pinMode(LI, INPUT_PULLUP);
   pinMode(LS, INPUT_PULLUP);
 }
@@ -138,8 +139,11 @@ void envMens() {
   }
   bufferText += "]";
   bufferText += endChar;
-
-  bufferText += "[E;";
+  bufferText += "[E;"; 
+  #ifdef  WITH_ENCODER
+    posicao = getPosicao();
+  #endif
+  
   bufferText += String (posicao, 1);
   if (iniTimer > 0) {
     bufferText += ";";

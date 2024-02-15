@@ -98,6 +98,10 @@ namespace Texturometer {
                     lbTarget.Text="Força:...............................";
                     lbUnTarget.Text="g";
                     break;
+                case "Deformação":
+                    lbTarget.Text="Deformação:.....................";
+                    lbUnTarget.Text="%";
+                    break;
                 default:
                     break;
             }
