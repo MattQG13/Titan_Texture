@@ -35,6 +35,8 @@
             this.pnBackground = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnFast = new System.Windows.Forms.Button();
+            this.btnStop = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.lbPosition = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -77,7 +79,7 @@
             this.pnBackground.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnBackground.Location = new System.Drawing.Point(0, 0);
             this.pnBackground.Name = "pnBackground";
-            this.pnBackground.Size = new System.Drawing.Size(772, 450);
+            this.pnBackground.Size = new System.Drawing.Size(772, 460);
             this.pnBackground.TabIndex = 1;
             // 
             // tableLayoutPanel1
@@ -91,12 +93,14 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(772, 426);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(772, 436);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btnFast);
+            this.panel2.Controls.Add(this.btnStop);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.lbPosition);
             this.panel2.Controls.Add(this.label1);
@@ -104,15 +108,39 @@
             this.panel2.Controls.Add(this.btnDN);
             this.panel2.Controls.Add(this.btnUP);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 279);
+            this.panel2.Location = new System.Drawing.Point(3, 239);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(766, 144);
+            this.panel2.Size = new System.Drawing.Size(766, 194);
             this.panel2.TabIndex = 1;
+            // 
+            // btnFast
+            // 
+            this.btnFast.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.btnFast.Location = new System.Drawing.Point(88, 62);
+            this.btnFast.Name = "btnFast";
+            this.btnFast.Size = new System.Drawing.Size(73, 46);
+            this.btnFast.TabIndex = 8;
+            this.btnFast.TabStop = false;
+            this.btnFast.Text = "RÁPIDO";
+            this.btnFast.UseVisualStyleBackColor = true;
+            this.btnFast.Click += new System.EventHandler(this.btnFast_Click);
+            // 
+            // btnStop
+            // 
+            this.btnStop.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.btnStop.Location = new System.Drawing.Point(9, 62);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(73, 46);
+            this.btnStop.TabIndex = 7;
+            this.btnStop.TabStop = false;
+            this.btnStop.Text = "STOP";
+            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("SansSerif", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label2.Location = new System.Drawing.Point(223, 10);
+            this.label2.Location = new System.Drawing.Point(323, 10);
             this.label2.Name = "label2";
             this.label2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label2.Size = new System.Drawing.Size(120, 18);
@@ -125,7 +153,7 @@
             this.lbPosition.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lbPosition.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lbPosition.Font = new System.Drawing.Font("SansSerif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.lbPosition.Location = new System.Drawing.Point(223, 28);
+            this.lbPosition.Location = new System.Drawing.Point(323, 28);
             this.lbPosition.Name = "lbPosition";
             this.lbPosition.Size = new System.Drawing.Size(120, 46);
             this.lbPosition.TabIndex = 5;
@@ -135,7 +163,7 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("SansSerif", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label1.Location = new System.Drawing.Point(88, 10);
+            this.label1.Location = new System.Drawing.Point(188, 10);
             this.label1.Name = "label1";
             this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label1.Size = new System.Drawing.Size(120, 18);
@@ -148,7 +176,7 @@
             this.lbLoad.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lbLoad.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lbLoad.Font = new System.Drawing.Font("SansSerif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.lbLoad.Location = new System.Drawing.Point(88, 28);
+            this.lbLoad.Location = new System.Drawing.Point(188, 28);
             this.lbLoad.Name = "lbLoad";
             this.lbLoad.Size = new System.Drawing.Size(120, 46);
             this.lbLoad.TabIndex = 0;
@@ -158,7 +186,7 @@
             // btnDN
             // 
             this.btnDN.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.btnDN.Location = new System.Drawing.Point(9, 76);
+            this.btnDN.Location = new System.Drawing.Point(9, 114);
             this.btnDN.Name = "btnDN";
             this.btnDN.Size = new System.Drawing.Size(73, 46);
             this.btnDN.TabIndex = 3;
@@ -170,7 +198,7 @@
             // btnUP
             // 
             this.btnUP.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.btnUP.Location = new System.Drawing.Point(9, 28);
+            this.btnUP.Location = new System.Drawing.Point(9, 10);
             this.btnUP.Name = "btnUP";
             this.btnUP.Size = new System.Drawing.Size(73, 46);
             this.btnUP.TabIndex = 2;
@@ -191,7 +219,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(766, 270);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(766, 230);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
             // panel1
@@ -203,7 +231,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(203, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(560, 264);
+            this.panel1.Size = new System.Drawing.Size(560, 224);
             this.panel1.TabIndex = 0;
             // 
             // lxy
@@ -286,7 +314,7 @@
             series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
             series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
             this.Graph.Series.Add(series1);
-            this.Graph.Size = new System.Drawing.Size(560, 264);
+            this.Graph.Size = new System.Drawing.Size(560, 224);
             this.Graph.TabIndex = 5;
             this.Graph.Text = "Graph";
             // 
@@ -296,7 +324,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(194, 264);
+            this.panel3.Size = new System.Drawing.Size(194, 224);
             this.panel3.TabIndex = 1;
             // 
             // lbInformations
@@ -306,7 +334,7 @@
             this.lbInformations.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbInformations.Location = new System.Drawing.Point(0, 0);
             this.lbInformations.Name = "lbInformations";
-            this.lbInformations.Size = new System.Drawing.Size(194, 264);
+            this.lbInformations.Size = new System.Drawing.Size(194, 224);
             this.lbInformations.TabIndex = 0;
             // 
             // menuStrip
@@ -399,7 +427,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(772, 450);
+            this.ClientSize = new System.Drawing.Size(772, 460);
             this.Controls.Add(this.pnBackground);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -455,6 +483,8 @@
         private System.Windows.Forms.ToolStripMenuItem zeroMáquinaToolStripMenuItem;
         private System.Windows.Forms.Label lxy;
         private System.Windows.Forms.Label lbInformations;
+        private System.Windows.Forms.Button btnFast;
+        private System.Windows.Forms.Button btnStop;
     }
 }
 

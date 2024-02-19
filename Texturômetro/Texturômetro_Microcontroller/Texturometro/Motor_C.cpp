@@ -1,5 +1,6 @@
 #include "Motor_C.h"
 #include "VARS.h"
+#include "Encoder_C.h"
 
 void atualizaMotor(double vel) {
   if (vel > 0.001 || vel < -0.001) {
@@ -11,11 +12,15 @@ void atualizaMotor(double vel) {
     TCNT1 = OCR1A - 1;
     TIMSK1 |= (1 << OCIE1A);
 
-    if (vel > 0) digitalWrite(direcao,0);
-    if (vel < 0) digitalWrite(direcao,1); 
+    if (vel > 0){
+      digitalWrite(direcao,0);
+    }
+    if (vel < 0) {
+      digitalWrite(direcao,1); 
+    }
     //PORTB &= ~(1 << enMotor);
+    
     digitalWrite(enMotor,0);
-
   } else {
     intervalo = (int)(((passo * 1000) / (ppr * 0.001 * 2)) * 250);
     OCR1A = intervalo;
@@ -35,16 +40,22 @@ ISR(TIMER1_COMPA_vect)
     #ifndef WITH_ENCODER
       if (!digitalRead(pulso))contador += digitalRead(direcao)? -dirUP : dirUP;
       posicao = ((double)contador/ppr)*passo;
+    #else
+      posicao = getPosicao();
     #endif
     
-    if(positionLimited&&posicao>=finalPosition){
+    if(positionLimited&&((posicao>=finalPosition)^digitalRead(direcao))){
         atualizaMotor(0);
         positionLimited=false;
     }
     if(zerandoMaquina){
       if(filtredload>=zeroMaquinaLoad){
         atualizaMotor(0);
-        contador=0;
+        #ifndef WITH_ENCODER
+          contador=0;
+        #else
+          zeraCont();
+        #endif
         //zerandoMaquina=false;
         Serial.println("[ZERO]!");
       }

@@ -1,15 +1,14 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using ClassesSuporteTexturometro;
 using DadosDeEnsaio;
+using ProbeTexturometro;
 
 namespace Texturometer {
     public partial class ConfiguracaoEnsaio : Form {
-        int i = 0;
-        public DataTest DadosDeEnsaio { get; private set; }
 
+        public DataTest DadosDeEnsaio { get; private set; }
         public ConfiguracaoEnsaio() {
             InitializeComponent();
             tabs.Appearance=TabAppearance.FlatButtons;
@@ -23,6 +22,7 @@ namespace Texturometer {
             cbTarget.SelectedIndex=0;
             cbTrigger.SelectedIndex=0;
             cbTara.SelectedIndex=0;
+            cbProbe.SelectedIndex=0;
 
             txID.Text=DateTime.Now.Year.ToString()+DateTime.Now.Month.ToString().PadLeft(2,'0')+DateTime.Now.Day.ToString().PadLeft(2,'0')+DateTime.Now.Hour.ToString().PadLeft(2,'0')+DateTime.Now.Minute.ToString().PadLeft(2,'0')+DateTime.Now.Second.ToString().PadLeft(2,'0');
         }
@@ -46,7 +46,11 @@ namespace Texturometer {
                 DadosDeEnsaio.TipoDeteccao=cbTrigger.Text=="Auto (Força)" ? TipoTrigger.Forca:TipoTrigger.Distancia;
                 DadosDeEnsaio.ValorDeteccao = Convert.ToDouble(txTrigger.Text);
                 DadosDeEnsaio.TipoTara=cbTara.Text=="Auto" ? TipoTara.Auto:TipoTara.Manual;
-
+                if(cbProbe.SelectedItem.ToString()=="Cilíndrica"){
+                    DadosDeEnsaio.PontaDeTeste = ProbeFactoryMethod.ProbeCreate(Convert.ToDouble(txDim1.Text));
+                }else if(cbProbe.SelectedItem.ToString()=="Retangular") {
+                    ProbeFactoryMethod.ProbeCreate(Convert.ToDouble(txDim1.Text),Convert.ToDouble(txDim2.Text));
+                }
                 return true;
             }
             return false;
@@ -55,7 +59,7 @@ namespace Texturometer {
         private bool Preenchido(Control container) {
             foreach(Control control in container.Controls) {
                 if(control is TextBox textBox) {
-                    if(string.IsNullOrWhiteSpace(textBox.Text)) {
+                    if(string.IsNullOrWhiteSpace(textBox.Text)&&textBox.Enabled) {
                         return false;
                     }
                 } else if(control is ComboBox comboBox) {
@@ -115,6 +119,25 @@ namespace Texturometer {
                     lbUnTrigger.Text="g";
                     break;
                 default:
+                    break;
+            }
+            switch(cbProbe.SelectedItem) {
+                case "Cilíndrica":
+                    lbDim1.Text="Diâmetro:..........................";
+                    lbDim2.Visible=false;
+                    lbUnDim2.Visible=false;
+                    txDim2.Visible=false;
+                    txDim2.Enabled=false;
+                    break;
+                case "Retangular":
+                    lbDim1.Text="Largura:............................";
+                    lbDim2.Visible=true;
+                    lbUnDim2.Visible=true;
+                    txDim2.Visible=true;
+                    txDim2.Enabled=true;
+
+                    break;
+                default : 
                     break;
             }
         }

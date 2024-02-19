@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
 using System.Management;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace Texturometer {
     public partial class ConfiguracaoPrograma : Form {
@@ -34,7 +26,8 @@ namespace Texturometer {
             cbDistancia.SelectedItem=Properties.Settings.Default.UnDistance.ToString();
             cbForca.SelectedItem=Properties.Settings.Default.UnForce.ToString();
             cbTempo.SelectedItem=Properties.Settings.Default.UnTime.ToString();
-
+            txbVelMan.Text = Properties.Settings.Default.VelManual.ToString();
+            txbVelManRapida.Text=Properties.Settings.Default.VelManualRapida.ToString();
             salvo=true;
         }
 
@@ -93,11 +86,29 @@ namespace Texturometer {
             Properties.Settings.Default.UnTime = cbTempo.Text;
             Properties.Settings.Default.UnForce = cbForca.Text;
             Properties.Settings.Default.UnDistance = cbDistancia.Text;
+            Properties.Settings.Default.VelManual = Convert.ToDouble(txbVelMan.Text);
+            Properties.Settings.Default.VelManualRapida = Convert.ToDouble(txbVelManRapida.Text);
 
             Properties.Settings.Default.Save();
             salvo=true;
             this.Close();
             ft.reconfigura();
         }
+
+        private void number_KeyPress(object sender,KeyPressEventArgs e) {
+            if(!char.IsControl(e.KeyChar)&&!char.IsDigit(e.KeyChar)&&(e.KeyChar!=',')&&!((sender as TextBox).Text.Length>1)) {
+                e.Handled=true;
+            }
+            if(!char.IsControl(e.KeyChar)&&!char.IsDigit(e.KeyChar)&&(e.KeyChar!=',')) {
+                e.Handled=true;
+            }
+            if(e.KeyChar==','&&((sender as TextBox).Text.Length==0||(sender as TextBox).SelectionStart==0)) {
+                e.Handled=true;
+            }
+            if((e.KeyChar==',')&&((sender as TextBox).Text.IndexOf(',')>-1)) {
+                e.Handled=true;
+            }
+        }
+
     }
 }

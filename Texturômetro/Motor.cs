@@ -15,7 +15,7 @@ namespace MotorTexturometro {
         public EventHandler<MotorArgument> MotorStopped;
         public EventHandler<SerialMessageArgument> ZeroSeating;
 
-        public bool Manual { get; set; }
+		public bool ZeroSeated = false;
 
         public double SPVel {
 			get {
@@ -37,7 +37,7 @@ namespace MotorTexturometro {
 		}
 
 		public Motor() {
-			Manual=false;
+			ModoMotor=ModoMotor.Parado;
 		}
 
 		public double Posicao {get;set;}
@@ -45,6 +45,9 @@ namespace MotorTexturometro {
 		public ModoMotor ModoMotor {
 			get {
 				return _modoOper;
+			}
+			set {
+				_modoOper = value;
 			}
 		}
 

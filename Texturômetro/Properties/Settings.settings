@@ -17,5 +17,14 @@
     <Setting Name="UnDistance" Type="System.String" Scope="User">
       <Value Profile="(Default)">mm</Value>
     </Setting>
+    <Setting Name="VelManual" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="VelManualRapida" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="CalLoadCell" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">224.419</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

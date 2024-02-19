@@ -8,15 +8,13 @@ namespace EnsaioTextuometro {
 
     public abstract class Ensaio {
         public TipoDeTeste Tipo { get; set; }
-        public Acao AcaoAtual { get; set; }
         public List<Acao> Acoes { get; set; }
-        public bool ZeroSeated { get; set; }
         private int integrager = 0;
 
 
-        public Acao Estado {
+        public Acao AcaoAtual {
             get {
-                return AcaoAtual;
+                return Acoes[integrager];
             }
         }
 
@@ -26,13 +24,13 @@ namespace EnsaioTextuometro {
             }
             integrager++;
         }
+
     }
     public class EnsaioCompressao : Ensaio{
 
         public EnsaioCompressao(){
             Tipo=TipoDeTeste.Compressao;
             Acoes = new List<Acao> {
-                Acao.Parar,
                 Acao.Descer,
                 Acao.Parar,
                 Acao.Subir
@@ -43,19 +41,17 @@ namespace EnsaioTextuometro {
             public EnsaioTracao() {
             Tipo=TipoDeTeste.Tracao;
             Acoes=new List<Acao> {
-                Acao.Parar,
                 Acao.Subir,
                 Acao.Parar,
-                Acao.Descer
+                Acao.Descer,
+                Acao.Parar,
             };
-            AcaoAtual=Acoes[0];
         }
     }
     public class EnsaioCicloCompressao : Ensaio {
         public EnsaioCicloCompressao() {
             Tipo=TipoDeTeste.TPA;
             Acoes=new List<Acao> {
-                Acao.Parar,
                 Acao.Descer,
                 Acao.Parar,
                 Acao.Subir,
@@ -64,7 +60,6 @@ namespace EnsaioTextuometro {
                 Acao.Subir,
                 Acao.Parar
             };
-            AcaoAtual=Acoes[0];
         }
     }
 

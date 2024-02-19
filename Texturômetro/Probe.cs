@@ -1,10 +1,8 @@
-﻿//Implementar Factory Method e tipos de probes
-using ClassesSuporteTexturometro;
+﻿using ClassesSuporteTexturometro;
 using System;
 
 namespace ProbeTexturometro {
     public abstract class Probe {
-        
         public TipoProbe Tipo { get; set; }
         public Probe() {
         }
@@ -44,16 +42,16 @@ namespace ProbeTexturometro {
     }
 
     public sealed class ProbeFactoryMethod{
-        public static Probe ProbeCreate()
-        {
-            return new ProbeCisalhamento();
-        }
+        
         public static Probe ProbeCreate(double Diametro) {
             return new ProbeCircular(Diametro);
         }
         public static Probe ProbeCreate (double Largura, double Comprimento)
         {
             return new ProbeRetangular(Largura, Comprimento);
+        }
+        public static Probe ProbeCreate() {
+            return new ProbeCisalhamento();
         }
     }
 }

@@ -8,11 +8,11 @@ void configEncoder(){
     pinMode(B,INPUT_PULLUP);
     digitalWrite(A,1);
     digitalWrite(B,1);
-    attachInterrupt(2,a1,RISING);
-    attachInterrupt(3,a2,RISING);
+    attachInterrupt(digitalPinToInterrupt(A),a1,RISING);
+    attachInterrupt(digitalPinToInterrupt(B),a2,RISING);
 }
 
-static double getPosicao() {
+double getPosicao() {
     return ((double)contadorEncoder*passoEncoder)/(double)pprEncoder;
 }
 
@@ -30,4 +30,8 @@ void a2(){
   }else{
   contadorEncoder++;
   }  
+}
+
+void zeraCont(){
+  contadorEncoder=0;
 }

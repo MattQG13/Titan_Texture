@@ -9,17 +9,13 @@ using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 using System.Drawing;
 using System.Reflection;
 using System.ComponentModel;
-using System.IO.Ports;
 using System.Threading;
-using System.Threading.Tasks;
 using Timer = System.Windows.Forms.Timer;
-using System.Windows;
-using Point = System.Drawing.Point;
 
 namespace Texturometer {
     public partial class TexturometroForms : Form {
 
-        static Texturometro tex;
+        static Texturometro tex = new Texturometro();
         Series series = new Series("Pontos");
         Series series2 = new Series("XZ");
 
@@ -41,8 +37,7 @@ namespace Texturometer {
  
 
         private void Texturometro_Load(object sender,EventArgs e) {
-            DataTest dt = new DataTest();
-            tex = new Texturometro(dt);
+
             tex.setSerial(Properties.Settings.Default.PortaCOM,Properties.Settings.Default.Baudrate);
 
             series.ChartType=SeriesChartType.Line;
@@ -65,14 +60,15 @@ namespace Texturometer {
             tex.Serial.Write("[LIMPADENOVO]!");
             tex.Serial.Write("[LIMPADENOVO]!");
             tex.Serial.Write("[LIMPADENOVO]!");
-            
+           
             tex.LoadCell.ZeroTime();
             tex.Serial.LoadCellDetected+=atualizaLbLoad;
             tex.Serial.EncoderDetected+=atualizaLbPosition;
 
+            tex.LoadCell.Cal(Properties.Settings.Default.CalLoadCell);
+            tex.Serial.LoadCalibrated+=LoadCelCalibrated;
             tex.Serial.DiscardInBuffer();
             tex.Produto.Resultado.Clear();
-
         }
 
         protected override bool ProcessCmdKey(ref Message msg,Keys keyData) {
@@ -85,29 +81,33 @@ namespace Texturometer {
                 if(Keyboard.IsKeyUp(key)) {
                 }
             }
-
-            
+          
             return base.ProcessCmdKey(ref msg,keyData);
         }
 
         private void rodarTesteToolStripMenuItem_Click(object sender,EventArgs e) {
-            ConfiguracaoEnsaio FConfig = new ConfiguracaoEnsaio();
+            ConfiguracaoEnsaio ConfigEnsaio = new ConfiguracaoEnsaio();
 
-            var DialogResult = FConfig.ShowDialog();
+            var DialogResult = ConfigEnsaio.ShowDialog();
 
-            if(DialogResult == DialogResult.OK && FConfig.DadosDeEnsaio != null) {
-                tex=new Texturometro(FConfig.DadosDeEnsaio);
+            if(!tex.Motor.ZeroSeated) {
+                var result = MessageBox.Show("Zero Máquina não definido!\nDefinir Zero Máquina?","Aviso!",MessageBoxButtons.OKCancel,MessageBoxIcon.Warning);
+                if(result==DialogResult.OK) {
+
+                    zeroMáquinaToolStripMenuItem_Click(this,e);
+                }
+            }else if(DialogResult == DialogResult.OK &&ConfigEnsaio.DadosDeEnsaio != null) {
+                tex.DadosTeste = ConfigEnsaio.DadosDeEnsaio;
+                tex.TesteStart();
             }
-            FConfig.Dispose();
-
+            
+            ConfigEnsaio.Dispose();
         }
 
         private void calibrarToolStripMenuItem_Click(object sender,EventArgs e) {
             Calibracao FCal = new Calibracao(tex);
             FCal.ShowDialog();
         }
-
-        
 
         private void atGraph(object sender,EventArgs e) {
             if(!bkWork.IsBusy) {
@@ -124,7 +124,7 @@ namespace Texturometer {
                        series.Points.DataBindXY(tex.Produto.Resultado.GetZvalues(),tex.Produto.Resultado.GetXvalues());
                         series2.Points.DataBindXY(tex.Produto.Resultado.GetZvalues(),tex.Produto.Resultado.GetYvalues());
 
-                    } catch(Exception ex) { }
+                    } finally { }
                     
                     Graph.Invalidate();
                     Graph.ResumeLayout();;
@@ -134,12 +134,33 @@ namespace Texturometer {
         }
 
         private void btnUP_Click(object sender,EventArgs e) {
-            tex.Serial.EnvCalibration(20);
+            tex.Motor.ModoMotor=ModoMotor.Subir;
+            tex.Motor.SPVelManual=Properties.Settings.Default.VelManual;
+            tex.Serial.EnvComandoMotor(ModoMotor.Subir,Properties.Settings.Default.VelManual);
+
         }
         private void btnDN_Click(object sender,EventArgs e) {
-            tex.Serial.EnvComandoMotor(ModoMotor.Subir,2,20);
+            tex.Motor.ModoMotor= ModoMotor.Descer;
+            tex.Serial.EnvComandoMotor(ModoMotor.Descer,Properties.Settings.Default.VelManual);
+        }
+        private void btnStop_Click(object sender,EventArgs e) {
+            tex.Motor.ModoMotor=ModoMotor.Parado;
+            tex.Serial.EnvComandoMotor(ModoMotor.Parado,0);
         }
 
+        private void btnFast_Click(object sender,EventArgs e) {
+            switch(tex.Motor.ModoMotor) {
+                case ModoMotor.Subir:
+                    tex.Serial.EnvComandoMotor(ModoMotor.Subir,Properties.Settings.Default.VelManualRapida);
+                    break;
+                case ModoMotor.Descer:
+                    tex.Serial.EnvComandoMotor(ModoMotor.Descer,Properties.Settings.Default.VelManualRapida);
+                    break;
+                case ModoMotor.Parado:
+                    tex.Serial.EnvComandoMotor(ModoMotor.Parado,0);
+                    break;
+            }
+        }
         private void TexturometroForms_FormClosing(object sender,FormClosingEventArgs e) {
             try {
                 tex.Serial.LoadCellDetected=null;
@@ -256,5 +277,11 @@ namespace Texturometer {
                 }
             } finally { }
         }
+
+        private void LoadCelCalibrated(object sender, SerialMessageArgument args) {
+            Properties.Settings.Default.CalLoadCell=args.doubleValue;
+            Properties.Settings.Default.Save();
+        }
+
     }
 }

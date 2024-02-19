@@ -8,7 +8,7 @@ namespace LoadCellTexturometro {
         private double _cargaMax;
         private double _val;
         private const double _g = 9.81;
-        private const double _valDeteccao = 1;
+        public double _valDeteccao;
 
         public EventHandler ZeroSet;
         public EventHandler LoadLimitreached;

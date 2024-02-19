@@ -82,5 +82,41 @@ namespace Texturometer.Properties {
                 this["UnDistance"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public double VelManual {
+            get {
+                return ((double)(this["VelManual"]));
+            }
+            set {
+                this["VelManual"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public double VelManualRapida {
+            get {
+                return ((double)(this["VelManualRapida"]));
+            }
+            set {
+                this["VelManualRapida"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("224.419")]
+        public double CalLoadCell {
+            get {
+                return ((double)(this["CalLoadCell"]));
+            }
+            set {
+                this["CalLoadCell"] = value;
+            }
+        }
     }
 }

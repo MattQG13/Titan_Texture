@@ -3,13 +3,14 @@
 
 #include  <Arduino.h>
 
-#define A 21
-#define B 20
+#define A 18
+#define B 19
 
 void configEncoder ();
-static double getPosicao();  
+double getPosicao();  
 void a1();
 void a2();
+void zeraCont();
 
 const int pprEncoder = 1200;
 const double passoEncoder = 5;

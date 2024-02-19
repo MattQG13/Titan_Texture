@@ -62,10 +62,6 @@ using System;
 using System.Windows.Forms;
 using EnsaioTextuometro;
 using DadosDeEnsaio;
-using System.Drawing;
-using System.Configuration;
-using System.IO.Ports;
-
 
 namespace TexturometroClass {
 	public class Texturometro {
@@ -77,15 +73,10 @@ namespace TexturometroClass {
         public LoadCell LoadCell;
         public SerialManager Serial;
 		public CorpoDeProva Produto;
-        private bool _settingZero;
 		private Timer _timer;
-		private Timer _keybaordTimer;
+        private EventHandler TargetAcao;
 
-        public Texturometro(DataTest DadosDoTeste) {
-            DadosTeste = DadosDoTeste;
-
-			Teste = EnsaioFactoryMethod.criarTeste(DadosTeste.Tipo);
-
+        public Texturometro() {
 			LoadCell = new LoadCell();
 
             SensorLS=new Chave();
@@ -102,7 +93,6 @@ namespace TexturometroClass {
 
 
             Motor=new Motor();
-            Motor.SPVel= DadosTeste.VelTeste;
 			Motor.MotorStarted+=_enviaSerialMotor;
 			Motor.MotorStopped+=_enviaSerialMotor;
 			Motor.ZeroSeating+= Serial.EnvZeroMaquina;
@@ -112,42 +102,22 @@ namespace TexturometroClass {
 			LoadCell.Calibration+=Serial.CalLC;
 			LoadCell.ZerarTime+=Serial.EnvZeroTime;
 
-			_keybaordTimer=new Timer();
-			_keybaordTimer.Tick+=_keyboardUper;
+            Produto=new CorpoDeProva(1);
 
-			Produto=new CorpoDeProva(1);
         }	
 
-		public void _keyboardUper(object sender, EventArgs e) {
 
-		}
-
-		public void TesteStart(object sender, EventArgs e) {
-			try {
-				if(Serial.IsOpen) {
-					Serial.Close();
-                }
-                Serial.DiscardNull=true;
-                Serial.Open();
-			}catch(Exception ex) { 
-				MessageBox.Show("Erro de conexão com texturômetro!","ERRO",MessageBoxButtons.OK,MessageBoxIcon.Error); 
-			}
-
-			if(Teste.ZeroSeated) {
-				ExecTeste();
-			} else {
-				var result = MessageBox.Show("Zero Máquina não definido!\nDefinir Zero Máquina?","Aviso!",MessageBoxButtons.OKCancel ,MessageBoxIcon.Warning);
-				if(result == DialogResult.OK) {
-                    Motor.Manual = true;
-					_settingZero=true;
-                }
+		public void TesteStart() {
+			if(Motor.ZeroSeated) {
+                Teste = EnsaioFactoryMethod.criarTeste(DadosTeste.Tipo);
+                //Produto=new CorpoDeProva(1);
+                ExecTeste(this, new EventArgs());
 			}
 		}
 
         #region SetSensores
         private void _atualizaLS(object sender, SerialMessageArgument e) {
-			SensorLS.Estado = e.boolValue;	
-					
+			SensorLS.Estado = e.boolValue;			
 		}
 
 		private void _atualizaLI(object sender,SerialMessageArgument e) {
@@ -160,11 +130,15 @@ namespace TexturometroClass {
         private void _atualizaEncoder(object sender,SerialMessageArgument e) {
             Motor.Posicao=e.doubleValue;
         }
+        #endregion
+
         public void StartAddResults(object sender,SerialMessageArgument e) {
-			Serial.LoadCellDetected+=_atualizaResultadoL;
-			Serial.EncoderDetected+=_atualizaResultadoE;
+            if(Produto!=null) {
+                Serial.LoadCellDetected+=_atualizaResultadoL;
+                Serial.EncoderDetected+=_atualizaResultadoE;
+            }
         }
-		public void StopAddResults() {
+        public void StopAddResults() {
             Serial.LoadCellDetected-=_atualizaResultadoL;
             Serial.EncoderDetected-=_atualizaResultadoE;
         }
@@ -176,13 +150,12 @@ namespace TexturometroClass {
             Produto.Resultado.AddYZvalue(e.doubleValue1,e.doubleValue2);
         }
 
-        #endregion
+        private void ExecTeste(object sender, EventArgs args) {
 
-        private void ExecTeste() {
-			//?????
-		}
+            if(true);
+        }
 
-		public void setSerial(string com,int baud = 115200) {
+        public void setSerial(string com,int baud = 115200) {
 			Serial.SetCOM(com,baud);
 		}
 
@@ -196,18 +169,6 @@ namespace TexturometroClass {
                 MessageBox.Show(ex.Message);
             }
         }
-
-
-        private void _settingZeroMaquina() {
-           // Motor.StartSetZero(ModoMotor.Descer);
-			//LoadCell.CargaDetected+=_setZero;
-        }
-
-		private void _setZero(object sender, EventArgs e) {
-			Motor.Stop();
-			Teste.ZeroSeated=true;
-			LoadCell.CargaDetected-=_setZero;
-		}
 
 		private void _enviaSerialMotor(object sender, MotorArgument e) {
 			Serial.EnvComandoMotor(e.Modo,e.Vel);

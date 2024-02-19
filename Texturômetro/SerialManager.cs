@@ -1,13 +1,9 @@
 using ClassesSuporteTexturometro;
 using System;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO.Ports;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
 
 namespace SerialManagerTexturometro{
     public class SerialManager {
@@ -21,6 +17,8 @@ namespace SerialManagerTexturometro{
         public EventHandler<SerialMessageArgument> MotorDetected;
         public EventHandler<SerialMessageArgument> TimeSeted;
         public EventHandler<SerialMessageArgument> ZeroSeated;
+        public EventHandler<SerialMessageArgument> LoadCalibrated;
+
         private CultureInfo culture = new CultureInfo("en-US"); //CultureInfo.InvariantCulture;
         private char endChar = '!';
 
@@ -148,6 +146,9 @@ namespace SerialManagerTexturometro{
                     if(args.Objeto=="L") {
                         args.doubleValue1=double.Parse(partesDaMensagem[1],culture);
                     }
+                    if(args.Objeto=="LCC") {
+                        args.doubleValue =double.Parse(partesDaMensagem[1], culture);
+                    }
                     break;
                 case 3: //Motor
                     if(args.Objeto=="M") {
@@ -190,7 +191,10 @@ namespace SerialManagerTexturometro{
                         break;
                 case "ZERO":
                         ZeroSeated?.Invoke(this, args);
-                    break;
+                        break;
+                case "LCC":
+                        LoadCalibrated?.Invoke(this, args);
+                        break;
             }
         }
 
@@ -232,7 +236,8 @@ namespace SerialManagerTexturometro{
             sB.Append(finalPosition.ToString(culture));
             sB.Append("]");
 
-            Write(sB.ToString());
+            for (int i=0;i<0;i++)
+                Write(sB.ToString());
         }
 
         public void CalLC(object sender,SerialMessageArgument e) {
@@ -252,12 +257,14 @@ namespace SerialManagerTexturometro{
 
         public void EnvZeroTime(object sender, EventArgs e) {
             string s = "[INITIME]";
-            Write(s);
+            for (int i=0;i<0;i++)
+               Write(s);
         }
 
         public void EnvCalibration(double Cal) {
             string s = "[LCC;"+Cal+"]";
-            Write(s);
+            for(int i = 0;i<0;i++)
+                Write(s);
         }
     }
 }

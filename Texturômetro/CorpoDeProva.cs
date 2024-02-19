@@ -5,6 +5,7 @@ namespace ProdutoTexturometro {
     public class CorpoDeProva {
         private double _deformacaoLinear;
         private double _deformacao;
+
         public double DeformacaoLinear {
             get { 
                 return _deformacaoLinear;

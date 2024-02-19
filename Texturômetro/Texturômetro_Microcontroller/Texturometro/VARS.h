@@ -10,11 +10,8 @@
 
 
 //====DEFINE LEITOR DE POSIÇÃO=====
-  //#define WITH_ENCODER
+//#define WITH_ENCODER
 //=================================
-
-//MOTOR==========================
-
 
 extern long contador;
 

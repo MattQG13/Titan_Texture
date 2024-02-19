@@ -1,12 +1,6 @@
 ﻿using ClassesSuporteTexturometro;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TexturometroClass;
@@ -42,6 +36,7 @@ namespace Texturometer {
             tabs.SizeMode=TabSizeMode.Fixed;
             tex.Serial.ZeroSeated+=goToFinalPosition;
             btnFinsh.Enabled = false;
+
         }
 
         private void btnCancel_Click(object sender,EventArgs e) {
@@ -60,7 +55,9 @@ namespace Texturometer {
 
         private void goToFinalPosition(object sender,SerialMessageArgument e) {
             tex.Serial.EnvComandoMotor(ModoMotor.Subir,Convert.ToDouble(txbVelociadeZero.Text),Convert.ToDouble(txbFinalPosition.Text));
-
+            tex.Serial.EnvComandoMotor(ModoMotor.Subir,Convert.ToDouble(txbVelociadeZero.Text),Convert.ToDouble(txbFinalPosition.Text));
+            tex.Serial.EnvComandoMotor(ModoMotor.Subir,Convert.ToDouble(txbVelociadeZero.Text),Convert.ToDouble(txbFinalPosition.Text));
+            tex.Motor.ZeroSeated=true;
             Task.Run(() => {
                 this.Invoke(new Action(() => {
                     zerando=false;
@@ -92,5 +89,7 @@ namespace Texturometer {
         private void btnFinsh_Click(object sender,EventArgs e) {
             this.Close();
         }
+        
+ 
     }
 }

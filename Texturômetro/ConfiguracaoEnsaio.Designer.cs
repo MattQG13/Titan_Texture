@@ -50,6 +50,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cbTara = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.cbTipo = new System.Windows.Forms.ComboBox();
             this.txVelPT = new System.Windows.Forms.TextBox();
             this.txVel = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -57,7 +58,14 @@
             this.tab2 = new System.Windows.Forms.TabPage();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.cbTipo = new System.Windows.Forms.ComboBox();
+            this.cbProbe = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txDim1 = new System.Windows.Forms.TextBox();
+            this.lbDim1 = new System.Windows.Forms.Label();
+            this.txDim2 = new System.Windows.Forms.TextBox();
+            this.lbDim2 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.lbUnDim2 = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tab1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -74,7 +82,7 @@
             this.tabs.Multiline = true;
             this.tabs.Name = "tabs";
             this.tabs.SelectedIndex = 0;
-            this.tabs.Size = new System.Drawing.Size(800, 450);
+            this.tabs.Size = new System.Drawing.Size(800, 469);
             this.tabs.TabIndex = 5;
             // 
             // tab1
@@ -87,7 +95,7 @@
             this.tab1.Location = new System.Drawing.Point(4, 22);
             this.tab1.Name = "tab1";
             this.tab1.Padding = new System.Windows.Forms.Padding(3);
-            this.tab1.Size = new System.Drawing.Size(792, 424);
+            this.tab1.Size = new System.Drawing.Size(792, 443);
             this.tab1.TabIndex = 0;
             this.tab1.Text = "tab1";
             // 
@@ -96,14 +104,21 @@
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(526, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(260, 379);
+            this.pictureBox1.Size = new System.Drawing.Size(260, 404);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
             // panel1
             // 
-            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.lbUnDim2);
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.lbDim2);
+            this.panel1.Controls.Add(this.txDim2);
+            this.panel1.Controls.Add(this.txDim1);
+            this.panel1.Controls.Add(this.lbDim1);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.cbProbe);
             this.panel1.Controls.Add(this.label15);
             this.panel1.Controls.Add(this.txID);
             this.panel1.Controls.Add(this.lbUnTrigger);
@@ -131,14 +146,14 @@
             this.panel1.Controls.Add(this.txVel);
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(517, 379);
+            this.panel1.Size = new System.Drawing.Size(517, 404);
             this.panel1.TabIndex = 3;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label15.Location = new System.Drawing.Point(6, 331);
+            this.label15.Location = new System.Drawing.Point(12, 362);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(74, 12);
             this.label15.TabIndex = 37;
@@ -146,7 +161,7 @@
             // 
             // txID
             // 
-            this.txID.Location = new System.Drawing.Point(7, 346);
+            this.txID.Location = new System.Drawing.Point(13, 377);
             this.txID.Name = "txID";
             this.txID.Size = new System.Drawing.Size(496, 20);
             this.txID.TabIndex = 36;
@@ -357,6 +372,24 @@
             this.label3.TabIndex = 14;
             this.label3.Text = "Tipo de teste:....................";
             // 
+            // cbTipo
+            // 
+            this.cbTipo.AutoCompleteCustomSource.AddRange(new string[] {
+            "T.P.A.",
+            "Compressão",
+            "Tração"});
+            this.cbTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTipo.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cbTipo.FormattingEnabled = true;
+            this.cbTipo.Items.AddRange(new object[] {
+            "TPA",
+            "Compressão",
+            "Tração"});
+            this.cbTipo.Location = new System.Drawing.Point(143, 8);
+            this.cbTipo.Name = "cbTipo";
+            this.cbTipo.Size = new System.Drawing.Size(188, 21);
+            this.cbTipo.TabIndex = 4;
+            // 
             // txVelPT
             // 
             this.txVelPT.Location = new System.Drawing.Point(143, 37);
@@ -375,7 +408,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(8, 393);
+            this.btnCancel.Location = new System.Drawing.Point(8, 413);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 1;
@@ -385,7 +418,7 @@
             // 
             // Iniciar
             // 
-            this.Iniciar.Location = new System.Drawing.Point(709, 395);
+            this.Iniciar.Location = new System.Drawing.Point(709, 415);
             this.Iniciar.Name = "Iniciar";
             this.Iniciar.Size = new System.Drawing.Size(75, 23);
             this.Iniciar.TabIndex = 0;
@@ -423,29 +456,95 @@
             this.button5.Text = "Next";
             this.button5.UseVisualStyleBackColor = true;
             // 
-            // cbTipo
+            // cbProbe
             // 
-            this.cbTipo.AutoCompleteCustomSource.AddRange(new string[] {
+            this.cbProbe.AutoCompleteCustomSource.AddRange(new string[] {
             "T.P.A.",
             "Compressão",
             "Tração"});
-            this.cbTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTipo.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cbTipo.FormattingEnabled = true;
-            this.cbTipo.Items.AddRange(new object[] {
-            "TPA",
-            "Compressão",
-            "Tração"});
-            this.cbTipo.Location = new System.Drawing.Point(143, 8);
-            this.cbTipo.Name = "cbTipo";
-            this.cbTipo.Size = new System.Drawing.Size(188, 21);
-            this.cbTipo.TabIndex = 4;
+            this.cbProbe.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbProbe.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cbProbe.FormattingEnabled = true;
+            this.cbProbe.Items.AddRange(new object[] {
+            "Cilíndrica",
+            "Retangular"});
+            this.cbProbe.Location = new System.Drawing.Point(143, 262);
+            this.cbProbe.Name = "cbProbe";
+            this.cbProbe.Size = new System.Drawing.Size(188, 21);
+            this.cbProbe.TabIndex = 38;
+            this.cbProbe.SelectedIndexChanged += new System.EventHandler(this.cb_SelectedIndexChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label5.Location = new System.Drawing.Point(12, 266);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(130, 12);
+            this.label5.TabIndex = 39;
+            this.label5.Text = "Tipo de Probe:..................";
+            // 
+            // txDim1
+            // 
+            this.txDim1.Location = new System.Drawing.Point(143, 289);
+            this.txDim1.Name = "txDim1";
+            this.txDim1.Size = new System.Drawing.Size(188, 20);
+            this.txDim1.TabIndex = 40;
+            this.txDim1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
+            // 
+            // lbDim1
+            // 
+            this.lbDim1.AutoSize = true;
+            this.lbDim1.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.lbDim1.Location = new System.Drawing.Point(12, 293);
+            this.lbDim1.Name = "lbDim1";
+            this.lbDim1.Size = new System.Drawing.Size(130, 12);
+            this.lbDim1.TabIndex = 41;
+            this.lbDim1.Text = "Diâmetro:..........................";
+            // 
+            // txDim2
+            // 
+            this.txDim2.Location = new System.Drawing.Point(143, 315);
+            this.txDim2.Name = "txDim2";
+            this.txDim2.Size = new System.Drawing.Size(188, 20);
+            this.txDim2.TabIndex = 42;
+            this.txDim2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
+            // 
+            // lbDim2
+            // 
+            this.lbDim2.AutoSize = true;
+            this.lbDim2.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.lbDim2.Location = new System.Drawing.Point(12, 319);
+            this.lbDim2.Name = "lbDim2";
+            this.lbDim2.Size = new System.Drawing.Size(130, 12);
+            this.lbDim2.TabIndex = 43;
+            this.lbDim2.Text = "Comprimento:...................";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label8.Location = new System.Drawing.Point(333, 293);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(23, 12);
+            this.label8.TabIndex = 44;
+            this.label8.Text = "mm";
+            // 
+            // lbUnDim2
+            // 
+            this.lbUnDim2.AutoSize = true;
+            this.lbUnDim2.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.lbUnDim2.Location = new System.Drawing.Point(333, 319);
+            this.lbUnDim2.Name = "lbUnDim2";
+            this.lbUnDim2.Size = new System.Drawing.Size(23, 12);
+            this.lbUnDim2.TabIndex = 45;
+            this.lbUnDim2.Text = "mm";
             // 
             // ConfiguracaoEnsaio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 469);
             this.Controls.Add(this.tabs);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -500,5 +599,13 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox txID;
         private System.Windows.Forms.ComboBox cbTipo;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox cbProbe;
+        private System.Windows.Forms.TextBox txDim1;
+        private System.Windows.Forms.Label lbDim1;
+        private System.Windows.Forms.Label lbDim2;
+        private System.Windows.Forms.TextBox txDim2;
+        private System.Windows.Forms.Label lbUnDim2;
+        private System.Windows.Forms.Label label8;
     }
 }

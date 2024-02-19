@@ -28,7 +28,9 @@ void setup() {
 
   configMotor();
   configADC();
+  #ifdef WITH_ENCODER
   configEncoder();
+  #endif
   pinMode(LI, INPUT_PULLUP);
   pinMode(LS, INPUT_PULLUP);
 }
@@ -74,7 +76,6 @@ void executaComando(SerialInterpreter com) {
         iniTimer = millis();
       }
       //String S ="["+com.Comando+"]"+endChar;
-
       break;
 
     case 2:
@@ -140,7 +141,7 @@ void envMens() {
   bufferText += "]";
   bufferText += endChar;
   bufferText += "[E;"; 
-  #ifdef  WITH_ENCODER
+  #ifdef WITH_ENCODER
     posicao = getPosicao();
   #endif
   
