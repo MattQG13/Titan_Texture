@@ -44,7 +44,7 @@ ISR(TIMER1_COMPA_vect)
       posicao = getPosicao();
     #endif
     
-    if(positionLimited&&((posicao>=finalPosition)^digitalRead(direcao))){
+    if(positionLimited&&((posicao>finalPosition)^digitalRead(direcao))){
         atualizaMotor(0);
         positionLimited=false;
     }
@@ -56,8 +56,9 @@ ISR(TIMER1_COMPA_vect)
         #else
           zeraCont();
         #endif
-        //zerandoMaquina=false;
-        Serial.println("[ZERO]!");
+        zerandoMaquina=false;
+        Serial.print("[ZERO]!");
+        Serial.print("[ZERO]!");
       }
     }
   }

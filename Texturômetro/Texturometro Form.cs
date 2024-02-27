@@ -11,6 +11,7 @@ using System.Reflection;
 using System.ComponentModel;
 using System.Threading;
 using Timer = System.Windows.Forms.Timer;
+using System.Linq;
 
 namespace Texturometer {
     public partial class TexturometroForms : Form {
@@ -27,6 +28,7 @@ namespace Texturometer {
             InitializeComponent();
             tick.Interval = 10;
             tick.Tick +=new EventHandler(atGraph);
+            tick.Enabled=true;
             bkWork.DoWork+= bkWork_DoWork;
             bkWork.WorkerSupportsCancellation = true;
             typeof(Chart).InvokeMember("DoubleBuffered",
@@ -60,13 +62,12 @@ namespace Texturometer {
             tex.Serial.Write("[LIMPADENOVO]!");
             tex.Serial.Write("[LIMPADENOVO]!");
             tex.Serial.Write("[LIMPADENOVO]!");
-           
-            tex.LoadCell.ZeroTime();
+
             tex.Serial.LoadCellDetected+=atualizaLbLoad;
             tex.Serial.EncoderDetected+=atualizaLbPosition;
-
-            tex.LoadCell.Cal(Properties.Settings.Default.CalLoadCell);
             tex.Serial.LoadCalibrated+=LoadCelCalibrated;
+            tex.LoadCell.ZeroTime();
+            tex.Serial.EnvCalibration(Properties.Settings.Default.CalLoadCell);
             tex.Serial.DiscardInBuffer();
             tex.Produto.Resultado.Clear();
         }
@@ -90,17 +91,18 @@ namespace Texturometer {
 
             var DialogResult = ConfigEnsaio.ShowDialog();
 
-            if(!tex.Motor.ZeroSeated) {
-                var result = MessageBox.Show("Zero Máquina não definido!\nDefinir Zero Máquina?","Aviso!",MessageBoxButtons.OKCancel,MessageBoxIcon.Warning);
-                if(result==DialogResult.OK) {
+            if(DialogResult == DialogResult.OK &&ConfigEnsaio.DadosDeEnsaio != null) {
+                if(tex.Motor.ZeroSeated) {
+                    tex.DadosTeste=ConfigEnsaio.DadosDeEnsaio;
+                    tex.TesteStart();
+                } else {
+                    var result = MessageBox.Show("Zero Máquina não definido!\nDefinir Zero Máquina?","Aviso!",MessageBoxButtons.OKCancel,MessageBoxIcon.Warning);
+                    if(result==DialogResult.OK) {
 
-                    zeroMáquinaToolStripMenuItem_Click(this,e);
+                        zeroMáquinaToolStripMenuItem_Click(this,e);
+                    }
                 }
-            }else if(DialogResult == DialogResult.OK &&ConfigEnsaio.DadosDeEnsaio != null) {
-                tex.DadosTeste = ConfigEnsaio.DadosDeEnsaio;
-                tex.TesteStart();
-            }
-            
+            }    
             ConfigEnsaio.Dispose();
         }
 
@@ -118,17 +120,22 @@ namespace Texturometer {
         private void bkWork_DoWork(object sender,DoWorkEventArgs e) {
             if(InvokeRequired) {
                 this.Invoke(new Action(() => {
-                    tick.Stop();
                     Graph.SuspendLayout();
                     try {
                        series.Points.DataBindXY(tex.Produto.Resultado.GetZvalues(),tex.Produto.Resultado.GetXvalues());
                         series2.Points.DataBindXY(tex.Produto.Resultado.GetZvalues(),tex.Produto.Resultado.GetYvalues());
 
                     } finally { }
-                    
+                    if(Graph.ChartAreas[0].AxisX.Maximum<=120) {
+                        var tempo = tex.Produto.Resultado.GetZvalues();
+                       
+                        if(tempo.Last()>=120) {
+                            Graph.ChartAreas[0].AxisX.Maximum = Double.NaN;
+                            Graph.ChartAreas[0].RecalculateAxesScale();
+                        }
+                    }
                     Graph.Invalidate();
                     Graph.ResumeLayout();;
-                    tick.Start();
                 }));
             }
         }
@@ -283,5 +290,19 @@ namespace Texturometer {
             Properties.Settings.Default.Save();
         }
 
+        private void trackBar1_Scroll(object sender,EventArgs e) {
+            switch(tex.Motor.ModoMotor) {
+                case ModoMotor.Subir:
+                    tex.Serial.EnvComandoMotor(ModoMotor.Subir,((double)trackBar1.Value/10));
+                    break;
+                case ModoMotor.Descer:
+                    tex.Serial.EnvComandoMotor(ModoMotor.Descer,((double)trackBar1.Value/10));
+                    break;
+                case ModoMotor.Parado:
+                    tex.Serial.EnvComandoMotor(ModoMotor.Parado,0);
+                    break;
+            }
+            lbVel.Text=((double)trackBar1.Value/10).ToString();
+        }
     }
 }

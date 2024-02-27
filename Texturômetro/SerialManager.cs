@@ -112,7 +112,7 @@ namespace SerialManagerTexturometro{
             while(_serialPort.BytesToRead>0) {
                 try {
                     string mensagem = _serialPort.ReadTo("!");
-                    if(mensagem.Contains("ZERO"))
+                    if(mensagem.Contains("LCC"))
                         mensagem=mensagem;
                     string[] partesDaMensagem = _processaSerial(mensagem);
                     _interpretaMensagem(partesDaMensagem);
@@ -236,7 +236,7 @@ namespace SerialManagerTexturometro{
             sB.Append(finalPosition.ToString(culture));
             sB.Append("]");
 
-            for (int i=0;i<0;i++)
+            for (int i=0;i<3;i++)
                 Write(sB.ToString());
         }
 
@@ -257,13 +257,19 @@ namespace SerialManagerTexturometro{
 
         public void EnvZeroTime(object sender, EventArgs e) {
             string s = "[INITIME]";
-            for (int i=0;i<0;i++)
+            for (int i=0;i<3;i++)
                Write(s);
         }
 
         public void EnvCalibration(double Cal) {
-            string s = "[LCC;"+Cal+"]";
-            for(int i = 0;i<0;i++)
+            string s = "[LCC;"+Cal.ToString("N8",culture)+"]";
+            for(int i = 0;i<3;i++) 
+                Write(s);
+        }
+
+        public void EnvCalibration(object sender,SerialMessageArgument e) {
+            string s = "[LCC;"+e.doubleValue.ToString("N8",culture)+"]";
+            for(int i = 0;i<3;i++)
                 Write(s);
         }
     }

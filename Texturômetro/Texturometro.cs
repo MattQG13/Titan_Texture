@@ -103,7 +103,6 @@ namespace TexturometroClass {
 			LoadCell.ZerarTime+=Serial.EnvZeroTime;
 
             Produto=new CorpoDeProva(1);
-
         }	
 
 
@@ -132,8 +131,21 @@ namespace TexturometroClass {
         }
         #endregion
 
+        static bool ContainsHandler(EventHandler<SerialMessageArgument> eventDelegate,EventHandler<SerialMessageArgument> handler) {
+            if(eventDelegate==null)
+                return false;
+
+            foreach(Delegate existingHandler in eventDelegate.GetInvocationList()) {
+                if(existingHandler==handler)
+                    return true;
+            }
+
+            return false;
+        }
+
         public void StartAddResults(object sender,SerialMessageArgument e) {
-            if(Produto!=null) {
+            //if(Produto!=null) {
+            if(!ContainsHandler(Serial.LoadCellDetected,_atualizaResultadoL)&&!ContainsHandler(Serial.EncoderDetected,_atualizaResultadoE)) {
                 Serial.LoadCellDetected+=_atualizaResultadoL;
                 Serial.EncoderDetected+=_atualizaResultadoE;
             }

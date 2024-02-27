@@ -49,13 +49,11 @@ namespace Texturometer {
         }
 
         private void btnOk_Click(object sender,EventArgs e) {
-            tex.Motor.ZerarPosicao(Convert.ToDouble(txbVelociadeZero.Text.Trim()),Convert.ToDouble(txbCargaLimite.Text.Trim()));
+            tex.Motor.ZerarPosicao(1,Convert.ToDouble(txbCargaLimite.Text.Trim()));
             zerando =true;
         }
 
         private void goToFinalPosition(object sender,SerialMessageArgument e) {
-            tex.Serial.EnvComandoMotor(ModoMotor.Subir,Convert.ToDouble(txbVelociadeZero.Text),Convert.ToDouble(txbFinalPosition.Text));
-            tex.Serial.EnvComandoMotor(ModoMotor.Subir,Convert.ToDouble(txbVelociadeZero.Text),Convert.ToDouble(txbFinalPosition.Text));
             tex.Serial.EnvComandoMotor(ModoMotor.Subir,Convert.ToDouble(txbVelociadeZero.Text),Convert.ToDouble(txbFinalPosition.Text));
             tex.Motor.ZeroSeated=true;
             Task.Run(() => {

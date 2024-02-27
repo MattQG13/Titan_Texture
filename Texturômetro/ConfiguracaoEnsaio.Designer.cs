@@ -28,6 +28,14 @@
             this.tab1 = new System.Windows.Forms.TabPage();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbUnDim2 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.lbDim2 = new System.Windows.Forms.Label();
+            this.txDim2 = new System.Windows.Forms.TextBox();
+            this.txDim1 = new System.Windows.Forms.TextBox();
+            this.lbDim1 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cbProbe = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.txID = new System.Windows.Forms.TextBox();
             this.lbUnTrigger = new System.Windows.Forms.Label();
@@ -58,14 +66,6 @@
             this.tab2 = new System.Windows.Forms.TabPage();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.cbProbe = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txDim1 = new System.Windows.Forms.TextBox();
-            this.lbDim1 = new System.Windows.Forms.Label();
-            this.txDim2 = new System.Windows.Forms.TextBox();
-            this.lbDim2 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.lbUnDim2 = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tab1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -149,6 +149,90 @@
             this.panel1.Size = new System.Drawing.Size(517, 404);
             this.panel1.TabIndex = 3;
             // 
+            // lbUnDim2
+            // 
+            this.lbUnDim2.AutoSize = true;
+            this.lbUnDim2.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.lbUnDim2.Location = new System.Drawing.Point(333, 319);
+            this.lbUnDim2.Name = "lbUnDim2";
+            this.lbUnDim2.Size = new System.Drawing.Size(23, 12);
+            this.lbUnDim2.TabIndex = 45;
+            this.lbUnDim2.Text = "mm";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label8.Location = new System.Drawing.Point(333, 293);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(23, 12);
+            this.label8.TabIndex = 44;
+            this.label8.Text = "mm";
+            // 
+            // lbDim2
+            // 
+            this.lbDim2.AutoSize = true;
+            this.lbDim2.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.lbDim2.Location = new System.Drawing.Point(12, 319);
+            this.lbDim2.Name = "lbDim2";
+            this.lbDim2.Size = new System.Drawing.Size(130, 12);
+            this.lbDim2.TabIndex = 43;
+            this.lbDim2.Text = "Comprimento:...................";
+            // 
+            // txDim2
+            // 
+            this.txDim2.Location = new System.Drawing.Point(143, 315);
+            this.txDim2.Name = "txDim2";
+            this.txDim2.Size = new System.Drawing.Size(188, 20);
+            this.txDim2.TabIndex = 12;
+            this.txDim2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
+            // 
+            // txDim1
+            // 
+            this.txDim1.Location = new System.Drawing.Point(143, 289);
+            this.txDim1.Name = "txDim1";
+            this.txDim1.Size = new System.Drawing.Size(188, 20);
+            this.txDim1.TabIndex = 11;
+            this.txDim1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
+            // 
+            // lbDim1
+            // 
+            this.lbDim1.AutoSize = true;
+            this.lbDim1.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.lbDim1.Location = new System.Drawing.Point(12, 293);
+            this.lbDim1.Name = "lbDim1";
+            this.lbDim1.Size = new System.Drawing.Size(130, 12);
+            this.lbDim1.TabIndex = 41;
+            this.lbDim1.Text = "Diâmetro:..........................";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label5.Location = new System.Drawing.Point(12, 266);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(130, 12);
+            this.label5.TabIndex = 39;
+            this.label5.Text = "Tipo de Probe:..................";
+            // 
+            // cbProbe
+            // 
+            this.cbProbe.AutoCompleteCustomSource.AddRange(new string[] {
+            "T.P.A.",
+            "Compressão",
+            "Tração"});
+            this.cbProbe.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbProbe.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cbProbe.FormattingEnabled = true;
+            this.cbProbe.Items.AddRange(new object[] {
+            "Cilíndrica",
+            "Retangular"});
+            this.cbProbe.Location = new System.Drawing.Point(143, 262);
+            this.cbProbe.Name = "cbProbe";
+            this.cbProbe.Size = new System.Drawing.Size(188, 21);
+            this.cbProbe.TabIndex = 10;
+            this.cbProbe.SelectedIndexChanged += new System.EventHandler(this.cb_SelectedIndexChanged);
+            // 
             // label15
             // 
             this.label15.AutoSize = true;
@@ -164,7 +248,7 @@
             this.txID.Location = new System.Drawing.Point(13, 377);
             this.txID.Name = "txID";
             this.txID.Size = new System.Drawing.Size(496, 20);
-            this.txID.TabIndex = 36;
+            this.txID.TabIndex = 13;
             // 
             // lbUnTrigger
             // 
@@ -231,7 +315,7 @@
             this.txTrigger.Location = new System.Drawing.Point(143, 207);
             this.txTrigger.Name = "txTrigger";
             this.txTrigger.Size = new System.Drawing.Size(188, 20);
-            this.txTrigger.TabIndex = 29;
+            this.txTrigger.TabIndex = 8;
             this.txTrigger.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
             // 
             // lbTrigger
@@ -259,7 +343,7 @@
             this.txTime.Location = new System.Drawing.Point(143, 150);
             this.txTime.Name = "txTime";
             this.txTime.Size = new System.Drawing.Size(188, 20);
-            this.txTime.TabIndex = 26;
+            this.txTime.TabIndex = 6;
             this.txTime.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
             // 
             // txTarget
@@ -267,7 +351,7 @@
             this.txTarget.Location = new System.Drawing.Point(143, 122);
             this.txTarget.Name = "txTarget";
             this.txTarget.Size = new System.Drawing.Size(188, 20);
-            this.txTarget.TabIndex = 25;
+            this.txTarget.TabIndex = 5;
             this.txTarget.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
             // 
             // label6
@@ -312,7 +396,7 @@
             this.cbTarget.Location = new System.Drawing.Point(143, 93);
             this.cbTarget.Name = "cbTarget";
             this.cbTarget.Size = new System.Drawing.Size(188, 21);
-            this.cbTarget.TabIndex = 21;
+            this.cbTarget.TabIndex = 4;
             this.cbTarget.SelectedIndexChanged += new System.EventHandler(this.cb_SelectedIndexChanged);
             // 
             // label2
@@ -336,7 +420,7 @@
             this.cbTrigger.Location = new System.Drawing.Point(143, 178);
             this.cbTrigger.Name = "cbTrigger";
             this.cbTrigger.Size = new System.Drawing.Size(188, 21);
-            this.cbTrigger.TabIndex = 17;
+            this.cbTrigger.TabIndex = 7;
             this.cbTrigger.SelectedIndexChanged += new System.EventHandler(this.cb_SelectedIndexChanged);
             // 
             // label1
@@ -360,7 +444,7 @@
             this.cbTara.Location = new System.Drawing.Point(143, 235);
             this.cbTara.Name = "cbTara";
             this.cbTara.Size = new System.Drawing.Size(188, 21);
-            this.cbTara.TabIndex = 15;
+            this.cbTara.TabIndex = 9;
             // 
             // label3
             // 
@@ -388,14 +472,14 @@
             this.cbTipo.Location = new System.Drawing.Point(143, 8);
             this.cbTipo.Name = "cbTipo";
             this.cbTipo.Size = new System.Drawing.Size(188, 21);
-            this.cbTipo.TabIndex = 4;
+            this.cbTipo.TabIndex = 1;
             // 
             // txVelPT
             // 
             this.txVelPT.Location = new System.Drawing.Point(143, 37);
             this.txVelPT.Name = "txVelPT";
             this.txVelPT.Size = new System.Drawing.Size(188, 20);
-            this.txVelPT.TabIndex = 19;
+            this.txVelPT.TabIndex = 2;
             this.txVelPT.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
             // 
             // txVel
@@ -403,7 +487,7 @@
             this.txVel.Location = new System.Drawing.Point(143, 65);
             this.txVel.Name = "txVel";
             this.txVel.Size = new System.Drawing.Size(188, 20);
-            this.txVel.TabIndex = 20;
+            this.txVel.TabIndex = 3;
             this.txVel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
             // 
             // btnCancel
@@ -411,7 +495,7 @@
             this.btnCancel.Location = new System.Drawing.Point(8, 413);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 1;
+            this.btnCancel.TabIndex = 14;
             this.btnCancel.Text = "Cancelar";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -421,7 +505,7 @@
             this.Iniciar.Location = new System.Drawing.Point(709, 415);
             this.Iniciar.Name = "Iniciar";
             this.Iniciar.Size = new System.Drawing.Size(75, 23);
-            this.Iniciar.TabIndex = 0;
+            this.Iniciar.TabIndex = 15;
             this.Iniciar.Text = "Iniciar";
             this.Iniciar.UseVisualStyleBackColor = true;
             this.Iniciar.Click += new System.EventHandler(this.btnIniciar_Click);
@@ -434,7 +518,7 @@
             this.tab2.Location = new System.Drawing.Point(4, 22);
             this.tab2.Name = "tab2";
             this.tab2.Padding = new System.Windows.Forms.Padding(3);
-            this.tab2.Size = new System.Drawing.Size(792, 424);
+            this.tab2.Size = new System.Drawing.Size(792, 443);
             this.tab2.TabIndex = 1;
             this.tab2.Text = "tab2";
             // 
@@ -455,90 +539,6 @@
             this.button5.TabIndex = 2;
             this.button5.Text = "Next";
             this.button5.UseVisualStyleBackColor = true;
-            // 
-            // cbProbe
-            // 
-            this.cbProbe.AutoCompleteCustomSource.AddRange(new string[] {
-            "T.P.A.",
-            "Compressão",
-            "Tração"});
-            this.cbProbe.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbProbe.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cbProbe.FormattingEnabled = true;
-            this.cbProbe.Items.AddRange(new object[] {
-            "Cilíndrica",
-            "Retangular"});
-            this.cbProbe.Location = new System.Drawing.Point(143, 262);
-            this.cbProbe.Name = "cbProbe";
-            this.cbProbe.Size = new System.Drawing.Size(188, 21);
-            this.cbProbe.TabIndex = 38;
-            this.cbProbe.SelectedIndexChanged += new System.EventHandler(this.cb_SelectedIndexChanged);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label5.Location = new System.Drawing.Point(12, 266);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(130, 12);
-            this.label5.TabIndex = 39;
-            this.label5.Text = "Tipo de Probe:..................";
-            // 
-            // txDim1
-            // 
-            this.txDim1.Location = new System.Drawing.Point(143, 289);
-            this.txDim1.Name = "txDim1";
-            this.txDim1.Size = new System.Drawing.Size(188, 20);
-            this.txDim1.TabIndex = 40;
-            this.txDim1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
-            // 
-            // lbDim1
-            // 
-            this.lbDim1.AutoSize = true;
-            this.lbDim1.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.lbDim1.Location = new System.Drawing.Point(12, 293);
-            this.lbDim1.Name = "lbDim1";
-            this.lbDim1.Size = new System.Drawing.Size(130, 12);
-            this.lbDim1.TabIndex = 41;
-            this.lbDim1.Text = "Diâmetro:..........................";
-            // 
-            // txDim2
-            // 
-            this.txDim2.Location = new System.Drawing.Point(143, 315);
-            this.txDim2.Name = "txDim2";
-            this.txDim2.Size = new System.Drawing.Size(188, 20);
-            this.txDim2.TabIndex = 42;
-            this.txDim2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
-            // 
-            // lbDim2
-            // 
-            this.lbDim2.AutoSize = true;
-            this.lbDim2.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.lbDim2.Location = new System.Drawing.Point(12, 319);
-            this.lbDim2.Name = "lbDim2";
-            this.lbDim2.Size = new System.Drawing.Size(130, 12);
-            this.lbDim2.TabIndex = 43;
-            this.lbDim2.Text = "Comprimento:...................";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label8.Location = new System.Drawing.Point(333, 293);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(23, 12);
-            this.label8.TabIndex = 44;
-            this.label8.Text = "mm";
-            // 
-            // lbUnDim2
-            // 
-            this.lbUnDim2.AutoSize = true;
-            this.lbUnDim2.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.lbUnDim2.Location = new System.Drawing.Point(333, 319);
-            this.lbUnDim2.Name = "lbUnDim2";
-            this.lbUnDim2.Size = new System.Drawing.Size(23, 12);
-            this.lbUnDim2.TabIndex = 45;
-            this.lbUnDim2.Text = "mm";
             // 
             // ConfiguracaoEnsaio
             // 

@@ -1,4 +1,4 @@
-#include "LoadCell.h"
+  #include "LoadCell.h"
 #include "Interpreter_S.h"
 #include "Motor_C.h"
 #include "VARS.h"
@@ -82,7 +82,7 @@ void executaComando(SerialInterpreter com) {
       if (com.Comando == "CAL") {
         double cal = calibrar(com.Valor);
         String mens = "[LCC;";
-        mens += String(cal, 8);
+        mens += String(cal, 7);
         mens += "]";
         mens += endChar;
         Serial.print(mens);
@@ -120,6 +120,10 @@ void executaComando(SerialInterpreter com) {
         positionLimited = true;
         finalPosition = com.Valor2;
       }
+      Serial.println(com.Comando);
+      Serial.println(com.Valor);
+      Serial.println(com.Valor2);
+      Serial.println(positionLimited);
       break;
     default:
       break;

@@ -8,7 +8,7 @@
   void rotinaZeroMaquina(double vel, double carga);
   
   const double passo = 5;
-  const int ppr = 800;
+  const int ppr = 3200;//800;
   const char dirUP = 1;
 
   static bool zerandoMaquina = false;

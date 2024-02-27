@@ -2,7 +2,6 @@
 #include <Arduino.h>
 
 
-
 void configEncoder(){
     pinMode(A,INPUT_PULLUP);
     pinMode(B,INPUT_PULLUP);

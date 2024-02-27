@@ -35,6 +35,8 @@
             this.pnBackground = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lbVel = new System.Windows.Forms.Label();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.btnFast = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -65,6 +67,7 @@
             this.pnBackground.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Graph)).BeginInit();
@@ -99,6 +102,8 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.lbVel);
+            this.panel2.Controls.Add(this.trackBar1);
             this.panel2.Controls.Add(this.btnFast);
             this.panel2.Controls.Add(this.btnStop);
             this.panel2.Controls.Add(this.label2);
@@ -112,6 +117,25 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(766, 194);
             this.panel2.TabIndex = 1;
+            // 
+            // lbVel
+            // 
+            this.lbVel.AutoSize = true;
+            this.lbVel.Location = new System.Drawing.Point(467, 104);
+            this.lbVel.Name = "lbVel";
+            this.lbVel.Size = new System.Drawing.Size(22, 13);
+            this.lbVel.TabIndex = 10;
+            this.lbVel.Text = "Vel";
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.Location = new System.Drawing.Point(188, 92);
+            this.trackBar1.Maximum = 200;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(273, 45);
+            this.trackBar1.SmallChange = 2;
+            this.trackBar1.TabIndex = 9;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // btnFast
             // 
@@ -443,6 +467,8 @@
             this.pnBackground.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -485,6 +511,8 @@
         private System.Windows.Forms.Label lbInformations;
         private System.Windows.Forms.Button btnFast;
         private System.Windows.Forms.Button btnStop;
+        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.Label lbVel;
     }
 }
 

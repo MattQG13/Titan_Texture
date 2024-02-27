@@ -42,12 +42,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnZerar = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnFinsh = new System.Windows.Forms.Button();
-            this.btnZerar = new System.Windows.Forms.Button();
             this.btnCancel2 = new System.Windows.Forms.Button();
             this.tabs.SuspendLayout();
             this.tab1.SuspendLayout();
@@ -175,15 +175,15 @@
             this.label1.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label1.Location = new System.Drawing.Point(6, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 12);
+            this.label1.Size = new System.Drawing.Size(114, 12);
             this.label1.TabIndex = 11;
-            this.label1.Text = "Velocidade:";
+            this.label1.Text = "Velocidade de retorno:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label6.Location = new System.Drawing.Point(107, 112);
+            this.label6.Location = new System.Drawing.Point(170, 109);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(23, 12);
             this.label6.TabIndex = 16;
@@ -193,7 +193,7 @@
             // 
             this.txbCargaLimite.Location = new System.Drawing.Point(4, 67);
             this.txbCargaLimite.Name = "txbCargaLimite";
-            this.txbCargaLimite.Size = new System.Drawing.Size(100, 20);
+            this.txbCargaLimite.Size = new System.Drawing.Size(164, 20);
             this.txbCargaLimite.TabIndex = 10;
             this.txbCargaLimite.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.number_KeyPress);
             // 
@@ -201,7 +201,7 @@
             // 
             this.txbVelociadeZero.Location = new System.Drawing.Point(4, 28);
             this.txbVelociadeZero.Name = "txbVelociadeZero";
-            this.txbVelociadeZero.Size = new System.Drawing.Size(100, 20);
+            this.txbVelociadeZero.Size = new System.Drawing.Size(164, 20);
             this.txbVelociadeZero.TabIndex = 9;
             this.txbVelociadeZero.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.number_KeyPress);
             // 
@@ -209,7 +209,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label5.Location = new System.Drawing.Point(107, 73);
+            this.label5.Location = new System.Drawing.Point(170, 70);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(11, 12);
             this.label5.TabIndex = 15;
@@ -219,7 +219,7 @@
             // 
             this.txbFinalPosition.Location = new System.Drawing.Point(4, 106);
             this.txbFinalPosition.Name = "txbFinalPosition";
-            this.txbFinalPosition.Size = new System.Drawing.Size(100, 20);
+            this.txbFinalPosition.Size = new System.Drawing.Size(164, 20);
             this.txbFinalPosition.TabIndex = 11;
             this.txbFinalPosition.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.number_KeyPress);
             // 
@@ -227,7 +227,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label4.Location = new System.Drawing.Point(107, 34);
+            this.label4.Location = new System.Drawing.Point(170, 31);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(32, 12);
             this.label4.TabIndex = 14;
@@ -252,6 +252,16 @@
             this.label3.Size = new System.Drawing.Size(103, 12);
             this.label3.TabIndex = 13;
             this.label3.Text = "Distância de retorno";
+            // 
+            // btnZerar
+            // 
+            this.btnZerar.Location = new System.Drawing.Point(141, 202);
+            this.btnZerar.Name = "btnZerar";
+            this.btnZerar.Size = new System.Drawing.Size(75, 23);
+            this.btnZerar.TabIndex = 4;
+            this.btnZerar.Text = "Zerar";
+            this.btnZerar.UseVisualStyleBackColor = true;
+            this.btnZerar.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // button4
             // 
@@ -300,16 +310,6 @@
             this.btnFinsh.Text = "Finalizar";
             this.btnFinsh.UseVisualStyleBackColor = true;
             this.btnFinsh.Click += new System.EventHandler(this.btnFinsh_Click);
-            // 
-            // btnZerar
-            // 
-            this.btnZerar.Location = new System.Drawing.Point(141, 202);
-            this.btnZerar.Name = "btnZerar";
-            this.btnZerar.Size = new System.Drawing.Size(75, 23);
-            this.btnZerar.TabIndex = 4;
-            this.btnZerar.Text = "Zerar";
-            this.btnZerar.UseVisualStyleBackColor = true;
-            this.btnZerar.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // btnCancel2
             // 

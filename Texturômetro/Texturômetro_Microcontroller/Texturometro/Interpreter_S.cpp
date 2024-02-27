@@ -15,7 +15,7 @@ void SerialInterpreter::AtMensagem(String mensagem) {
 
     int numTokens = splitString(mensagem, delimiter);
     lenght = numTokens;
-
+    
     switch(numTokens){
         case 1:
             Comando = tokens[0];
