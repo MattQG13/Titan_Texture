@@ -36,6 +36,15 @@ namespace Texturometer {
             null,Graph,new object[] { true });
         }
 
+        public void VelAt(object sender,SerialMessageArgument e) {
+            if(lbVel.InvokeRequired) {
+                lbVel.BeginInvoke((MethodInvoker)delegate {
+                    lbVel.Text=e.doubleValue.ToString()+" g";
+                });
+            } else {
+                lbVel.Text=e.doubleValue.ToString()+" g";
+            }
+        }
  
 
         private void Texturometro_Load(object sender,EventArgs e) {
@@ -70,6 +79,8 @@ namespace Texturometer {
             tex.Serial.EnvCalibration(Properties.Settings.Default.CalLoadCell);
             tex.Serial.DiscardInBuffer();
             tex.Produto.Resultado.Clear();
+
+            tex.Serial._Vel+=VelAt;
         }
 
         protected override bool ProcessCmdKey(ref Message msg,Keys keyData) {

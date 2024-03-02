@@ -18,6 +18,7 @@ namespace SerialManagerTexturometro{
         public EventHandler<SerialMessageArgument> TimeSeted;
         public EventHandler<SerialMessageArgument> ZeroSeated;
         public EventHandler<SerialMessageArgument> LoadCalibrated;
+        public EventHandler<SerialMessageArgument> _Vel;
 
         private CultureInfo culture = new CultureInfo("en-US"); //CultureInfo.InvariantCulture;
         private char endChar = '!';
@@ -112,7 +113,7 @@ namespace SerialManagerTexturometro{
             while(_serialPort.BytesToRead>0) {
                 try {
                     string mensagem = _serialPort.ReadTo("!");
-                    if(mensagem.Contains("LCC"))
+                    if(mensagem.Contains("V"))
                         mensagem=mensagem;
                     string[] partesDaMensagem = _processaSerial(mensagem);
                     _interpretaMensagem(partesDaMensagem);
@@ -148,6 +149,9 @@ namespace SerialManagerTexturometro{
                     }
                     if(args.Objeto=="LCC") {
                         args.doubleValue =double.Parse(partesDaMensagem[1], culture);
+                    }
+                    if(args.Objeto=="V") {
+                        args.doubleValue=double.Parse(partesDaMensagem[1],culture);
                     }
                     break;
                 case 3: //Motor
@@ -194,6 +198,9 @@ namespace SerialManagerTexturometro{
                         break;
                 case "LCC":
                         LoadCalibrated?.Invoke(this, args);
+                        break;
+                case "V":
+                    _Vel?.Invoke(this, args);
                         break;
             }
         }

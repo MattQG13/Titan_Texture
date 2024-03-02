@@ -1,4 +1,4 @@
-  #include "LoadCell.h"
+#include "LoadCell.h"
 #include "Interpreter_S.h"
 #include "Motor_C.h"
 #include "VARS.h"
@@ -21,7 +21,7 @@ Filter FFMM (16, 0.5);
 
 double load = 0;
 double filtredload = 0;
-
+char contVel=0;
 void setup() {
   Serial.begin(115200);
   while (!Serial);
@@ -148,16 +148,33 @@ void envMens() {
   #ifdef WITH_ENCODER
     posicao = getPosicao();
   #endif
+  if(contVel>10){
+    bufferText += String (posicao, 1);
+    if (iniTimer > 0) {
+      bufferText += ";";
+      bufferText += String (difTimer, 3);
+    }
   
-  bufferText += String (posicao, 1);
-  if (iniTimer > 0) {
-    bufferText += ";";
-    bufferText += String (difTimer, 3);
+    bufferText += "]";
+    bufferText += endChar;
+    contVel=0;
   }
+  contVel++;
+  
+  if(filtredload>1000){
+    atualizaMotor(0);
+    Serial.print("[W;O]!");
+  }
+  #ifdef WITH_ENCODER
+  if(
+  bufferText += "[V;"; 
+
+  bufferText += String (getVel(), 3);
 
   bufferText += "]";
   bufferText += endChar;
-
+  #endif
+  
   Serial.print(bufferText);
 }
 
