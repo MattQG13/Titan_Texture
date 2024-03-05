@@ -39,10 +39,10 @@ namespace Texturometer {
         public void VelAt(object sender,SerialMessageArgument e) {
                 if(lbVel.InvokeRequired) {
                 lbVel.BeginInvoke((MethodInvoker)delegate {
-                    lbVel.Text=e.doubleValue.ToString()+" g";
+                    lbVel.Text=e.doubleValue.ToString()+" mm";
                 });
             } else {
-                lbVel.Text=e.doubleValue.ToString()+" g";
+                lbVel.Text=e.doubleValue.ToString()+" mm";
             }
         }
  
