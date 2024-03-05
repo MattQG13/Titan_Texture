@@ -17,7 +17,7 @@ static long iniTimer = 0;
 SerialInterpreter Mensagem;
 
 Filter FMM(8, 0.01);
-Filter FFMM (16, 0.5);
+Filter FFMM (16, 0.1);
 
 double load = 0;
 double filtredload = 0;
@@ -145,10 +145,11 @@ void envMens() {
   bufferText += "]";
   bufferText += endChar;
   bufferText += "[E;"; 
+  
   #ifdef WITH_ENCODER
     posicao = getPosicao();
   #endif
-  if(contVel>10){
+
     bufferText += String (posicao, 1);
     if (iniTimer > 0) {
       bufferText += ";";
@@ -157,22 +158,23 @@ void envMens() {
   
     bufferText += "]";
     bufferText += endChar;
-    contVel=0;
-  }
-  contVel++;
   
   if(filtredload>1000){
     atualizaMotor(0);
     Serial.print("[W;O]!");
   }
   #ifdef WITH_ENCODER
-  if(
-  bufferText += "[V;"; 
-
-  bufferText += String (getVel(), 3);
-
-  bufferText += "]";
-  bufferText += endChar;
+  if(contVel>10){
+    bufferText += "[V;"; 
+  
+    bufferText += String (getVel(), 3);
+  
+    bufferText += "]";
+    bufferText += endChar;
+    
+    contVel=0;
+  }
+  contVel++;
   #endif
   
   Serial.print(bufferText);
