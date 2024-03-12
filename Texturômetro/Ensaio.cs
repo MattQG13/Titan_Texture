@@ -21,8 +21,9 @@ namespace EnsaioTextuometro {
         public void Next() {
             if(integrager>=Acoes.Count) {
                 integrager=0;
+            } else {
+                integrager++;
             }
-            integrager++;
         }
 
     }
@@ -30,10 +31,12 @@ namespace EnsaioTextuometro {
 
         public EnsaioCompressao(){
             Tipo=TipoDeTeste.Compressao;
-            Acoes = new List<Acao> {
-                Acao.Descer,
-                Acao.Parar,
-                Acao.Subir
+            Acoes=new List<Acao> {
+                Acao.DescerPreTeste,
+                Acao.DescerTeste,
+                Acao.SubirTeste,
+                Acao.SubirPosTeste,
+                Acao.Fim
             };
         }
     }
@@ -41,24 +44,26 @@ namespace EnsaioTextuometro {
             public EnsaioTracao() {
             Tipo=TipoDeTeste.Tracao;
             Acoes=new List<Acao> {
-                Acao.Subir,
-                Acao.Parar,
-                Acao.Descer,
-                Acao.Parar,
+                Acao.SubirPreTeste,
+                Acao.SubirTeste,
+                Acao.DescerTeste,
+                Acao.DescerPosTeste,
+                Acao.Fim
             };
         }
     }
-    public class EnsaioCicloCompressao : Ensaio {
-        public EnsaioCicloCompressao() {
+    public class EnsaioTPA : Ensaio {
+        public EnsaioTPA() {
             Tipo=TipoDeTeste.TPA;
             Acoes=new List<Acao> {
-                Acao.Descer,
-                Acao.Parar,
-                Acao.Subir,
-                Acao.Parar,
-                Acao.Descer,
-                Acao.Subir,
-                Acao.Parar
+                Acao.DescerPreTeste,
+                Acao.DescerTeste,
+                Acao.SubirTeste,
+                Acao.EsperarAssentamento,
+                Acao.DescerTeste,
+                Acao.SubirTeste,
+                Acao.SubirPosTeste,
+                Acao.Fim
             };
         }
     }
@@ -75,7 +80,7 @@ namespace EnsaioTextuometro {
                     teste=new EnsaioTracao();
                     break;
                 case TipoDeTeste.TPA:
-                    teste=new EnsaioCicloCompressao();
+                    teste=new EnsaioTPA();
                     break;
                 default:
                     teste=null;

@@ -76,7 +76,7 @@ namespace Texturometer {
             tex.Serial.EncoderDetected+=atualizaLbPosition;
             tex.Serial.LoadCalibrated+=LoadCelCalibrated;
             tex.LoadCell.ZeroTime();
-            tex.Serial.EnvCalibration(Properties.Settings.Default.CalLoadCell);
+            //tex.Serial.EnvCalibration(Properties.Settings.Default.CalLoadCell);
             tex.Serial.DiscardInBuffer();
             tex.Produto.Resultado.Clear();
 
@@ -103,9 +103,9 @@ namespace Texturometer {
             var DialogResult = ConfigEnsaio.ShowDialog();
 
             if(DialogResult == DialogResult.OK &&ConfigEnsaio.DadosDeEnsaio != null) {
-                if(tex.Motor.ZeroSeated) {
-                    tex.DadosTeste=ConfigEnsaio.DadosDeEnsaio;
-                    tex.TesteStart();
+                if(true){//if(tex.Motor.ZeroSeated) {
+                ConfigEnsaio.DadosDeEnsaio.PosInicial=tex.Encoder.Position;
+                    tex.TesteStart(ConfigEnsaio.DadosDeEnsaio);
                 } else {
                     var result = MessageBox.Show("Zero Máquina não definido!\nDefinir Zero Máquina?","Aviso!",MessageBoxButtons.OKCancel,MessageBoxIcon.Warning);
                     if(result==DialogResult.OK) {
@@ -153,29 +153,25 @@ namespace Texturometer {
 
         private void btnUP_Click(object sender,EventArgs e) {
             tex.Motor.ModoMotor=ModoMotor.Subir;
-            tex.Motor.SPVelManual=Properties.Settings.Default.VelManual;
-            tex.Serial.EnvComandoMotor(ModoMotor.Subir,Properties.Settings.Default.VelManual);
-
+            tex.Motor.Start(ModoMotor.Subir,Properties.Settings.Default.VelManual);
         }
         private void btnDN_Click(object sender,EventArgs e) {
-            tex.Motor.ModoMotor= ModoMotor.Descer;
-            tex.Serial.EnvComandoMotor(ModoMotor.Descer,Properties.Settings.Default.VelManual);
+            tex.Motor.Start(ModoMotor.Descer,Properties.Settings.Default.VelManual);
         }
         private void btnStop_Click(object sender,EventArgs e) {
-            tex.Motor.ModoMotor=ModoMotor.Parado;
-            tex.Serial.EnvComandoMotor(ModoMotor.Parado,0);
+            tex.Motor.Stop();
         }
 
         private void btnFast_Click(object sender,EventArgs e) {
             switch(tex.Motor.ModoMotor) {
                 case ModoMotor.Subir:
-                    tex.Serial.EnvComandoMotor(ModoMotor.Subir,Properties.Settings.Default.VelManualRapida);
+                    tex.Motor.Start(ModoMotor.Subir,Properties.Settings.Default.VelManualRapida);
                     break;
                 case ModoMotor.Descer:
-                    tex.Serial.EnvComandoMotor(ModoMotor.Descer,Properties.Settings.Default.VelManualRapida);
+                    tex.Motor.Start(ModoMotor.Descer,Properties.Settings.Default.VelManualRapida);
                     break;
                 case ModoMotor.Parado:
-                    tex.Serial.EnvComandoMotor(ModoMotor.Parado,0);
+                    tex.Motor.Stop();
                     break;
             }
         }
@@ -304,13 +300,13 @@ namespace Texturometer {
         private void trackBar1_Scroll(object sender,EventArgs e) {
             switch(tex.Motor.ModoMotor) {
                 case ModoMotor.Subir:
-                    tex.Serial.EnvComandoMotor(ModoMotor.Subir,((double)trackBar1.Value/10));
+                    tex.Motor.Start(ModoMotor.Subir,((double)trackBar1.Value/10));
                     break;
                 case ModoMotor.Descer:
-                    tex.Serial.EnvComandoMotor(ModoMotor.Descer,((double)trackBar1.Value/10));
+                    tex.Motor.Start(ModoMotor.Descer,((double)trackBar1.Value/10));
                     break;
                 case ModoMotor.Parado:
-                    tex.Serial.EnvComandoMotor(ModoMotor.Parado,0);
+                    tex.Motor.Stop();
                     break;
             }
             lbVel.Text=((double)trackBar1.Value/10).ToString();

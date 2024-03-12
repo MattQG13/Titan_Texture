@@ -5,26 +5,27 @@ using ClassesSuporteTexturometro;
 namespace LoadCellTexturometro {
 	public class LoadCell {
 
-        private double _cargaMax;
+        public double CargaMax;
         private double _val;
         private const double _g = 9.81;
-        public double _valDeteccao;
+        private double _valDeteccao;
+        private bool _deteccaoDeCarga = false;
+        private bool _targetedLoad = false;
+        private double _targetLoad = 0;
 
-        public EventHandler ZeroSet;
-        public EventHandler LoadLimitreached;
-        public EventHandler CargaDetected;
-        public EventHandler<SerialMessageArgument> Calibration;
-        public EventHandler ZerarTime;
+        public event EventHandler ZeroSet;
+        public event EventHandler LoadReached;
+        public event EventHandler CargaDetected;
+        public event EventHandler<SerialMessageArgument> Calibration;
+        public event EventHandler ZerarTime;
 
         public LoadCell(double valorMax) {
-            _cargaMax=valorMax;
+            CargaMax=valorMax;
         }
 
         public LoadCell() {
         }
 
-        public bool CargaLimitada { get; set; }
-        public double CargaLimite { get; set; }
         public double Scale { get; set; }
 
         public double ValorLoad {
@@ -33,11 +34,13 @@ namespace LoadCellTexturometro {
             }
             set {
                 _val=(double)value;
-                if(_val>_valDeteccao) {
+                if(_val>_valDeteccao&&_deteccaoDeCarga) {
+                    _deteccaoDeCarga=false;
                     CargaDetected?.Invoke(this,EventArgs.Empty);
                 }
-                if(_val>=CargaLimite&&CargaLimitada) {
-                    LoadLimitreached?.Invoke(this,EventArgs.Empty);
+                if(_val>=_targetLoad&&_targetedLoad) {
+                    _targetedLoad=false;
+                    LoadReached?.Invoke(this,EventArgs.Empty);
                 }
             }
         }
@@ -73,6 +76,26 @@ namespace LoadCellTexturometro {
         }
         public void ZeroTime() {
             ZerarTime?.Invoke(this,EventArgs.Empty);
+        }
+
+        public void TargetLoad(double cargaAlvo = double.NaN) {
+            if(cargaAlvo!=0||cargaAlvo!=double.NaN) {
+                _targetedLoad=true;
+                _targetLoad=cargaAlvo;
+            } else {
+                _targetedLoad=false;
+                _targetLoad=0;
+            }
+        }
+
+        public void DetectLoad(double cargaDeteccao = double.NaN) {
+            if(cargaDeteccao!=0||cargaDeteccao!=double.NaN) {
+                _valDeteccao=cargaDeteccao;
+                _deteccaoDeCarga=true;
+            } else {
+                _deteccaoDeCarga=false;
+                _valDeteccao=0;
+            }
         }
     }
 

@@ -62,14 +62,18 @@ using System;
 using System.Windows.Forms;
 using EnsaioTextuometro;
 using DadosDeEnsaio;
+using EncoderMotor;
+using System.Reflection;
+using System.Drawing;
 
 namespace TexturometroClass {
 	public class Texturometro {
         public Motor Motor;
+        public Encoder Encoder;
         public Chave SensorLS;
         public Chave SensorLI;
         public Ensaio Teste;
-        public DataTest DadosTeste;
+        private DataTest DadosTeste;
         public LoadCell LoadCell;
         public SerialManager Serial;
 		public CorpoDeProva Produto;
@@ -95,23 +99,25 @@ namespace TexturometroClass {
             Motor=new Motor();
 			Motor.MotorStarted+=_enviaSerialMotor;
 			Motor.MotorStopped+=_enviaSerialMotor;
+            Motor.MotorGoTo+=_enviaSerialMotorGoTo;
 			Motor.ZeroSeating+= Serial.EnvZeroMaquina;
-
+            
 
             LoadCell.ZeroSet+=Serial.EnvTARA;
 			LoadCell.Calibration+=Serial.CalLC;
 			LoadCell.ZerarTime+=Serial.EnvZeroTime;
 
-            Produto=new CorpoDeProva(1);
+            Encoder=new Encoder();
+            Produto = new CorpoDeProva();
+            _timer = new Timer();
         }	
 
 
-		public void TesteStart() {
-			if(Motor.ZeroSeated) {
-                Teste = EnsaioFactoryMethod.criarTeste(DadosTeste.Tipo);
-                //Produto=new CorpoDeProva(1);
-                ExecTeste(this, new EventArgs());
-			}
+		public void TesteStart(DataTest DadosDoTeste) {
+            DadosTeste = DadosDoTeste;    
+            Teste = EnsaioFactoryMethod.criarTeste(DadosTeste.Tipo);
+            Produto=new CorpoDeProva();
+            ExecTeste(this, new EventArgs());
 		}
 
         #region SetSensores
@@ -127,7 +133,10 @@ namespace TexturometroClass {
             LoadCell.ValorLoad=e.doubleValue1;
         }
         private void _atualizaEncoder(object sender,SerialMessageArgument e) {
-            Motor.Posicao=e.doubleValue;
+            Encoder.Position=e.doubleValue1;
+        }
+        private void _atualizaTamanho(object sender,SerialMessageArgument e) {
+            Produto.TamanhoAtual=e.doubleValue1;
         }
         #endregion
 
@@ -144,7 +153,6 @@ namespace TexturometroClass {
         }
 
         public void StartAddResults(object sender,SerialMessageArgument e) {
-            //if(Produto!=null) {
             if(!ContainsHandler(Serial.LoadCellDetected,_atualizaResultadoL)&&!ContainsHandler(Serial.EncoderDetected,_atualizaResultadoE)) {
                 Serial.LoadCellDetected+=_atualizaResultadoL;
                 Serial.EncoderDetected+=_atualizaResultadoE;
@@ -163,8 +171,69 @@ namespace TexturometroClass {
         }
 
         private void ExecTeste(object sender, EventArgs args) {
+            RemoveEvento(sender);
 
-            if(true);
+            Acao Action = Teste.AcaoAtual;
+            Teste.Next();
+            switch(Action) {
+
+                case Acao.DescerPreTeste: //Desce pre teste até deteccao
+                    Motor.Start(ModoMotor.Descer,DadosTeste.VelPreTeste);
+                    switch(DadosTeste.TipoDeteccao) {
+                        case TipoTrigger.Forca:
+                            LoadCell.DetectLoad(DadosTeste.ValorDeteccao);
+                            LoadCell.CargaDetected+=ExecTeste;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                
+                case Acao.DescerTeste:  //Desce para teste até limite
+
+                    if(Produto.TamanhoOriginal==0) {
+                        Produto.TamanhoOriginal=Encoder.Position;
+                        Serial.EncoderDetected+=_atualizaTamanho;
+                    }
+
+                    StartAddResults(this,new SerialMessageArgument());
+                    Motor.Start(ModoMotor.Descer,DadosTeste.VelTeste);
+
+                    switch(DadosTeste.TipoLimite) {
+                        case TipoTarget.Deformacao:
+                            Produto.TargetDeformation(DadosTeste.ValorLimite);
+                            Produto.DeformacaoReached+=ExecTeste;
+                            break;
+                        default :
+                            break;
+                    }
+                    break;
+
+                case Acao.SubirTeste: //Sobe em velocidade de teste
+                    Motor.Start(ModoMotor.Subir,DadosTeste.VelTeste);
+                    Encoder.TargetPosition(DadosTeste.PosInicial,Encoder.Position);
+                    Encoder.positionReached +=ExecTeste;
+                    break;
+
+                case Acao.EsperarAssentamento: //Aguarda tempo de assentamento
+                    Motor.Stop();
+                    _timer.Interval=Convert.ToInt32(DadosTeste.Tempo*1000);
+                    _timer.Tick+=ExecTeste;
+                    _timer.Start();
+                    break;
+                //case Acao
+                default:
+                    break;
+            }
+        }
+
+        private void RemoveEvento(object sender) {
+            EventInfo[] eventos = sender.GetType().GetEvents();
+            foreach(EventInfo evento in eventos) {
+                try {
+                    evento.RemoveEventHandler(sender,new EventHandler(ExecTeste));
+                } catch(Exception ex) { }
+            }
         }
 
         public void setSerial(string com,int baud = 115200) {
@@ -185,7 +254,8 @@ namespace TexturometroClass {
 		private void _enviaSerialMotor(object sender, MotorArgument e) {
 			Serial.EnvComandoMotor(e.Modo,e.Vel);
 		}
-
-
+        private void _enviaSerialMotorGoTo(object sender, MotorArgument e) {
+            Serial.EnvComandoMotor(e.Modo,e.Vel,e.FinalPosition);
+        }
 	}
 }

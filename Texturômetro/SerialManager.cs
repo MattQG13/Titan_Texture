@@ -110,7 +110,8 @@ namespace SerialManagerTexturometro{
         }
 
         private void _dataReceived(object sender,SerialDataReceivedEventArgs e) {
-            while(_serialPort.BytesToRead>0) {
+            if(_serialPort.IsOpen)
+                while(_serialPort.BytesToRead>0) {
                 try {
                     string mensagem = _serialPort.ReadTo("!");
                     if(mensagem.Contains("V"))

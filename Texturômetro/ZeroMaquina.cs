@@ -54,11 +54,14 @@ namespace Texturometer {
         }
 
         private void goToFinalPosition(object sender,SerialMessageArgument e) {
-            tex.Serial.EnvComandoMotor(ModoMotor.Subir,Convert.ToDouble(txbVelociadeZero.Text),Convert.ToDouble(txbFinalPosition.Text));
-            tex.Motor.ZeroSeated=true;
+            try {
+                tex.Motor.GoTo(ModoMotor.Subir,Convert.ToDouble(txbVelociadeZero.Text),Convert.ToDouble(txbFinalPosition.Text));
+                tex.Motor.ZeroSeated=true;
+            } finally { }
             Task.Run(() => {
                 this.Invoke(new Action(() => {
                     zerando=false;
+                    //this.Close();
                 }));
             });
         }

@@ -40,8 +40,12 @@ namespace Texturometer {
                 DadosDeEnsaio.Tipo=cbTipo.Text=="TPA" ? TipoDeTeste.TPA:cbTipo.Text=="Compressão"?TipoDeTeste.Compressao:cbTipo.Text=="Tração"?TipoDeTeste.Tracao:TipoDeTeste.CicloDuploTracao;
                 DadosDeEnsaio.VelPreTeste=Convert.ToDouble(txVelPT.Text);
                 DadosDeEnsaio.VelTeste = Convert.ToDouble(txVel.Text);
-                DadosDeEnsaio.TipoLimite=cbTarget.Text=="Distância" ? TipoTarget.Distancia:cbTarget.Text=="Deformação"?TipoTarget.Deformacao:TipoTarget.Forca;
-                DadosDeEnsaio.ValorLimite=Convert.ToDouble(txTarget.Text);
+
+                DadosDeEnsaio.TipoLimite = cbTarget.Text=="Distância" ? TipoTarget.Distancia:cbTarget.Text=="Deformação"?TipoTarget.Deformacao:TipoTarget.Forca;
+
+                DadosDeEnsaio.ValorLimite=DadosDeEnsaio.TipoLimite==TipoTarget.Deformacao?Convert.ToDouble(txTarget.Text)/100: Convert.ToDouble(txTarget.Text)
+                    
+                    ;
                 DadosDeEnsaio.Tempo = Convert.ToDouble(txTime.Text);
                 DadosDeEnsaio.TipoDeteccao=cbTrigger.Text=="Auto (Força)" ? TipoTrigger.Forca:TipoTrigger.Distancia;
                 DadosDeEnsaio.ValorDeteccao = Convert.ToDouble(txTrigger.Text);

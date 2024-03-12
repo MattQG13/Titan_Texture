@@ -90,6 +90,7 @@
     </Compile>
     <Compile Include="CorpoDeProva.cs" />
     <Compile Include="DadosDoEnsaio.cs" />
+    <Compile Include="EncoderMotor.cs" />
     <Compile Include="Probe.cs" />
     <Compile Include="ClassesSuporte.cs" />
     <Compile Include="LoadCell.cs" />

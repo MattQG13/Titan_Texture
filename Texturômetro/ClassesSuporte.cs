@@ -7,8 +7,16 @@ namespace ClassesSuporteTexturometro {
     #region Enums
     public enum Acao {
         Parar,
-        Descer,
-        Subir
+        DescerTeste,
+        SubirTeste,
+        DescerPreTeste,
+        SubirPreTeste,
+        DescerPosTeste,
+        SubirPosTeste,
+        EsperarAssentamento,
+        SubirInicio,
+        DescerInicio,
+        Fim
     };
     public enum TipoDeTeste {
         Compressao,

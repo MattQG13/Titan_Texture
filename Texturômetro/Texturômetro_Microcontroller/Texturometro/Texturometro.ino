@@ -159,12 +159,12 @@ void envMens() {
     bufferText += "]";
     bufferText += endChar;
   
-  if(filtredload>1000){
+  if(abs(filtredload)>3000){
     atualizaMotor(0);
     Serial.print("[W;O]!");
   }
   #ifdef WITH_ENCODER
-  if(contVel>10){
+  if(contVel>50){
     bufferText += "[V;"; 
   
     bufferText += String (getVel(), 3);

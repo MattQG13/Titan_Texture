@@ -5,16 +5,13 @@ namespace MotorTexturometro {
 	public class Motor {
         private double _SPVel;
         private double _SPVelManual;
-		private double _SPVelMan;
         private ModoMotor _modoOper;
 
-        public EventHandler SPVelChanged;
-        public EventHandler SPVelManualChanged;
-        public EventHandler EstadoMotorChanged;
-        public EventHandler<MotorArgument> MotorStarted;
-        public EventHandler<MotorArgument> MotorStopped;
-        public EventHandler<SerialMessageArgument> ZeroSeating;
-
+        public event EventHandler SPVelChanged;
+        public event EventHandler<MotorArgument> MotorStarted;
+        public event EventHandler<MotorArgument> MotorStopped;
+        public event EventHandler<SerialMessageArgument> ZeroSeating;
+        public event EventHandler<MotorArgument> MotorGoTo;
 		public bool ZeroSeated = false;
 
         public double SPVel {
@@ -26,21 +23,10 @@ namespace MotorTexturometro {
                 SPVelChanged?.Invoke(this,EventArgs.Empty);
             }
 		}
-        public double SPVelManual {
-			get {
-				return _SPVelManual;
-			}
-			set {
-				_SPVelManual = value;
-				SPVelManualChanged?.Invoke(this,EventArgs.Empty);
-			}
-		}
 
 		public Motor() {
 			ModoMotor=ModoMotor.Parado;
 		}
-
-		public double Posicao {get;set;}
 
 		public ModoMotor ModoMotor {
 			get {
@@ -52,33 +38,40 @@ namespace MotorTexturometro {
 		}
 
         public void Start(ModoMotor modo) {
+			_modoOper = modo;
             MotorArgument args = new MotorArgument();
-            args.Modo = modo;
+            args.Modo =_modoOper;
 			args.Vel=_SPVel;
             MotorStarted?.Invoke(this,args);
         }
 
-        public void StartManual(ModoMotor modo) {
+        public void Start(ModoMotor modo,double Vel) {
+            _modoOper=modo;
+            _SPVel= Vel;
             MotorArgument args = new MotorArgument();
-            args.Modo=modo;
-            args.Vel=_SPVelManual;
+            args.Modo=_modoOper;
+            args.Vel=_SPVel;
             MotorStarted?.Invoke(this,args);
-		}
-
-
+        }
 
 		public void Stop() {
+            _modoOper=ModoMotor.Parado;
+
             MotorArgument args = new MotorArgument();
-            args.Modo=ModoMotor.Parado;
+            args.Modo=_modoOper;
             args.Vel=0;
             MotorStopped?.Invoke(this,args);
 		}
 
-        public void ChangeState(ModoMotor modo) {
-			_modoOper = modo;
-            EstadoMotorChanged?.Invoke(this, EventArgs.Empty);
-	    }
-
+        public void GoTo(ModoMotor modo, double Vel, double finalposition) {
+            _modoOper=modo;
+            _SPVel=Vel;
+            MotorArgument args = new MotorArgument();
+            args.Modo=_modoOper;
+            args.Vel=_SPVel;
+            args.FinalPosition=finalposition;
+            MotorGoTo?.Invoke(this,args);
+        }
         public void ZerarPosicao(double vel,double carga) { 
 			SerialMessageArgument args = new SerialMessageArgument();
 			args.doubleValue1 = vel;
