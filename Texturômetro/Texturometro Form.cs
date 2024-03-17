@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Threading;
 using Timer = System.Windows.Forms.Timer;
 using System.Linq;
+using ExportacaoResultado;
 
 namespace Texturometer {
     public partial class TexturometroForms : Form {
@@ -80,7 +81,7 @@ namespace Texturometer {
             tex.Serial.DiscardInBuffer();
             tex.Produto.Resultado.Clear();
 
-            tex.Serial._Vel+=VelAt;
+            tex.Serial.VelDetected+=VelAt;
         }
 
         protected override bool ProcessCmdKey(ref Message msg,Keys keyData) {
@@ -309,7 +310,23 @@ namespace Texturometer {
                     tex.Motor.Stop();
                     break;
             }
-            lbVel.Text=((double)trackBar1.Value/10).ToString();
+            lbVelSP.Text=((double)trackBar1.Value/10).ToString();
+        }
+
+        private void ToolStripMenuExportCSV_Click(object sender,EventArgs e) {
+            var p = tex.Produto;
+            ExportacaoCSV.exportarCSV(p);
+            p=p;
+        }
+
+        private void ToolStripMenuExportExcel_Click(object sender,EventArgs e) {
+            var p = tex.Produto;
+            ExportacaoExcel.exportarExcel(p);
+            p=p;
+        }
+
+        private void ToolStripMenuExportPDF_Click(object sender,EventArgs e) {
+
         }
     }
 }

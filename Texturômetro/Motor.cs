@@ -4,14 +4,13 @@ using System;
 namespace MotorTexturometro {
 	public class Motor {
         private double _SPVel;
-        private double _SPVelManual;
         private ModoMotor _modoOper;
 
         public event EventHandler SPVelChanged;
-        public event EventHandler<MotorArgument> MotorStarted;
-        public event EventHandler<MotorArgument> MotorStopped;
-        public event EventHandler<SerialMessageArgument> ZeroSeating;
-        public event EventHandler<MotorArgument> MotorGoTo;
+        public  EventHandler<MotorArgument> MotorStarted;
+        public  EventHandler<MotorArgument> MotorStopped;
+        public  EventHandler<SerialMessageArgument> ZeroSeating;
+        public  EventHandler<MotorArgument> MotorGoTo;
 		public bool ZeroSeated = false;
 
         public double SPVel {

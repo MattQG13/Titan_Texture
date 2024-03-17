@@ -7,8 +7,8 @@ namespace EncoderMotor {
         private double _targetPosition=0;
         private bool _targetedPositional = false;
         private bool _direcaoTarget = false;
-        public EventHandler positionChanged;
-        public EventHandler positionReached;
+        public event EventHandler positionChanged;
+        public event EventHandler positionReached;
 
 
         public Encoder() {

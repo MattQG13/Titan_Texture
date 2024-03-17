@@ -65,6 +65,9 @@ using DadosDeEnsaio;
 using EncoderMotor;
 using System.Reflection;
 using System.Drawing;
+using System.Timers;
+using Timer = System.Timers.Timer;
+//using Timer = System.Windows.Forms.Timer;
 
 namespace TexturometroClass {
 	public class Texturometro {
@@ -77,8 +80,7 @@ namespace TexturometroClass {
         public LoadCell LoadCell;
         public SerialManager Serial;
 		public CorpoDeProva Produto;
-		private Timer _timer;
-        private EventHandler TargetAcao;
+		private static Timer _timer;
 
         public Texturometro() {
 			LoadCell = new LoadCell();
@@ -110,6 +112,9 @@ namespace TexturometroClass {
             Encoder=new Encoder();
             Produto = new CorpoDeProva();
             _timer = new Timer();
+            _timer.Elapsed+=AutoStop;
+            //_timer.Tick+=AutoStop;
+            _timer.Enabled=true;
         }	
 
 
@@ -117,6 +122,7 @@ namespace TexturometroClass {
             DadosTeste = DadosDoTeste;    
             Teste = EnsaioFactoryMethod.criarTeste(DadosTeste.Tipo);
             Produto=new CorpoDeProva();
+            Produto.Resultado.Clear();
             ExecTeste(this, new EventArgs());
 		}
 
@@ -145,11 +151,16 @@ namespace TexturometroClass {
                 return false;
 
             foreach(Delegate existingHandler in eventDelegate.GetInvocationList()) {
-                if(existingHandler==handler)
+                if(existingHandler==handler) {
                     return true;
+                }
             }
 
             return false;
+        }
+
+        private void AutoStop(object sender, EventArgs args) {
+            _timer.Stop();
         }
 
         public void StartAddResults(object sender,SerialMessageArgument e) {
@@ -211,17 +222,26 @@ namespace TexturometroClass {
 
                 case Acao.SubirTeste: //Sobe em velocidade de teste
                     Motor.Start(ModoMotor.Subir,DadosTeste.VelTeste);
-                    Encoder.TargetPosition(DadosTeste.PosInicial,Encoder.Position);
+                    Encoder.TargetPosition(Produto.TamanhoOriginal,Encoder.Position);
                     Encoder.positionReached +=ExecTeste;
                     break;
 
                 case Acao.EsperarAssentamento: //Aguarda tempo de assentamento
                     Motor.Stop();
                     _timer.Interval=Convert.ToInt32(DadosTeste.Tempo*1000);
-                    _timer.Tick+=ExecTeste;
+                    _timer.Elapsed+=ExecTeste;
+                    //_timer.Tick+=AutoStop;
                     _timer.Start();
                     break;
-                //case Acao
+                case Acao.SubirPosTeste:
+                    Motor.Start(ModoMotor.Subir,DadosTeste.VelTeste);
+                    Encoder.TargetPosition(DadosTeste.PosInicial,Encoder.Position);
+                    Encoder.positionReached+=ExecTeste;
+                    break;
+                case Acao.Fim:
+                    Motor.Stop();
+                    StopAddResults();
+                    break;
                 default:
                     break;
             }
@@ -231,8 +251,13 @@ namespace TexturometroClass {
             EventInfo[] eventos = sender.GetType().GetEvents();
             foreach(EventInfo evento in eventos) {
                 try {
-                    evento.RemoveEventHandler(sender,new EventHandler(ExecTeste));
-                } catch(Exception ex) { }
+                    if(evento.Name!="Elapsed") {
+                        evento.RemoveEventHandler(sender,new EventHandler(ExecTeste));
+                    } else {
+                        evento.RemoveEventHandler(sender,new ElapsedEventHandler(ExecTeste));
+                    }
+
+                } finally { }
             }
         }
 

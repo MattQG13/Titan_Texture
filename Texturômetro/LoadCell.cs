@@ -16,7 +16,7 @@ namespace LoadCellTexturometro {
         public event EventHandler ZeroSet;
         public event EventHandler LoadReached;
         public event EventHandler CargaDetected;
-        public event EventHandler<SerialMessageArgument> Calibration;
+        public EventHandler<SerialMessageArgument> Calibration;
         public event EventHandler ZerarTime;
 
         public LoadCell(double valorMax) {

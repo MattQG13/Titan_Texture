@@ -25,12 +25,13 @@ char contVel=0;
 void setup() {
   Serial.begin(115200);
   while (!Serial);
-
+  pinMode(50,OUTPUT);
   configMotor();
   configADC();
   #ifdef WITH_ENCODER
   configEncoder();
   #endif
+  configEnv();
   pinMode(LI, INPUT_PULLUP);
   pinMode(LS, INPUT_PULLUP);
 }
@@ -61,11 +62,24 @@ void loop() {
     digitalWrite(pulso, 0);
     digitalWrite(enMotor, 1);
   }
-
-  envMens();
+  
+  //envMens();
   delay(10);
 }
 
+void configEnv(){
+  TCCR4A = 0;
+  TCCR4B = 0;
+  
+  
+  TCCR4B &=  ~(1 << CS30);
+  TCCR4B &=  ~(1 << CS31);
+  TCCR4B |= (1 << CS32);
+  
+  OCR4A=624;
+  TCNT4 = 0;
+  TIMSK4 |= (1 << OCIE4A);  
+}
 void executaComando(SerialInterpreter com) {
   switch (com.lenght) {
     case 1:
@@ -180,9 +194,10 @@ void envMens() {
   Serial.print(bufferText);
 }
 
-ISR(TIMER3_COMPA_vect) {
+ISR(TIMER4_COMPA_vect) {
   envMens();
-  TCNT3 = 0;
+  TCNT4 = 0;
+  //digitalWrite(50, digitalRead(50)^1); 
 }
 /*
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

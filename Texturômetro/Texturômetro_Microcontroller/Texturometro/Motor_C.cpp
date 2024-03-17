@@ -22,44 +22,43 @@ void atualizaMotor(double vel) {
     
     digitalWrite(enMotor,0);
   } else {
-    intervalo = (int)(((passo * 1000) / (ppr * 0.001 * 2)) * 250);
-    OCR1A = intervalo;
+    //intervalo = (int)(((passo * 1000) / (ppr * 0.001 * 2)) * 250);
+    //OCR1A = intervalo;
+    TIMSK1 &= ~(1 << OCIE1A);
+    digitalWrite(pulso,0);
+    digitalWrite(enMotor,0);
   }
 }
 
 ISR(TIMER1_COMPA_vect)
 {
   TCNT1 = 0;
-  if (OCR1A >= (int)(((passo * 1000) / (ppr * 0.001 * 2)) * 250)) {
-    TIMSK1 &= ~(1 << OCIE1A);
-    digitalWrite(pulso,0);
-    digitalWrite(enMotor,1);
-  } else {
-    digitalWrite(pulso, digitalRead(pulso)^1); 
     
-    #ifndef WITH_ENCODER
-      if (!digitalRead(pulso))contador += digitalRead(direcao)? -dirUP : dirUP;
-      posicao = ((double)contador/ppr)*passo;
-    #else
-      posicao = getPosicao();
-    #endif
-    
-    if(positionLimited&&((posicao>finalPosition)^digitalRead(direcao))){
-        atualizaMotor(0);
-        positionLimited=false;
-    }
-    if(zerandoMaquina){
-      if(filtredload>=zeroMaquinaLoad){
-        atualizaMotor(0);
-        #ifndef WITH_ENCODER
-          contador=0;
-        #else
-          zeraCont();
-        #endif
-        zerandoMaquina=false;
-        Serial.print("[ZERO]!");
-        Serial.print("[ZERO]!");
-      }
+  digitalWrite(pulso, digitalRead(pulso)^1); 
+  
+  #ifndef WITH_ENCODER
+    if (!digitalRead(pulso))contador += digitalRead(direcao)? -dirUP : dirUP;
+    posicao = ((double)contador/ppr)*passo;
+  #else
+    posicao = posicaoEncoder;
+  #endif
+  
+  if(positionLimited){
+     if((posicao>finalPosition)^digitalRead(direcao)){
+      atualizaMotor(0);
+      positionLimited=false;
+     }
+  }
+  if(zerandoMaquina){
+    if(filtredload>=zeroMaquinaLoad){
+      atualizaMotor(0);
+      #ifndef WITH_ENCODER
+        contador=0;
+      #else
+        zeraCont();
+      #endif
+      zerandoMaquina=false;
+      Serial.print("[ZERO]!");
     }
   }
 }

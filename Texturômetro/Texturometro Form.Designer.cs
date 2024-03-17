@@ -35,7 +35,9 @@
             this.pnBackground = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.lbVel = new System.Windows.Forms.Label();
+            this.lbVelSP = new System.Windows.Forms.Label();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.btnFast = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
@@ -55,7 +57,10 @@
             this.lbInformations = new System.Windows.Forms.Label();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.arquivoStripMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.exibirStripMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportarComoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuExportExcel = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuExportCSV = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuExportPDF = new System.Windows.Forms.ToolStripMenuItem();
             this.resultadosStripMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.TAStripMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.rodarTesteStripMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,7 +107,9 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.lbVel);
+            this.panel2.Controls.Add(this.lbVelSP);
             this.panel2.Controls.Add(this.trackBar1);
             this.panel2.Controls.Add(this.btnFast);
             this.panel2.Controls.Add(this.btnStop);
@@ -118,14 +125,32 @@
             this.panel2.Size = new System.Drawing.Size(766, 194);
             this.panel2.TabIndex = 1;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(381, 130);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(86, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Velocidade Lida:";
+            // 
             // lbVel
             // 
             this.lbVel.AutoSize = true;
-            this.lbVel.Location = new System.Drawing.Point(467, 104);
+            this.lbVel.Location = new System.Drawing.Point(467, 130);
             this.lbVel.Name = "lbVel";
-            this.lbVel.Size = new System.Drawing.Size(22, 13);
-            this.lbVel.TabIndex = 10;
-            this.lbVel.Text = "Vel";
+            this.lbVel.Size = new System.Drawing.Size(51, 13);
+            this.lbVel.TabIndex = 11;
+            this.lbVel.Text = "0.0 mm/s";
+            // 
+            // lbVelSP
+            // 
+            this.lbVelSP.AutoSize = true;
+            this.lbVelSP.Location = new System.Drawing.Point(467, 104);
+            this.lbVelSP.Name = "lbVelSP";
+            this.lbVelSP.Size = new System.Drawing.Size(22, 13);
+            this.lbVelSP.TabIndex = 10;
+            this.lbVelSP.Text = "Vel";
             // 
             // trackBar1
             // 
@@ -365,7 +390,6 @@
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.arquivoStripMenu,
-            this.exibirStripMenu,
             this.resultadosStripMenu,
             this.TAStripMenu,
             this.configuraçõesToolStripMenuItem,
@@ -378,15 +402,42 @@
             // 
             // arquivoStripMenu
             // 
+            this.arquivoStripMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportarComoToolStripMenuItem});
             this.arquivoStripMenu.Name = "arquivoStripMenu";
             this.arquivoStripMenu.Size = new System.Drawing.Size(61, 20);
             this.arquivoStripMenu.Text = "Arquivo";
             // 
-            // exibirStripMenu
+            // exportarComoToolStripMenuItem
             // 
-            this.exibirStripMenu.Name = "exibirStripMenu";
-            this.exibirStripMenu.Size = new System.Drawing.Size(48, 20);
-            this.exibirStripMenu.Text = "Exibir";
+            this.exportarComoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuExportExcel,
+            this.ToolStripMenuExportCSV,
+            this.ToolStripMenuExportPDF});
+            this.exportarComoToolStripMenuItem.Name = "exportarComoToolStripMenuItem";
+            this.exportarComoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportarComoToolStripMenuItem.Text = "Exportar";
+            // 
+            // ToolStripMenuExportExcel
+            // 
+            this.ToolStripMenuExportExcel.Name = "ToolStripMenuExportExcel";
+            this.ToolStripMenuExportExcel.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuExportExcel.Text = "Exportar como .xlsx";
+            this.ToolStripMenuExportExcel.Click += new System.EventHandler(this.ToolStripMenuExportExcel_Click);
+            // 
+            // ToolStripMenuExportCSV
+            // 
+            this.ToolStripMenuExportCSV.Name = "ToolStripMenuExportCSV";
+            this.ToolStripMenuExportCSV.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuExportCSV.Text = "Exportar como .csv";
+            this.ToolStripMenuExportCSV.Click += new System.EventHandler(this.ToolStripMenuExportCSV_Click);
+            // 
+            // ToolStripMenuExportPDF
+            // 
+            this.ToolStripMenuExportPDF.Name = "ToolStripMenuExportPDF";
+            this.ToolStripMenuExportPDF.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuExportPDF.Text = "Exportar como .pdf";
+            this.ToolStripMenuExportPDF.Click += new System.EventHandler(this.ToolStripMenuExportPDF_Click);
             // 
             // resultadosStripMenu
             // 
@@ -485,7 +536,6 @@
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem arquivoStripMenu;
         private System.Windows.Forms.Button btnUP;
-        private System.Windows.Forms.ToolStripMenuItem exibirStripMenu;
         private System.Windows.Forms.ToolStripMenuItem resultadosStripMenu;
         private System.Windows.Forms.ToolStripMenuItem TAStripMenu;
         private System.Windows.Forms.ToolStripMenuItem rodarTesteStripMenu;
@@ -512,7 +562,13 @@
         private System.Windows.Forms.Button btnFast;
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.Label lbVelSP;
         private System.Windows.Forms.Label lbVel;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ToolStripMenuItem exportarComoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuExportExcel;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuExportCSV;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuExportPDF;
     }
 }
 

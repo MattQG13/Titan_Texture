@@ -18,7 +18,7 @@ namespace SerialManagerTexturometro{
         public EventHandler<SerialMessageArgument> TimeSeted;
         public EventHandler<SerialMessageArgument> ZeroSeated;
         public EventHandler<SerialMessageArgument> LoadCalibrated;
-        public EventHandler<SerialMessageArgument> _Vel;
+        public EventHandler<SerialMessageArgument> VelDetected;
 
         private CultureInfo culture = new CultureInfo("en-US"); //CultureInfo.InvariantCulture;
         private char endChar = '!';
@@ -80,7 +80,7 @@ namespace SerialManagerTexturometro{
                     _serialPort.Open();
                     _serialPort.DiscardInBuffer();
 
-                } catch(Exception e) {
+                } catch(Exception) {
                     MessageBox.Show("Erro de conexão com texturômetro!","ERRO",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 }
             }
@@ -201,7 +201,7 @@ namespace SerialManagerTexturometro{
                         LoadCalibrated?.Invoke(this, args);
                         break;
                 case "V":
-                    _Vel?.Invoke(this, args);
+                    VelDetected?.Invoke(this, args);
                         break;
             }
         }

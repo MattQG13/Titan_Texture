@@ -12,12 +12,12 @@ void configEncoder(){
 }
 
 double getPosicao() {
-    return ((double)contadorEncoder*passoEncoder)/(double)pprEncoder;
+    return ((double)contadorEncoder*passoEncoder)/pprEncoder;
 }
 
 double getVel(){
   double _pos = getPosicao();
-  double _time = millis();
+  double _time = (double)micros()/1000.0;
   double _vel = ((_pos-posAnt)*1000)/(_time-millisAnt);
   posAnt = _pos;
   millisAnt = _time;
@@ -31,6 +31,7 @@ void a1(){
   }else{
   contadorEncoder--;
   }
+  posicaoEncoder = getPosicao();
 }
 
 void a2(){
@@ -39,6 +40,7 @@ void a2(){
   }else{
   contadorEncoder++;
   }  
+  posicaoEncoder = getPosicao();
 }
 
 void zeraCont(){

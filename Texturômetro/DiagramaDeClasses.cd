@@ -1,28 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access" MembersFormat="FullSignature">
   <Class Name="ClassesSuporteTexturometro.MotorArgument">
-    <Position X="10.5" Y="9.5" Width="2.5" />
+    <Position X="15.75" Y="9" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAIAIAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ClassesSuporte.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ClassesSuporteTexturometro.Chave">
-    <Position X="24.75" Y="13.75" Width="2.25" />
+    <Position X="24.5" Y="13.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAEAAAAAAAAAAAAAAAAg=</HashCode>
       <FileName>ClassesSuporte.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ClassesSuporteTexturometro.Coord">
-    <Position X="35.75" Y="20.75" Width="2.75" />
+    <Position X="34.75" Y="21.5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAE=</HashCode>
       <FileName>ClassesSuporte.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ClassesSuporteTexturometro.Tabela">
-    <Position X="35.75" Y="17" Width="3" />
+    <Position X="34.75" Y="17.75" Width="3" />
     <TypeIdentifier>
       <HashCode>AEIAAAAAAAAAAgAAAAAAAAQAAAAAABAAAAAAAAB0IAA=</HashCode>
       <FileName>ClassesSuporte.cs</FileName>
@@ -32,103 +32,103 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="LoadCellTexturometro.LoadCell">
-    <Position X="22" Y="13.75" Width="2.5" />
+    <Position X="20.25" Y="13.75" Width="4" />
     <TypeIdentifier>
-      <HashCode>AAAACABAACQBAAAAAA4EBBAAAAQAAABAEAAAIAAACIA=</HashCode>
+      <HashCode>EQACABBAACQBAAAAAAsEJBAAAAQAIABAEAAAAAAACIA=</HashCode>
       <FileName>LoadCell.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MotorTexturometro.Motor">
-    <Position X="27.25" Y="13.75" Width="3.5" />
-    <AssociationLine Name="_modoOper" Type="ClassesSuporteTexturometro.ModoMotor" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="27.25" Y="17.812" />
-        <Point X="26" Y="17.812" />
-        <Point X="26" Y="18.75" />
-      </Path>
-    </AssociationLine>
+    <Position X="27" Y="13.75" Width="4.25" />
     <TypeIdentifier>
-      <HashCode>IAABAAAAQCQABCAAACAAICECAKEAIAgAIAAAAgBAAAA=</HashCode>
+      <HashCode>AAABAAAAACAAACAAEAAAACAAAKEAIAgAIAAAAQBAAIA=</HashCode>
       <FileName>Motor.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="_modoOper" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="SerialManagerTexturometro.SerialManager">
-    <Position X="31" Y="13.75" Width="4.5" />
+    <Position X="38.75" Y="13.75" Width="5.25" />
     <TypeIdentifier>
-      <HashCode>KQAAAAAAAAAEIABCAYABIAIAAAYCKAACAAAAAQmAGBA=</HashCode>
+      <HashCode>KwAAAAAAAAAEIABCAYADIAIAAAYCKAACBAAAAQmAGBA=</HashCode>
       <FileName>SerialManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TexturometroClass.Texturometro">
-    <Position X="23.75" Y="6.25" Width="4.25" />
+    <Position X="22.25" Y="6.25" Width="8" />
     <AssociationLine Name="Motor" Type="MotorTexturometro.Motor" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="26.375" Y="11.267" />
-        <Point X="26.375" Y="13.17" />
-        <Point X="28.938" Y="13.17" />
-        <Point X="28.938" Y="13.75" />
+        <Point X="26.562" Y="11.267" />
+        <Point X="26.562" Y="13.291" />
+        <Point X="29" Y="13.291" />
+        <Point X="29" Y="13.75" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="SensorLS" Type="ClassesSuporteTexturometro.Chave" FixedToPoint="true">
+    <AssociationLine Name="SensorLS" Type="ClassesSuporteTexturometro.Chave" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="25.75" Y="11.267" />
-        <Point X="25.75" Y="13.75" />
+        <Point X="25.812" Y="11.267" />
+        <Point X="25.812" Y="13.267" />
+        <Point X="25" Y="13.267" />
+        <Point X="25" Y="13.75" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="SensorLI" Type="ClassesSuporteTexturometro.Chave" FixedToPoint="true">
+    <AssociationLine Name="SensorLI" Type="ClassesSuporteTexturometro.Chave" FixedFromPoint="true">
       <Path>
-        <Point X="26.062" Y="11.267" />
-        <Point X="26.062" Y="13.75" />
+        <Point X="26.188" Y="11.267" />
+        <Point X="26.188" Y="13.75" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.839" Y="0.083" />
+        <Position X="0.113" Y="0.083" />
       </MemberNameLabel>
     </AssociationLine>
     <AssociationLine Name="Teste" Type="EnsaioTextuometro.Ensaio" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="24.812" Y="11.267" />
-        <Point X="24.812" Y="12.388" />
-        <Point X="14.75" Y="12.388" />
-        <Point X="14.75" Y="14" />
+        <Point X="24.688" Y="11.267" />
+        <Point X="24.688" Y="12.108" />
+        <Point X="15.875" Y="12.108" />
+        <Point X="15.875" Y="13.75" />
       </Path>
     </AssociationLine>
     <AssociationLine Name="DadosTeste" Type="DadosDeEnsaio.DataTest" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="25.125" Y="11.267" />
-        <Point X="25.125" Y="12.785" />
-        <Point X="20.125" Y="12.785" />
-        <Point X="20.125" Y="13.75" />
+        <Point X="25.062" Y="11.267" />
+        <Point X="25.062" Y="12.48" />
+        <Point X="18.625" Y="12.48" />
+        <Point X="18.625" Y="13.75" />
       </Path>
     </AssociationLine>
     <AssociationLine Name="LoadCell" Type="LoadCellTexturometro.LoadCell" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="25.438" Y="11.267" />
-        <Point X="25.438" Y="13.11" />
-        <Point X="23.25" Y="13.11" />
-        <Point X="23.25" Y="13.75" />
+        <Point X="25.438" Y="12.837" />
+        <Point X="21.938" Y="12.837" />
+        <Point X="21.938" Y="13.75" />
       </Path>
     </AssociationLine>
     <AssociationLine Name="Serial" Type="SerialManagerTexturometro.SerialManager" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="26.688" Y="11.267" />
-        <Point X="26.688" Y="12.869" />
-        <Point X="33.312" Y="12.869" />
-        <Point X="33.312" Y="13.75" />
+        <Point X="27.812" Y="11.267" />
+        <Point X="27.812" Y="12.009" />
+        <Point X="41.375" Y="12.009" />
+        <Point X="41.375" Y="13.75" />
       </Path>
     </AssociationLine>
     <AssociationLine Name="Produto" Type="ProdutoTexturometro.CorpoDeProva" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="27.062" Y="11.267" />
-        <Point X="27.062" Y="12.474" />
-        <Point X="37.125" Y="12.474" />
-        <Point X="37.125" Y="13.75" />
+        <Point X="27.375" Y="11.267" />
+        <Point X="27.375" Y="12.41" />
+        <Point X="36.25" Y="12.41" />
+        <Point X="36.25" Y="13.75" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Encoder" Type="EncoderMotor.Encoder" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="26.938" Y="11.267" />
+        <Point X="26.938" Y="12.795" />
+        <Point X="32.656" Y="12.795" />
+        <Point X="32.656" Y="13.75" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>EAAgAoIECASkCQAEgAEAQIAAABACAIAAAQAAoEAAIAE=</HashCode>
+      <HashCode>GAAAAoIACQSkAwAEgAAAQIAAAhACABABAQAAoEAAIAE=</HashCode>
       <FileName>Texturometro.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -140,12 +140,13 @@
       <Field Name="LoadCell" />
       <Field Name="Serial" />
       <Field Name="Produto" />
+      <Field Name="Encoder" />
     </ShowAsAssociation>
   </Class>
   <Class Name="ProdutoTexturometro.CorpoDeProva">
-    <Position X="36" Y="13.75" Width="2.25" />
+    <Position X="34" Y="13.75" Width="4.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAABEAAAAAAAAgAAAQAQAAAAAAAAAAAAAIAAA=</HashCode>
+      <HashCode>AAEAABAAAgAAAAEAAAAgAAAAAQAAAAAAAAAAAoCIACA=</HashCode>
       <FileName>CorpoDeProva.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -153,94 +154,117 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="ProbeTexturometro.Probe">
-    <Position X="19" Y="16.5" Width="2.25" />
+    <Position X="17.5" Y="17.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>Probe.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ClassesSuporteTexturometro.SerialMessageArgument">
-    <Position X="10.5" Y="6.75" Width="2.5" />
+    <Position X="15.75" Y="6.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>ABAAAAAAABAAAAAgAAAABABAAAAAAAAAAABAAAAAAAA=</HashCode>
       <FileName>ClassesSuporte.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EnsaioTextuometro.EnsaioFactoryMethod">
-    <Position X="10.5" Y="11.25" Width="2.75" />
+    <Position X="15.75" Y="10.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
       <FileName>Ensaio.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EnsaioTextuometro.Ensaio">
-    <Position X="13.5" Y="14" Width="2.5" />
+    <Position X="14.75" Y="13.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AgAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAEAACAQAAAAw=</HashCode>
+      <HashCode>AgAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAEAACAAAAAAQ=</HashCode>
       <FileName>Ensaio.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Tipo" />
-      <Property Name="Estado" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="EnsaioTextuometro.EnsaioCompressao">
-    <Position X="13.75" Y="17.75" Width="2" />
+    <Position X="13" Y="17" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Ensaio.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EnsaioTextuometro.EnsaioTracao">
-    <Position X="16.25" Y="17.75" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Ensaio.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="EnsaioTextuometro.EnsaioCicloCompressao">
-    <Position X="11.25" Y="17.75" Width="2" />
+    <Position X="11" Y="17" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Ensaio.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DadosDeEnsaio.DataTest">
-    <Position X="18.75" Y="13.75" Width="2.75" />
+    <Position X="17.25" Y="13.75" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAEAAAAAAAABAAAAAAAAQQAAAAAEAAAAAAAAAAAAAQ=</HashCode>
+      <HashCode>AAIUAAAACAAAAIAAAAAAKAAAEAAAAAAgQAAAAAAAAAQ=</HashCode>
       <FileName>DadosDoEnsaio.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="PontaDeTeste" />
-      <Property Name="Limite" />
     </ShowAsAssociation>
   </Class>
-  <Enum Name="ClassesSuporteTexturometro.Acao">
-    <Position X="10.5" Y="15.5" Width="1.5" />
+  <Class Name="EnsaioTextuometro.EnsaioTPA">
+    <Position X="15.25" Y="17" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAgAAEAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Ensaio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EncoderMotor.Encoder">
+    <Position X="31.5" Y="13.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEQAAAAAAAAwAAAAAAFAAAAAAAAQAAAAgAAAAAA=</HashCode>
+      <FileName>EncoderMotor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="ClassesSuporteTexturometro.Acao">
+    <Position X="13.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAKAAAAAACAAAAAAUBAEEAAACAAAAAg=</HashCode>
       <FileName>ClassesSuporte.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="ClassesSuporteTexturometro.TipoDeTeste">
-    <Position X="10.5" Y="13.5" Width="1.75" />
+    <Position X="13.25" Y="10.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAEAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAQAAACAAEAAAAEAAAA=</HashCode>
       <FileName>ClassesSuporte.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="ClassesSuporteTexturometro.ModoMotor">
-    <Position X="25.25" Y="18.75" Width="1.5" />
+    <Position X="13.25" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAgAAAAAAAAAAACAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ClassesSuporte.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="ClassesSuporteTexturometro.TipoLimite">
-    <Position X="16.5" Y="14" Width="1.5" />
+  <Enum Name="ClassesSuporteTexturometro.TipoTarget">
+    <Position X="11.5" Y="8" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAEAAAAgAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAgAAAABAAAAAAAA=</HashCode>
+      <FileName>ClassesSuporte.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ClassesSuporteTexturometro.TipoTrigger">
+    <Position X="11.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAA=</HashCode>
+      <FileName>ClassesSuporte.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ClassesSuporteTexturometro.TipoTara">
+    <Position X="11.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>ClassesSuporte.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ClassesSuporteTexturometro.TipoProbe">
+    <Position X="11.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAACAAAAAg=</HashCode>
       <FileName>ClassesSuporte.cs</FileName>
     </TypeIdentifier>
   </Enum>

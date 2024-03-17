@@ -193,6 +193,7 @@
             this.txDim1.Name = "txDim1";
             this.txDim1.Size = new System.Drawing.Size(188, 20);
             this.txDim1.TabIndex = 11;
+            this.txDim1.Text = "40";
             this.txDim1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
             // 
             // lbDim1
@@ -316,6 +317,7 @@
             this.txTrigger.Name = "txTrigger";
             this.txTrigger.Size = new System.Drawing.Size(188, 20);
             this.txTrigger.TabIndex = 8;
+            this.txTrigger.Text = "3";
             this.txTrigger.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
             // 
             // lbTrigger
@@ -344,6 +346,7 @@
             this.txTime.Name = "txTime";
             this.txTime.Size = new System.Drawing.Size(188, 20);
             this.txTime.TabIndex = 6;
+            this.txTime.Text = "5";
             this.txTime.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
             // 
             // txTarget
@@ -352,6 +355,7 @@
             this.txTarget.Name = "txTarget";
             this.txTarget.Size = new System.Drawing.Size(188, 20);
             this.txTarget.TabIndex = 5;
+            this.txTarget.Text = "20";
             this.txTarget.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
             // 
             // label6
@@ -390,8 +394,8 @@
             this.cbTarget.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbTarget.FormattingEnabled = true;
             this.cbTarget.Items.AddRange(new object[] {
-            "Distância",
             "Deformação",
+            "Distância",
             "Força"});
             this.cbTarget.Location = new System.Drawing.Point(143, 93);
             this.cbTarget.Name = "cbTarget";
@@ -480,6 +484,7 @@
             this.txVelPT.Name = "txVelPT";
             this.txVelPT.Size = new System.Drawing.Size(188, 20);
             this.txVelPT.TabIndex = 2;
+            this.txVelPT.Text = "1";
             this.txVelPT.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
             // 
             // txVel
@@ -488,6 +493,7 @@
             this.txVel.Name = "txVel";
             this.txVel.Size = new System.Drawing.Size(188, 20);
             this.txVel.TabIndex = 3;
+            this.txVel.Text = "2";
             this.txVel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
             // 
             // btnCancel

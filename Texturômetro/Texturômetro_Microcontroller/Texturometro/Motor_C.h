@@ -7,11 +7,11 @@
   void configMotor();
   void rotinaZeroMaquina(double vel, double carga);
   
-  const double passo = 5;
+  const double passo = 25.4/5;
   const int ppr = 3200;//800;
   const char dirUP = 1;
-
+  const int IntervalorMax = (int)(((passo * 1000) / (ppr * 0.001 * 2)) * 250);
   static bool zerandoMaquina = false;
-static double zeroMaquinaLoad = 0;
-static int intervalo = 0;
+  static double zeroMaquinaLoad = 0;
+  static int intervalo = 0;
 #endif

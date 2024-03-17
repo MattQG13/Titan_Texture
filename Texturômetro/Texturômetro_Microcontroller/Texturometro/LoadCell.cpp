@@ -4,7 +4,8 @@
 
 //========DEFINE MODULO ADC========
   //#define WITH_ADC_HX711
-  #define WITH_ADC_CS5530
+  //#define WITH_ADC_CS5530
+  #define WITH_NO_ADC
 //=================================
 
 #ifdef WITH_ADC_CS5530
@@ -34,20 +35,12 @@ void configADC(){
         myADC.Init();
         delay(1000);
     #endif
+
+    #ifdef WITH_NO_ADC
+        pinMode(A0,INPUT_PULLUP);
+    #endif
     tara=0;
     tarar(100);
-
-    TCCR3A = 0;
-    TCCR3B = 0;
-    
-    
-    TCCR3B &=  ~(1 << CS30);
-    TCCR3B &=  ~(1 << CS31);
-    TCCR3B |= (1 << CS32);
-    
-    OCR3A=624;
-    TCNT3 = 0;
-  //TIMSK3 |= (1 << OCIE3A);
 }
 
 
@@ -59,6 +52,12 @@ void configADC(){
   
     return (((long double)valor) / scale) - tara;
   }
+#endif
+
+#ifdef WITH_NO_ADC
+   long double ReadLoad(){
+      return analogRead(A0); 
+   }  
 #endif
 
 #ifdef WITH_ADC_HX711

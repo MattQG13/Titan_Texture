@@ -37,3 +37,30 @@ C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Softwa
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\Titan Texture.pdb
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Titan Texture.exe
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Titan Texture.pdb
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\CsvHelper.dll
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\EPPlus.dll
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\EPPlus.Interfaces.dll
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\EPPlus.System.Drawing.dll
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\itextsharp.dll
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\Microsoft.Bcl.HashCode.dll
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\System.Buffers.dll
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\System.ComponentModel.Annotations.dll
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\System.Memory.dll
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\CsvHelper.xml
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\EPPlus.xml
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\itextsharp.xml
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\Microsoft.Bcl.HashCode.xml
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\Microsoft.IO.RecyclableMemoryStream.xml
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\System.Buffers.xml
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\System.Memory.xml
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Texturom.A4BAA14A.Up2Date

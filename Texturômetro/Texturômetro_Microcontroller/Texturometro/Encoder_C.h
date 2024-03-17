@@ -12,9 +12,10 @@ double getVel();
 void a1();
 void a2();
 void zeraCont();
+static volatile double posicaoEncoder = 0;
 
 const int pprEncoder = 1200;
-const double passoEncoder = 5;
+const double passoEncoder = 25.4/5;
 static volatile long contadorEncoder = 0;
 
 static volatile double millisAnt = 0;
