@@ -18,6 +18,7 @@ SerialInterpreter Mensagem;
 
 Filter FMM(8, 0.01);
 Filter FFMM (16, 0.1);
+Filter FMMV (10, 0.1);
 
 double load = 0;
 double filtredload = 0;
@@ -31,7 +32,7 @@ void setup() {
   #ifdef WITH_ENCODER
   configEncoder();
   #endif
-  configEnv();
+  //    configEnv();
   pinMode(LI, INPUT_PULLUP);
   pinMode(LS, INPUT_PULLUP);
 }
@@ -63,7 +64,7 @@ void loop() {
     digitalWrite(enMotor, 1);
   }
   
-  //envMens();
+  envMens();
   delay(10);
 }
 
@@ -134,10 +135,10 @@ void executaComando(SerialInterpreter com) {
         positionLimited = true;
         finalPosition = com.Valor2;
       }
-      Serial.println(com.Comando);
+      /*Serial.println(com.Comando);
       Serial.println(com.Valor);
       Serial.println(com.Valor2);
-      Serial.println(positionLimited);
+      Serial.println(positionLimited);*/
       break;
     default:
       break;
@@ -173,15 +174,15 @@ void envMens() {
     bufferText += "]";
     bufferText += endChar;
   
-  if(abs(filtredload)>3000){
+  if(abs(filtredload)>10000){
     atualizaMotor(0);
     Serial.print("[W;O]!");
   }
   #ifdef WITH_ENCODER
-  if(contVel>50){
+  if(contVel>10){
     bufferText += "[V;"; 
   
-    bufferText += String (getVel(), 3);
+    bufferText += String (FMMV.filtrar(getVel()), 1);
   
     bufferText += "]";
     bufferText += endChar;

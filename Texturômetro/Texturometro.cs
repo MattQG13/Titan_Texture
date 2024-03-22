@@ -76,12 +76,14 @@ namespace TexturometroClass {
         public Chave SensorLS;
         public Chave SensorLI;
         public Ensaio Teste;
-        private DataTest DadosTeste;
+        public DataTest DadosTeste;
         public LoadCell LoadCell;
         public SerialManager Serial;
 		public CorpoDeProva Produto;
 		private static Timer _timer;
 
+        public EventHandler fimTeste;
+        
         public Texturometro() {
 			LoadCell = new LoadCell();
 
@@ -122,7 +124,9 @@ namespace TexturometroClass {
             DadosTeste = DadosDoTeste;    
             Teste = EnsaioFactoryMethod.criarTeste(DadosTeste.Tipo);
             Produto=new CorpoDeProva();
+            LoadCell.ZeroTime();
             Produto.Resultado.Clear();
+
             ExecTeste(this, new EventArgs());
 		}
 
@@ -170,8 +174,12 @@ namespace TexturometroClass {
             }
         }
         public void StopAddResults() {
-            Serial.LoadCellDetected-=_atualizaResultadoL;
-            Serial.EncoderDetected-=_atualizaResultadoE;
+            for(int i = 0;i<10;i++)
+                try {
+                Serial.LoadCellDetected-=_atualizaResultadoL;
+                Serial.EncoderDetected-=_atualizaResultadoE;
+                
+            } finally { }
         }
 
         private void _atualizaResultadoL(object sender,SerialMessageArgument e) {
@@ -205,6 +213,8 @@ namespace TexturometroClass {
                     if(Produto.TamanhoOriginal==0) {
                         Produto.TamanhoOriginal=Encoder.Position;
                         Serial.EncoderDetected+=_atualizaTamanho;
+                    }else if(Produto.TamanhoRecuperacao==0) {
+                        Produto.TamanhoRecuperacao = Encoder.Position;
                     }
 
                     StartAddResults(this,new SerialMessageArgument());
@@ -240,7 +250,7 @@ namespace TexturometroClass {
                     break;
                 case Acao.Fim:
                     Motor.Stop();
-                    StopAddResults();
+                    fimTeste?.Invoke(this,EventArgs.Empty);
                     break;
                 default:
                     break;

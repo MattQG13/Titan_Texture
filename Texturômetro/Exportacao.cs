@@ -11,6 +11,11 @@ using System.IO.Packaging;
 using System.Text;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using EnsaioTextuometro;
+using System.Collections.Generic;
+using System.Linq;
+using DadosDeEnsaio;
+using Image = System.Drawing.Image;
 
 namespace ExportacaoResultado {
     public class ExportacaoExcel {
@@ -20,13 +25,13 @@ namespace ExportacaoResultado {
             
         }
 
-        public static void exportarExcel(CorpoDeProva corpoDeProva) {
+        public static void exportarExcel(in List<Coord> cp) {
             ExcelPackage.LicenseContext=LicenseContext.NonCommercial;
 
-            Tabela cp = new Tabela();
-            cp=corpoDeProva.Resultado;
-
-            var dados = cp.GetTable();
+            //var cp=corpoDeProva.Resultado.GetTable();
+            //for(int i = 0; i < 10;i++)
+            //cp.Add(new Coord(1*i,2*i,3*i));
+            var dados = cp;
             
            
             using(var package = new ExcelPackage()) {
@@ -65,6 +70,11 @@ namespace ExportacaoResultado {
 
     public class ExportacaoRelatorioPDF {
         public ExportacaoRelatorioPDF() { }
+
+
+        public static void exportaPDF(in CorpoDeProva corpoDeProva,in DataTest tipoDeTeste,Image image) {
+
+        }
     }
 
     public class ExportacaoCSV {
@@ -72,13 +82,13 @@ namespace ExportacaoResultado {
         
         }
 
-        public static void exportarCSV(CorpoDeProva corpoDeProva) {
+        public static void exportarCSV(in List<Coord> cp) {
 
-            Tabela cp = new Tabela();
+            //Tabela cp = new Tabela();
 
-            cp=corpoDeProva.Resultado;
+            //var cp =corpoDeProva.Resultado.GetTable();
 
-            var dados = cp.GetTable();
+            var dados = cp;
 
             var config = new CsvConfiguration(CultureInfo.CurrentCulture);
             config.HasHeaderRecord=true;

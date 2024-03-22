@@ -26,6 +26,28 @@ namespace EnsaioTextuometro {
             }
         }
 
+        public class Calculo {
+            public static int SearchFirstOccurrence(List<double> lista,double valor,int indexZero = 0,bool maiorque = true) {
+
+                for(int i = indexZero;i<lista.Count;i++) {
+                    var num = lista[i];
+                    if(maiorque?num>valor:num<valor) {
+                        return i;
+                    }
+                }
+                return 0;
+            }
+
+            public static double GetArea(List<double> listX,List<double> listY,int Xinicial,int Xfinal) {
+                double Area = 0;
+                for(int i = Xinicial;i<Xfinal;i++) {
+                    Area+=(listX[i+1]-listX[i])*((listY[i+1]+listY[i])/2);
+                }
+
+                return Area;
+            }
+        }
+
     }
     public class EnsaioCompressao : Ensaio{
 
@@ -53,6 +75,7 @@ namespace EnsaioTextuometro {
         }
     }
     public class EnsaioTPA : Ensaio {
+
         public EnsaioTPA() {
             Tipo=TipoDeTeste.TPA;
             Acoes=new List<Acao> {
@@ -66,6 +89,8 @@ namespace EnsaioTextuometro {
                 Acao.Fim
             };
         }
+
+        
     }
 
 

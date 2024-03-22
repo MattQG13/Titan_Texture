@@ -8,8 +8,11 @@ namespace ProdutoTexturometro {
         private double _targetDeformation = 0;
         private bool _targetedDeformation = false;
         private double _deformacaoValue;
+
         public Tabela Resultado { get; set; } = new Tabela();
         public double TamanhoOriginal { get; set; }
+        public double TamanhoRecuperacao { get; set; } 
+        
         public event EventHandler DeformacaoReached;
 
         public CorpoDeProva() {

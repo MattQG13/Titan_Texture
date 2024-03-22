@@ -10,7 +10,7 @@
 
 
 //====DEFINE LEITOR DE POSIÇÃO=====
-//#define WITH_ENCODER
+#define WITH_ENCODER
 //=================================
 
 extern long contador;

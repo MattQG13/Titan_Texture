@@ -40,7 +40,7 @@ ISR(TIMER1_COMPA_vect)
     if (!digitalRead(pulso))contador += digitalRead(direcao)? -dirUP : dirUP;
     posicao = ((double)contador/ppr)*passo;
   #else
-    posicao = posicaoEncoder;
+    posicao = getPosicao();
   #endif
   
   if(positionLimited){

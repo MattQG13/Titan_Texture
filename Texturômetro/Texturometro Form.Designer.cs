@@ -48,11 +48,6 @@
             this.btnDN = new System.Windows.Forms.Button();
             this.btnUP = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.lxy = new System.Windows.Forms.Label();
-            this.lbYAxe = new System.Windows.Forms.Label();
-            this.lbXAxe = new System.Windows.Forms.Label();
-            this.Graph = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lbInformations = new System.Windows.Forms.Label();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
@@ -69,15 +64,21 @@
             this.zeroMáquinaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraçõesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
+            this.Graph = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.lbXAxe = new System.Windows.Forms.Label();
+            this.lbYAxe = new System.Windows.Forms.Label();
+            this.lxy = new System.Windows.Forms.Label();
+            this.panelGraph = new System.Windows.Forms.Panel();
             this.pnBackground.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Graph)).BeginInit();
             this.panel3.SuspendLayout();
             this.menuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Graph)).BeginInit();
+            this.panelGraph.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnBackground
@@ -107,6 +108,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.lbVel);
             this.panel2.Controls.Add(this.lbVelSP);
@@ -128,7 +130,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(381, 130);
+            this.label3.Location = new System.Drawing.Point(352, 140);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(86, 13);
             this.label3.TabIndex = 12;
@@ -137,7 +139,7 @@
             // lbVel
             // 
             this.lbVel.AutoSize = true;
-            this.lbVel.Location = new System.Drawing.Point(467, 130);
+            this.lbVel.Location = new System.Drawing.Point(438, 140);
             this.lbVel.Name = "lbVel";
             this.lbVel.Size = new System.Drawing.Size(51, 13);
             this.lbVel.TabIndex = 11;
@@ -261,7 +263,7 @@
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.panel1, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.panelGraph, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel3, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
@@ -270,102 +272,6 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(766, 230);
             this.tableLayoutPanel2.TabIndex = 2;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.lxy);
-            this.panel1.Controls.Add(this.lbYAxe);
-            this.panel1.Controls.Add(this.lbXAxe);
-            this.panel1.Controls.Add(this.Graph);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(203, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(560, 224);
-            this.panel1.TabIndex = 0;
-            // 
-            // lxy
-            // 
-            this.lxy.AutoSize = true;
-            this.lxy.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lxy.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.lxy.Location = new System.Drawing.Point(121, 153);
-            this.lxy.Name = "lxy";
-            this.lxy.Size = new System.Drawing.Size(19, 12);
-            this.lxy.TabIndex = 6;
-            this.lxy.Text = "lxy";
-            this.lxy.Visible = false;
-            // 
-            // lbYAxe
-            // 
-            this.lbYAxe.AutoSize = true;
-            this.lbYAxe.Font = new System.Drawing.Font("SansSerif", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.lbYAxe.Location = new System.Drawing.Point(0, 0);
-            this.lbYAxe.Name = "lbYAxe";
-            this.lbYAxe.Size = new System.Drawing.Size(31, 15);
-            this.lbYAxe.TabIndex = 2;
-            this.lbYAxe.Text = "F(g)";
-            this.lbYAxe.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbXAxe
-            // 
-            this.lbXAxe.AutoSize = true;
-            this.lbXAxe.Font = new System.Drawing.Font("SansSerif", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.lbXAxe.Location = new System.Drawing.Point(558, 240);
-            this.lbXAxe.Name = "lbXAxe";
-            this.lbXAxe.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbXAxe.Size = new System.Drawing.Size(26, 15);
-            this.lbXAxe.TabIndex = 3;
-            this.lbXAxe.Text = "t(s)";
-            this.lbXAxe.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Graph
-            // 
-            this.Graph.BackColor = System.Drawing.SystemColors.Control;
-            chartArea1.AxisX.IsLabelAutoFit = false;
-            chartArea1.AxisX.Maximum = 120D;
-            chartArea1.AxisX.MaximumAutoSize = 90F;
-            chartArea1.AxisX.Minimum = 0D;
-            chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.LightGray;
-            chartArea1.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
-            chartArea1.AxisX.TitleAlignment = System.Drawing.StringAlignment.Far;
-            chartArea1.AxisX.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            chartArea1.AxisY.IsLabelAutoFit = false;
-            chartArea1.AxisY.LabelStyle.Format = "0.0";
-            chartArea1.AxisY.MaximumAutoSize = 90F;
-            chartArea1.AxisY.MinorGrid.Enabled = true;
-            chartArea1.AxisY.MinorGrid.LineColor = System.Drawing.Color.Gray;
-            chartArea1.AxisY.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
-            chartArea1.AxisY.ScaleView.SmallScrollMinSize = 10D;
-            chartArea1.AxisY.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
-            chartArea1.AxisY.TitleAlignment = System.Drawing.StringAlignment.Far;
-            chartArea1.AxisY.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            chartArea1.Name = "ChartArea1";
-            this.Graph.ChartAreas.Add(chartArea1);
-            this.Graph.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Graph.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Graph.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Graph.Location = new System.Drawing.Point(0, 0);
-            this.Graph.Name = "Graph";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.EmptyPointStyle.IsVisibleInLegend = false;
-            series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            series1.IsVisibleInLegend = false;
-            series1.IsXValueIndexed = true;
-            series1.Name = "Series1";
-            series1.Points.Add(dataPoint1);
-            series1.Points.Add(dataPoint2);
-            series1.Points.Add(dataPoint3);
-            series1.Points.Add(dataPoint4);
-            series1.Points.Add(dataPoint5);
-            series1.Points.Add(dataPoint6);
-            series1.SmartLabelStyle.Enabled = false;
-            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            this.Graph.Series.Add(series1);
-            this.Graph.Size = new System.Drawing.Size(560, 224);
-            this.Graph.TabIndex = 5;
-            this.Graph.Text = "Graph";
             // 
             // panel3
             // 
@@ -498,6 +404,114 @@
             this.sobreToolStripMenuItem.Text = "Sobre";
             this.sobreToolStripMenuItem.Click += new System.EventHandler(this.sobreToolStripMenuItem_Click);
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft JhengHei", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(528, 42);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(73, 46);
+            this.button1.TabIndex = 13;
+            this.button1.TabStop = false;
+            this.button1.Text = "γ";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // Graph
+            // 
+            this.Graph.BackColor = System.Drawing.SystemColors.Control;
+            chartArea1.AxisX.IsLabelAutoFit = false;
+            chartArea1.AxisX.Maximum = 120D;
+            chartArea1.AxisX.MaximumAutoSize = 90F;
+            chartArea1.AxisX.Minimum = 0D;
+            chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.LightGray;
+            chartArea1.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            chartArea1.AxisX.TitleAlignment = System.Drawing.StringAlignment.Far;
+            chartArea1.AxisX.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            chartArea1.AxisY.IsLabelAutoFit = false;
+            chartArea1.AxisY.LabelStyle.Format = "0.0";
+            chartArea1.AxisY.MaximumAutoSize = 90F;
+            chartArea1.AxisY.MinorGrid.Enabled = true;
+            chartArea1.AxisY.MinorGrid.LineColor = System.Drawing.Color.Gray;
+            chartArea1.AxisY.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            chartArea1.AxisY.ScaleView.SmallScrollMinSize = 10D;
+            chartArea1.AxisY.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
+            chartArea1.AxisY.TitleAlignment = System.Drawing.StringAlignment.Far;
+            chartArea1.AxisY.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            chartArea1.Name = "ChartArea1";
+            this.Graph.ChartAreas.Add(chartArea1);
+            this.Graph.Cursor = System.Windows.Forms.Cursors.Default;
+            this.Graph.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Graph.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.Graph.Location = new System.Drawing.Point(0, 0);
+            this.Graph.Name = "Graph";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.EmptyPointStyle.IsVisibleInLegend = false;
+            series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            series1.IsVisibleInLegend = false;
+            series1.IsXValueIndexed = true;
+            series1.Name = "Series1";
+            series1.Points.Add(dataPoint1);
+            series1.Points.Add(dataPoint2);
+            series1.Points.Add(dataPoint3);
+            series1.Points.Add(dataPoint4);
+            series1.Points.Add(dataPoint5);
+            series1.Points.Add(dataPoint6);
+            series1.SmartLabelStyle.Enabled = false;
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            this.Graph.Series.Add(series1);
+            this.Graph.Size = new System.Drawing.Size(560, 224);
+            this.Graph.TabIndex = 5;
+            this.Graph.Text = "Graph";
+            // 
+            // lbXAxe
+            // 
+            this.lbXAxe.AutoSize = true;
+            this.lbXAxe.Font = new System.Drawing.Font("SansSerif", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.lbXAxe.Location = new System.Drawing.Point(558, 240);
+            this.lbXAxe.Name = "lbXAxe";
+            this.lbXAxe.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lbXAxe.Size = new System.Drawing.Size(26, 15);
+            this.lbXAxe.TabIndex = 3;
+            this.lbXAxe.Text = "t(s)";
+            this.lbXAxe.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbYAxe
+            // 
+            this.lbYAxe.AutoSize = true;
+            this.lbYAxe.Font = new System.Drawing.Font("SansSerif", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.lbYAxe.Location = new System.Drawing.Point(0, 0);
+            this.lbYAxe.Name = "lbYAxe";
+            this.lbYAxe.Size = new System.Drawing.Size(31, 15);
+            this.lbYAxe.TabIndex = 2;
+            this.lbYAxe.Text = "F(g)";
+            this.lbYAxe.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lxy
+            // 
+            this.lxy.AutoSize = true;
+            this.lxy.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lxy.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.lxy.Location = new System.Drawing.Point(121, 153);
+            this.lxy.Name = "lxy";
+            this.lxy.Size = new System.Drawing.Size(19, 12);
+            this.lxy.TabIndex = 6;
+            this.lxy.Text = "lxy";
+            this.lxy.Visible = false;
+            // 
+            // panelGraph
+            // 
+            this.panelGraph.Controls.Add(this.lxy);
+            this.panelGraph.Controls.Add(this.lbYAxe);
+            this.panelGraph.Controls.Add(this.lbXAxe);
+            this.panelGraph.Controls.Add(this.Graph);
+            this.panelGraph.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelGraph.Location = new System.Drawing.Point(203, 3);
+            this.panelGraph.Name = "panelGraph";
+            this.panelGraph.Size = new System.Drawing.Size(560, 224);
+            this.panelGraph.TabIndex = 0;
+            // 
             // TexturometroForms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -521,12 +535,12 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Graph)).EndInit();
             this.panel3.ResumeLayout(false);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Graph)).EndInit();
+            this.panelGraph.ResumeLayout(false);
+            this.panelGraph.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -543,21 +557,16 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolStripMenuItem calibrarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem configuraçõesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sobreToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tararToolStripMenuItem;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label lbLoad;
-        private System.Windows.Forms.Label lbYAxe;
-        private System.Windows.Forms.Label lbXAxe;
-        private System.Windows.Forms.DataVisualization.Charting.Chart Graph;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lbPosition;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem zeroMáquinaToolStripMenuItem;
-        private System.Windows.Forms.Label lxy;
         private System.Windows.Forms.Label lbInformations;
         private System.Windows.Forms.Button btnFast;
         private System.Windows.Forms.Button btnStop;
@@ -569,6 +578,12 @@
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuExportExcel;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuExportCSV;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuExportPDF;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel panelGraph;
+        private System.Windows.Forms.Label lxy;
+        private System.Windows.Forms.Label lbYAxe;
+        private System.Windows.Forms.Label lbXAxe;
+        private System.Windows.Forms.DataVisualization.Charting.Chart Graph;
     }
 }
 
