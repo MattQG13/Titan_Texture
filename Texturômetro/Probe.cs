@@ -6,7 +6,8 @@ namespace ProbeTexturometro {
         public TipoProbe Tipo { get; set; }
         public Probe() {
         }
-        
+
+        public abstract String getDimin();
     }
 
     public class ProbeCircular : Probe {
@@ -16,6 +17,10 @@ namespace ProbeTexturometro {
             Tipo = TipoProbe.Circular;
             this.Diametro = Diametro;
             Area = (Math.PI*Diametro*Diametro)/4;
+        }
+
+        public override String getDimin() {
+            return $"⌀ {Diametro} mm";
         }
     }
 
@@ -31,6 +36,11 @@ namespace ProbeTexturometro {
             this.Comprimento = Comprimento;
             Area = Largura*Comprimento;
         }
+
+
+        public override String getDimin() {
+            return $"{Largura} mm × {Comprimento} mm";
+        }
     }
 
     public class ProbeCisalhamento : Probe
@@ -39,9 +49,13 @@ namespace ProbeTexturometro {
        {
             Tipo = TipoProbe.Cisalhamento;
         }
-    }
+        public override String getDimin() {
+            return String.Empty;
+        }
 
-    public sealed class ProbeFactoryMethod{
+        }
+
+        public sealed class ProbeFactoryMethod{
         
         public static Probe ProbeCreate(double Diametro) {
             return new ProbeCircular(Diametro);

@@ -35,6 +35,7 @@
             this.pnBackground = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.lbVel = new System.Windows.Forms.Label();
             this.lbVelSP = new System.Windows.Forms.Label();
@@ -48,8 +49,12 @@
             this.btnDN = new System.Windows.Forms.Button();
             this.btnUP = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.panelGraph = new System.Windows.Forms.Panel();
+            this.lxy = new System.Windows.Forms.Label();
+            this.lbYAxe = new System.Windows.Forms.Label();
+            this.lbXAxe = new System.Windows.Forms.Label();
+            this.Graph = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.lbInformations = new System.Windows.Forms.Label();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.arquivoStripMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.exportarComoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,21 +69,16 @@
             this.zeroMáquinaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraçõesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button1 = new System.Windows.Forms.Button();
-            this.Graph = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.lbXAxe = new System.Windows.Forms.Label();
-            this.lbYAxe = new System.Windows.Forms.Label();
-            this.lxy = new System.Windows.Forms.Label();
-            this.panelGraph = new System.Windows.Forms.Panel();
+            this.lbInformations = new System.Windows.Forms.RichTextBox();
             this.pnBackground.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
+            this.panelGraph.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Graph)).BeginInit();
             this.panel3.SuspendLayout();
             this.menuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Graph)).BeginInit();
-            this.panelGraph.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnBackground
@@ -126,6 +126,18 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(766, 194);
             this.panel2.TabIndex = 1;
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft JhengHei", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(528, 42);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(73, 46);
+            this.button1.TabIndex = 13;
+            this.button1.TabStop = false;
+            this.button1.Text = "γ";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // label3
             // 
@@ -273,6 +285,106 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(766, 230);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
+            // panelGraph
+            // 
+            this.panelGraph.Controls.Add(this.lxy);
+            this.panelGraph.Controls.Add(this.lbYAxe);
+            this.panelGraph.Controls.Add(this.lbXAxe);
+            this.panelGraph.Controls.Add(this.Graph);
+            this.panelGraph.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelGraph.Location = new System.Drawing.Point(203, 3);
+            this.panelGraph.Name = "panelGraph";
+            this.panelGraph.Size = new System.Drawing.Size(560, 224);
+            this.panelGraph.TabIndex = 0;
+            // 
+            // lxy
+            // 
+            this.lxy.AutoSize = true;
+            this.lxy.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lxy.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.lxy.Location = new System.Drawing.Point(121, 153);
+            this.lxy.Name = "lxy";
+            this.lxy.Size = new System.Drawing.Size(19, 12);
+            this.lxy.TabIndex = 6;
+            this.lxy.Text = "lxy";
+            this.lxy.Visible = false;
+            // 
+            // lbYAxe
+            // 
+            this.lbYAxe.AutoSize = true;
+            this.lbYAxe.BackColor = System.Drawing.Color.Transparent;
+            this.lbYAxe.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.lbYAxe.Location = new System.Drawing.Point(0, 0);
+            this.lbYAxe.Name = "lbYAxe";
+            this.lbYAxe.Size = new System.Drawing.Size(29, 14);
+            this.lbYAxe.TabIndex = 2;
+            this.lbYAxe.Text = "F(g)";
+            this.lbYAxe.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbYAxe.Visible = false;
+            // 
+            // lbXAxe
+            // 
+            this.lbXAxe.AutoSize = true;
+            this.lbXAxe.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.lbXAxe.Location = new System.Drawing.Point(528, 209);
+            this.lbXAxe.Name = "lbXAxe";
+            this.lbXAxe.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lbXAxe.Size = new System.Drawing.Size(26, 14);
+            this.lbXAxe.TabIndex = 3;
+            this.lbXAxe.Text = "t(s)";
+            this.lbXAxe.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbXAxe.Visible = false;
+            // 
+            // Graph
+            // 
+            this.Graph.BackColor = System.Drawing.SystemColors.Control;
+            chartArea1.AxisX.IsLabelAutoFit = false;
+            chartArea1.AxisX.Maximum = 120D;
+            chartArea1.AxisX.MaximumAutoSize = 90F;
+            chartArea1.AxisX.Minimum = 0D;
+            chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.LightGray;
+            chartArea1.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            chartArea1.AxisX.Title = "t(s)";
+            chartArea1.AxisX.TitleAlignment = System.Drawing.StringAlignment.Far;
+            chartArea1.AxisX.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            chartArea1.AxisY.IsLabelAutoFit = false;
+            chartArea1.AxisY.LabelStyle.Format = "0.0";
+            chartArea1.AxisY.MaximumAutoSize = 90F;
+            chartArea1.AxisY.MinorGrid.Enabled = true;
+            chartArea1.AxisY.MinorGrid.LineColor = System.Drawing.Color.Gray;
+            chartArea1.AxisY.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            chartArea1.AxisY.ScaleView.SmallScrollMinSize = 10D;
+            chartArea1.AxisY.Title = "F(g)";
+            chartArea1.AxisY.TitleAlignment = System.Drawing.StringAlignment.Far;
+            chartArea1.AxisY.TitleFont = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            chartArea1.Name = "ChartArea1";
+            this.Graph.ChartAreas.Add(chartArea1);
+            this.Graph.Cursor = System.Windows.Forms.Cursors.Default;
+            this.Graph.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Graph.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.Graph.Location = new System.Drawing.Point(0, 0);
+            this.Graph.Name = "Graph";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.EmptyPointStyle.IsVisibleInLegend = false;
+            series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            series1.IsVisibleInLegend = false;
+            series1.IsXValueIndexed = true;
+            series1.Name = "Series1";
+            series1.Points.Add(dataPoint1);
+            series1.Points.Add(dataPoint2);
+            series1.Points.Add(dataPoint3);
+            series1.Points.Add(dataPoint4);
+            series1.Points.Add(dataPoint5);
+            series1.Points.Add(dataPoint6);
+            series1.SmartLabelStyle.Enabled = false;
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            this.Graph.Series.Add(series1);
+            this.Graph.Size = new System.Drawing.Size(560, 224);
+            this.Graph.TabIndex = 5;
+            this.Graph.Text = "Graph";
+            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.lbInformations);
@@ -281,16 +393,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(194, 224);
             this.panel3.TabIndex = 1;
-            // 
-            // lbInformations
-            // 
-            this.lbInformations.BackColor = System.Drawing.Color.White;
-            this.lbInformations.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lbInformations.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbInformations.Location = new System.Drawing.Point(0, 0);
-            this.lbInformations.Name = "lbInformations";
-            this.lbInformations.Size = new System.Drawing.Size(194, 224);
-            this.lbInformations.TabIndex = 0;
             // 
             // menuStrip
             // 
@@ -321,27 +423,27 @@
             this.ToolStripMenuExportCSV,
             this.ToolStripMenuExportPDF});
             this.exportarComoToolStripMenuItem.Name = "exportarComoToolStripMenuItem";
-            this.exportarComoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportarComoToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.exportarComoToolStripMenuItem.Text = "Exportar";
             // 
             // ToolStripMenuExportExcel
             // 
             this.ToolStripMenuExportExcel.Name = "ToolStripMenuExportExcel";
-            this.ToolStripMenuExportExcel.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuExportExcel.Size = new System.Drawing.Size(178, 22);
             this.ToolStripMenuExportExcel.Text = "Exportar como .xlsx";
             this.ToolStripMenuExportExcel.Click += new System.EventHandler(this.ToolStripMenuExportExcel_Click);
             // 
             // ToolStripMenuExportCSV
             // 
             this.ToolStripMenuExportCSV.Name = "ToolStripMenuExportCSV";
-            this.ToolStripMenuExportCSV.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuExportCSV.Size = new System.Drawing.Size(178, 22);
             this.ToolStripMenuExportCSV.Text = "Exportar como .csv";
             this.ToolStripMenuExportCSV.Click += new System.EventHandler(this.ToolStripMenuExportCSV_Click);
             // 
             // ToolStripMenuExportPDF
             // 
             this.ToolStripMenuExportPDF.Name = "ToolStripMenuExportPDF";
-            this.ToolStripMenuExportPDF.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuExportPDF.Size = new System.Drawing.Size(178, 22);
             this.ToolStripMenuExportPDF.Text = "Exportar como .pdf";
             this.ToolStripMenuExportPDF.Click += new System.EventHandler(this.ToolStripMenuExportPDF_Click);
             // 
@@ -365,28 +467,28 @@
             // rodarTesteStripMenu
             // 
             this.rodarTesteStripMenu.Name = "rodarTesteStripMenu";
-            this.rodarTesteStripMenu.Size = new System.Drawing.Size(157, 22);
+            this.rodarTesteStripMenu.Size = new System.Drawing.Size(180, 22);
             this.rodarTesteStripMenu.Text = "Rodar teste...";
             this.rodarTesteStripMenu.Click += new System.EventHandler(this.rodarTesteToolStripMenuItem_Click);
             // 
             // calibrarToolStripMenuItem
             // 
             this.calibrarToolStripMenuItem.Name = "calibrarToolStripMenuItem";
-            this.calibrarToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.calibrarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.calibrarToolStripMenuItem.Text = "Calibrar...";
             this.calibrarToolStripMenuItem.Click += new System.EventHandler(this.calibrarToolStripMenuItem_Click);
             // 
             // tararToolStripMenuItem
             // 
             this.tararToolStripMenuItem.Name = "tararToolStripMenuItem";
-            this.tararToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.tararToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.tararToolStripMenuItem.Text = "Tarar...";
             this.tararToolStripMenuItem.Click += new System.EventHandler(this.tararToolStripMenuItem_Click);
             // 
             // zeroMáquinaToolStripMenuItem
             // 
             this.zeroMáquinaToolStripMenuItem.Name = "zeroMáquinaToolStripMenuItem";
-            this.zeroMáquinaToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.zeroMáquinaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.zeroMáquinaToolStripMenuItem.Text = "Zero Máquina...";
             this.zeroMáquinaToolStripMenuItem.Click += new System.EventHandler(this.zeroMáquinaToolStripMenuItem_Click);
             // 
@@ -404,113 +506,19 @@
             this.sobreToolStripMenuItem.Text = "Sobre";
             this.sobreToolStripMenuItem.Click += new System.EventHandler(this.sobreToolStripMenuItem_Click);
             // 
-            // button1
+            // lbInformations
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft JhengHei", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(528, 42);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(73, 46);
-            this.button1.TabIndex = 13;
-            this.button1.TabStop = false;
-            this.button1.Text = "γ";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // Graph
-            // 
-            this.Graph.BackColor = System.Drawing.SystemColors.Control;
-            chartArea1.AxisX.IsLabelAutoFit = false;
-            chartArea1.AxisX.Maximum = 120D;
-            chartArea1.AxisX.MaximumAutoSize = 90F;
-            chartArea1.AxisX.Minimum = 0D;
-            chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.LightGray;
-            chartArea1.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
-            chartArea1.AxisX.TitleAlignment = System.Drawing.StringAlignment.Far;
-            chartArea1.AxisX.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            chartArea1.AxisY.IsLabelAutoFit = false;
-            chartArea1.AxisY.LabelStyle.Format = "0.0";
-            chartArea1.AxisY.MaximumAutoSize = 90F;
-            chartArea1.AxisY.MinorGrid.Enabled = true;
-            chartArea1.AxisY.MinorGrid.LineColor = System.Drawing.Color.Gray;
-            chartArea1.AxisY.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
-            chartArea1.AxisY.ScaleView.SmallScrollMinSize = 10D;
-            chartArea1.AxisY.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
-            chartArea1.AxisY.TitleAlignment = System.Drawing.StringAlignment.Far;
-            chartArea1.AxisY.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            chartArea1.Name = "ChartArea1";
-            this.Graph.ChartAreas.Add(chartArea1);
-            this.Graph.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Graph.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Graph.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Graph.Location = new System.Drawing.Point(0, 0);
-            this.Graph.Name = "Graph";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.EmptyPointStyle.IsVisibleInLegend = false;
-            series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            series1.IsVisibleInLegend = false;
-            series1.IsXValueIndexed = true;
-            series1.Name = "Series1";
-            series1.Points.Add(dataPoint1);
-            series1.Points.Add(dataPoint2);
-            series1.Points.Add(dataPoint3);
-            series1.Points.Add(dataPoint4);
-            series1.Points.Add(dataPoint5);
-            series1.Points.Add(dataPoint6);
-            series1.SmartLabelStyle.Enabled = false;
-            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            this.Graph.Series.Add(series1);
-            this.Graph.Size = new System.Drawing.Size(560, 224);
-            this.Graph.TabIndex = 5;
-            this.Graph.Text = "Graph";
-            // 
-            // lbXAxe
-            // 
-            this.lbXAxe.AutoSize = true;
-            this.lbXAxe.Font = new System.Drawing.Font("SansSerif", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.lbXAxe.Location = new System.Drawing.Point(558, 240);
-            this.lbXAxe.Name = "lbXAxe";
-            this.lbXAxe.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbXAxe.Size = new System.Drawing.Size(26, 15);
-            this.lbXAxe.TabIndex = 3;
-            this.lbXAxe.Text = "t(s)";
-            this.lbXAxe.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbYAxe
-            // 
-            this.lbYAxe.AutoSize = true;
-            this.lbYAxe.Font = new System.Drawing.Font("SansSerif", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.lbYAxe.Location = new System.Drawing.Point(0, 0);
-            this.lbYAxe.Name = "lbYAxe";
-            this.lbYAxe.Size = new System.Drawing.Size(31, 15);
-            this.lbYAxe.TabIndex = 2;
-            this.lbYAxe.Text = "F(g)";
-            this.lbYAxe.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lxy
-            // 
-            this.lxy.AutoSize = true;
-            this.lxy.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lxy.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.lxy.Location = new System.Drawing.Point(121, 153);
-            this.lxy.Name = "lxy";
-            this.lxy.Size = new System.Drawing.Size(19, 12);
-            this.lxy.TabIndex = 6;
-            this.lxy.Text = "lxy";
-            this.lxy.Visible = false;
-            // 
-            // panelGraph
-            // 
-            this.panelGraph.Controls.Add(this.lxy);
-            this.panelGraph.Controls.Add(this.lbYAxe);
-            this.panelGraph.Controls.Add(this.lbXAxe);
-            this.panelGraph.Controls.Add(this.Graph);
-            this.panelGraph.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelGraph.Location = new System.Drawing.Point(203, 3);
-            this.panelGraph.Name = "panelGraph";
-            this.panelGraph.Size = new System.Drawing.Size(560, 224);
-            this.panelGraph.TabIndex = 0;
+            this.lbInformations.BackColor = System.Drawing.Color.White;
+            this.lbInformations.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbInformations.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbInformations.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.lbInformations.Location = new System.Drawing.Point(0, 0);
+            this.lbInformations.Name = "lbInformations";
+            this.lbInformations.ReadOnly = true;
+            this.lbInformations.Size = new System.Drawing.Size(194, 224);
+            this.lbInformations.TabIndex = 1;
+            this.lbInformations.TabStop = false;
+            this.lbInformations.Text = "";
             // 
             // TexturometroForms
             // 
@@ -535,12 +543,12 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
+            this.panelGraph.ResumeLayout(false);
+            this.panelGraph.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Graph)).EndInit();
             this.panel3.ResumeLayout(false);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Graph)).EndInit();
-            this.panelGraph.ResumeLayout(false);
-            this.panelGraph.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -567,7 +575,6 @@
         private System.Windows.Forms.Label lbPosition;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem zeroMáquinaToolStripMenuItem;
-        private System.Windows.Forms.Label lbInformations;
         private System.Windows.Forms.Button btnFast;
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.TrackBar trackBar1;
@@ -584,6 +591,7 @@
         private System.Windows.Forms.Label lbYAxe;
         private System.Windows.Forms.Label lbXAxe;
         private System.Windows.Forms.DataVisualization.Charting.Chart Graph;
+        private System.Windows.Forms.RichTextBox lbInformations;
     }
 }
 

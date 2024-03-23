@@ -67,6 +67,7 @@ using System.Reflection;
 using System.Drawing;
 using System.Timers;
 using Timer = System.Timers.Timer;
+using System.Threading;
 //using Timer = System.Windows.Forms.Timer;
 
 namespace TexturometroClass {
@@ -124,9 +125,10 @@ namespace TexturometroClass {
             DadosTeste = DadosDoTeste;    
             Teste = EnsaioFactoryMethod.criarTeste(DadosTeste.Tipo);
             Produto=new CorpoDeProva();
-            LoadCell.ZeroTime();
-            Produto.Resultado.Clear();
-
+            if(DadosTeste.TipoTara==TipoTara.Auto) {
+                LoadCell.Tarar();
+                Thread.Sleep(1000);
+            }
             ExecTeste(this, new EventArgs());
 		}
 
@@ -213,7 +215,9 @@ namespace TexturometroClass {
                     if(Produto.TamanhoOriginal==0) {
                         Produto.TamanhoOriginal=Encoder.Position;
                         Serial.EncoderDetected+=_atualizaTamanho;
-                    }else if(Produto.TamanhoRecuperacao==0) {
+                        LoadCell.ZeroTime();
+                        Produto.Resultado.Clear();
+                    } else if(Produto.TamanhoRecuperacao==0) {
                         Produto.TamanhoRecuperacao = Encoder.Position;
                     }
 

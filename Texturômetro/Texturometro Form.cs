@@ -14,12 +14,9 @@ using Timer = System.Windows.Forms.Timer;
 using System.Linq;
 using ExportacaoResultado;
 using ProdutoTexturometro;
-using System.Collections.Generic;
 using EnsaioTextuometro;
-using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Text;
-using Org.BouncyCastle.Crypto;
 using System.Threading.Tasks;
 
 namespace Texturometer {
@@ -40,9 +37,19 @@ namespace Texturometer {
             tick.Enabled=true;
             bkWork.DoWork+= bkWork_DoWork;
             bkWork.WorkerSupportsCancellation = true;
+
             typeof(Chart).InvokeMember("DoubleBuffered",
             BindingFlags.NonPublic|BindingFlags.Instance|BindingFlags.SetProperty,
             null,Graph,new object[] { true });
+
+            typeof(Panel).InvokeMember("DoubleBuffered",
+            BindingFlags.NonPublic|BindingFlags.Instance|BindingFlags.SetProperty,
+            null,Graph,new object[] { true });
+
+            typeof(Label).InvokeMember("DoubleBuffered",
+            BindingFlags.NonPublic|BindingFlags.Instance|BindingFlags.SetProperty,
+            null,Graph,new object[] { true });
+
         }
 
         public void VelAt(object sender,SerialMessageArgument e) {
@@ -117,6 +124,7 @@ namespace Texturometer {
                 if(true){//if(tex.Motor.ZeroSeated) {
                 ConfigEnsaio.DadosDeEnsaio.PosInicial=tex.Encoder.Position;
                     tex.TesteStart(ConfigEnsaio.DadosDeEnsaio);
+                    AtInfoLabel(ConfigEnsaio.DadosDeEnsaio);
                 } else {
                     var result = MessageBox.Show("Zero Máquina não definido!\nDefinir Zero Máquina?","Aviso!",MessageBoxButtons.OKCancel,MessageBoxIcon.Warning);
                     if(result==DialogResult.OK) {
@@ -127,7 +135,51 @@ namespace Texturometer {
             }    
             ConfigEnsaio.Dispose();
         }
+        private void AtInfoLabel(DataTest DadosDeEnsaio) {
+            
+            String un;
+            lbInformations.Clear();
+            WriteLineLabel("Informações do Teste:","\n");
 
+            WriteLineLabel("Velocidade de pré-teste: ",$"{ DadosDeEnsaio.VelPreTeste} mm/s");
+            WriteLineLabel("Velocidade de Teste: ",$"{DadosDeEnsaio.VelTeste} mm/s");
+            WriteLineLabel("Tipo de Alvo: ",$"{DadosDeEnsaio.TipoLimite}");
+            
+            un=DadosDeEnsaio.TipoLimite==TipoTarget.Distancia ? "mm" : DadosDeEnsaio.TipoLimite==TipoTarget.Deformacao ? "%" : "g";
+            var valAlvo = DadosDeEnsaio.TipoLimite==TipoTarget.Deformacao ? DadosDeEnsaio.ValorLimite*100 : DadosDeEnsaio.ValorLimite;
+
+            WriteLineLabel("Valor Alvo: ",$"{valAlvo} {un}");
+            WriteLineLabel("Tempo de Intervalo: ",$"{DadosDeEnsaio.Tempo} s");
+            WriteLineLabel("Tipo de Detecção: ",$"{DadosDeEnsaio.TipoDeteccao}");
+
+            un=DadosDeEnsaio.TipoDeteccao==TipoTrigger.Distancia ? "mm" : DadosDeEnsaio.TipoDeteccao==TipoTrigger.Forca ? "g" : String.Empty;
+
+            WriteLineLabel("Valor de Detecção: ",$"{DadosDeEnsaio.ValorDeteccao} {un}");
+            WriteLineLabel("Tipo de Tara: ",$"{DadosDeEnsaio.TipoTara}");
+            WriteLineLabel("Tipo de Probe: ",$"{DadosDeEnsaio.PontaDeTeste.Tipo}");
+            WriteLineLabel("Dimensões da Probe: ",$"{DadosDeEnsaio.PontaDeTeste.getDimin()}");
+            lbInformations.AppendText($"\n");
+
+        }
+
+        private void WriteLineLabel(String text1,String text2) {
+            lbInformations.SelectionFont=new Font(lbInformations.Font,FontStyle.Bold);
+
+            lbInformations.AppendText(text1);
+            flipLbStyle();
+            lbInformations.AppendText(text2+"\n");
+            flipLbStyle();
+        }
+        private string flipLbStyle() {
+            if(!lbInformations.SelectionFont.Bold) {
+                lbInformations.SelectionFont=new Font(lbInformations.Font,FontStyle.Bold); // Definir a fonte em negrito
+            } else {
+                lbInformations.SelectionFont=new Font(lbInformations.Font,FontStyle.Regular); // Definir a fonte em itálico
+            }
+
+            return String.Empty;
+
+        }
         private void calibrarToolStripMenuItem_Click(object sender,EventArgs e) {
             Calibracao FCal = new Calibracao(tex);
             FCal.ShowDialog();
@@ -354,63 +406,57 @@ namespace Texturometer {
 
             var tb = tex.Produto.Resultado;
 
-            //var cp = Dados.getCP();
-            //tb= cp.Resultado;
+            var cp = Dados.getCP();
+            tb= cp.Resultado;
 
-            //tex.Produto.Resultado=tb;
-            //tex.DadosTeste=new DataTest() { ValorDeteccao=3, Tipo = TipoDeTeste.TPA };
+            tex.Produto.Resultado=tb;
+            tex.DadosTeste=new DataTest() { ValorDeteccao=3, Tipo = TipoDeTeste.TPA };
 
+            if(tex.DadosTeste.Tipo==TipoDeTeste.TPA) {
+                int index0 = Ensaio.Calculo.SearchFirstOccurrence(tb.GetXvalues(),tex.DadosTeste.ValorDeteccao,0,true);
+                int index1 = Ensaio.Calculo.SearchFirstOccurrence(tb.GetXvalues(),tex.DadosTeste.ValorDeteccao,index0+10,false);
 
-            int index0 = Ensaio.Calculo.SearchFirstOccurrence(tb.GetXvalues(),tex.DadosTeste.ValorDeteccao,0,true);
-            int index1 = Ensaio.Calculo.SearchFirstOccurrence(tb.GetXvalues(),tex.DadosTeste.ValorDeteccao,index0+10,false);
+                int index2 = Ensaio.Calculo.SearchFirstOccurrence(tb.GetXvalues(),tex.DadosTeste.ValorDeteccao,index1+10,true);
 
-            int index2 = Ensaio.Calculo.SearchFirstOccurrence(tb.GetXvalues(),tex.DadosTeste.ValorDeteccao,index1+10,true);
+                int index3 = Ensaio.Calculo.SearchFirstOccurrence(tb.GetXvalues(),tex.DadosTeste.ValorDeteccao,index2+10,false);
 
-            int index3 = Ensaio.Calculo.SearchFirstOccurrence(tb.GetXvalues(),tex.DadosTeste.ValorDeteccao,index2+10,false);
+                double max1 = tb.GetXvalues().GetRange(index0,(index1-index0)).Max();
+                double max2 = tb.GetXvalues().GetRange(index2,(index3-index2)).Max();
 
-            double max1 = tb.GetXvalues().GetRange(index0,(index1-index0)).Max();
-            double max2 = tb.GetXvalues().GetRange(index2,(index3-index2)).Max();
+                int indexMax1 = tb.GetXvalues().IndexOf(max1);
+                int indexMax2 = tb.GetXvalues().IndexOf(max2);
 
-            int indexMax1 = tb.GetXvalues().IndexOf(max1);
-            int indexMax2 = tb.GetXvalues().IndexOf(max2);
+                double A1 = Ensaio.Calculo.GetArea(tb.GetZvalues(),tb.GetXvalues(),index0,index1);
+                double A2 = Ensaio.Calculo.GetArea(tb.GetZvalues(),tb.GetXvalues(),index2,index3);
 
-            double A1 = Ensaio.Calculo.GetArea(tb.GetZvalues(),tb.GetXvalues(),index0,index1);
-            double A2 = Ensaio.Calculo.GetArea(tb.GetZvalues(),tb.GetXvalues(),index2,index3);
+                double A3 = Ensaio.Calculo.GetArea(tb.GetZvalues(),tb.GetXvalues(),index1,index2);
 
-            double A3 =  Ensaio.Calculo.GetArea(tb.GetZvalues(),tb.GetXvalues(),index1,index2);
+                double R1 = Ensaio.Calculo.GetArea(tb.GetZvalues(),tb.GetXvalues(),index0,indexMax1);
+                double R2 = Ensaio.Calculo.GetArea(tb.GetZvalues(),tb.GetXvalues(),indexMax1,index1);
 
-            double R1 = Ensaio.Calculo.GetArea(tb.GetZvalues(),tb.GetXvalues(),index0,indexMax1);
-            double R2 = Ensaio.Calculo.GetArea(tb.GetZvalues(),tb.GetXvalues(),indexMax1,index1);
+                var Hardness = max1;
+                var Springiness = tb.GetYvalues()[index2]/tb.GetYvalues()[index0];
+                var Cohesiveness = max2/max1;
+                var Resilience = R2/R1;
+                var Adhesiveness = A3;
+                var Gumminess = Hardness*Cohesiveness;
+                var Chewiness = Gumminess*Springiness;
 
-            var Hardness = max1;
-            var Springiness = tb.GetYvalues()[index2]/tb.GetYvalues()[index0];
-            var Cohesiveness = max2/max1;
-            var Resilience = R2/R1;
-            var Adhesiveness =A3;
-            var Gumminess = Hardness*Cohesiveness;
-            var Chewiness = Gumminess*Springiness;
+                Task.Run(() => {
+                    this.Invoke(new Action(() => {
+                        WriteLineLabel("Resultados:","\n");
+                        WriteLineLabel("Tamanho do produto: ",$"{Math.Round(tb.GetYvalues()[index0],2)} mm");
+                        WriteLineLabel("Dureza: ",$"{Math.Round(Hardness,2)} g");
+                        WriteLineLabel("Elasticidade: ",$"{Math.Round(Springiness*100,2)} %");
+                        WriteLineLabel("Coesividade: ",$"{Math.Round(Cohesiveness*100,2)} %");
+                        WriteLineLabel("Resiliência: ",$"{Math.Round(Resilience*100,2)} %");
+                        WriteLineLabel("Adesividade : ",$"{Math.Round(Adhesiveness,2)} g.seg");
+                        WriteLineLabel("Gumosidade: ",$"{Math.Round(Gumminess,2)}");
+                        WriteLineLabel("Mastigabilidade: ",$"{Math.Round(Chewiness,2)}");
 
-            StringBuilder sB = new StringBuilder("");
-
-            sB.AppendLine($"Tamanho do produto: {Math.Round(tb.GetYvalues()[index0],2)} mm");
-            sB.AppendLine($"Tipo de teste: {tex.DadosTeste.Tipo }");
-
-            sB.AppendLine("\nResultados:");
-            sB.AppendLine($"Dureza: {Math.Round(Hardness,2)} g");
-            sB.AppendLine($"Elasticidade: {Math.Round(Springiness*100,2)} %");
-            sB.AppendLine($"Coesividade: {Math.Round(Cohesiveness*100,2)} %");
-            sB.AppendLine($"Resiliência: {Math.Round(Resilience*100,2)} %");
-            sB.AppendLine($"Adesividade : {Math.Round(Adhesiveness,2)} g.seg");
-            sB.AppendLine($"Gumosidade : {Math.Round(Gumminess,2)}");
-            sB.AppendLine($"Mastigabilidade : {Math.Round(Chewiness,2)}");
-
-            Task.Run(() => {
-                this.Invoke(new Action(() => {
-                    lbInformations.Text=sB.ToString();
-
-                }));
-            });
-
+                    }));
+                });
+            }
 
         }
 
