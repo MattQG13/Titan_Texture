@@ -52,26 +52,18 @@ namespace Texturometer {
 
         }
 
-        public void VelAt(object sender,SerialMessageArgument e) {
-                if(lbVel.InvokeRequired) {
-                lbVel.BeginInvoke((MethodInvoker)delegate {
-                    lbVel.Text=e.doubleValue.ToString()+" mm";
-                });
-            } else {
-                lbVel.Text=e.doubleValue.ToString()+" mm";
-            }
-        }
- 
-
         private void Texturometro_Load(object sender,EventArgs e) {
 
             tex.setSerial(Properties.Settings.Default.PortaCOM,Properties.Settings.Default.Baudrate);
 
             series.ChartType=SeriesChartType.Line;
             series.BorderWidth = 2;
+            series.Color = Color.BlueViolet;
 
             Graph.Series.Clear();
             Graph.Series.Add(series);
+
+            #region Estetica
             Series s = new Series("0");
             s.ChartType=SeriesChartType.Spline;
             List<double> ly = new List<double>();
@@ -85,6 +77,8 @@ namespace Texturometer {
             s.Points.DataBindXY(lx,ly);
             Graph.Series.Add(s);
             Graph.Update();
+            #endregion
+
             Graph.MouseMove+=Graph_MouseMove;
             Graph.ChartAreas[0].Position.X=0;
             Graph.ChartAreas[0].Position.Y = 0;
@@ -102,29 +96,38 @@ namespace Texturometer {
             tex.Serial.EncoderDetected+=atualizaLbPosition;
             tex.Serial.LoadCalibrated+=LoadCelCalibrated;
             Thread.Sleep(1000);
-            tex.LoadCell.ZeroTime();
+            tex.LoadCell.ZeroTime(); //Comentar depos
             tex.Serial.EnvCalibration(Properties.Settings.Default.CalLoadCell); //Verificar
+
             tex.Serial.DiscardInBuffer();
             tex.Produto.Resultado.Clear();
 
-            tex.Serial.VelDetected+=VelAt;
-
+            tex.Serial.VelDetected+=atualizaLbVel;
             tex.fimTeste+=execFimTeste;
         }
 
-        protected override bool ProcessCmdKey(ref Message msg,Keys keyData) {
-            Key key = KeyInterop.KeyFromVirtualKey((int)keyData);
-            KeyEventArgs e = new KeyEventArgs(keyData);
+        #region Botoes_Exportacao
 
-            if(key>0) {
-                if(Keyboard.IsKeyDown(key)) {
-                }
-                if(Keyboard.IsKeyUp(key)) {
-                }
-            }
-          
-            return base.ProcessCmdKey(ref msg,keyData);
+        private void ToolStripMenuExportCSV_Click(object sender,EventArgs e) {
+            ExportacaoCSV.exportarCSV(tex.Produto.Resultado.GetTable());
         }
+
+        private void ToolStripMenuExportExcel_Click(object sender,EventArgs e) {
+            ExportacaoExcel.exportarExcel(tex.Produto.Resultado.GetTable());
+        }
+
+        private void ToolStripMenuExportPDF_Click(object sender,EventArgs e) {
+            for(int i = 0;i<10;i++)
+                tex.Produto.Resultado.Add(new Coord(1*i,2*i,3*i));
+
+            CorpoDeProva cp = Dados.getCP();
+            tex.Produto.Resultado=cp.Resultado;
+
+            ExportacaoRelatorioPDF.exportaPDF(cp,tex.DadosTeste,getImgGrafico(panelGraph));
+        }
+        #endregion
+
+        #region Botoes_Controle_TA
 
         private void rodarTesteToolStripMenuItem_Click(object sender,EventArgs e) {
             ConfiguracaoEnsaio ConfigEnsaio = new ConfiguracaoEnsaio();
@@ -146,57 +149,77 @@ namespace Texturometer {
             }    
             ConfigEnsaio.Dispose();
         }
-        private void AtInfoLabel(DataTest DadosDeEnsaio) {
-            
-            String un;
-            lbInformations.Clear();
-            WriteLineLabel("Informações do Teste:","\n");
-
-            WriteLineLabel("Tipo de Ensaio: ",$"{DadosDeEnsaio.Tipo}");
-            WriteLineLabel("Velocidade de pré-teste: ",$"{ DadosDeEnsaio.VelPreTeste} mm/s");
-            WriteLineLabel("Velocidade de Teste: ",$"{DadosDeEnsaio.VelTeste} mm/s");
-            WriteLineLabel("Tipo de Alvo: ",$"{DadosDeEnsaio.TipoLimite}");
-            
-            un=DadosDeEnsaio.TipoLimite==TipoTarget.Distancia ? "mm" : DadosDeEnsaio.TipoLimite==TipoTarget.Deformacao ? "%" : "g";
-            var valAlvo = DadosDeEnsaio.TipoLimite==TipoTarget.Deformacao ? DadosDeEnsaio.ValorLimite*100 : DadosDeEnsaio.ValorLimite;
-
-            WriteLineLabel("Valor Alvo: ",$"{valAlvo} {un}");
-            WriteLineLabel("Tempo de Intervalo: ",$"{DadosDeEnsaio.Tempo} s");
-            WriteLineLabel("Tipo de Detecção: ",$"{DadosDeEnsaio.TipoDeteccao}");
-
-            un=DadosDeEnsaio.TipoDeteccao==TipoTrigger.Distancia ? "mm" : DadosDeEnsaio.TipoDeteccao==TipoTrigger.Forca ? "g" : String.Empty;
-
-            WriteLineLabel("Valor de Detecção: ",$"{DadosDeEnsaio.ValorDeteccao} {un}");
-            WriteLineLabel("Tipo de Tara: ",$"{DadosDeEnsaio.TipoTara}");
-            WriteLineLabel("Tipo de Probe: ",$"{DadosDeEnsaio.PontaDeTeste.Tipo}");
-            WriteLineLabel("Dimensões da Probe: ",$"{DadosDeEnsaio.PontaDeTeste.getDimin()}");
-            lbInformations.AppendText($"\n");
-
-        }
-
-        private void WriteLineLabel(String text1,String text2) {
-            lbInformations.SelectionFont=new Font(lbInformations.Font,FontStyle.Bold);
-
-            lbInformations.AppendText(text1);
-            flipLbStyle();
-            lbInformations.AppendText(text2+"\n");
-            flipLbStyle();
-        }
-        private string flipLbStyle() {
-            if(!lbInformations.SelectionFont.Bold) {
-                lbInformations.SelectionFont=new Font(lbInformations.Font,FontStyle.Bold); // Definir a fonte em negrito
-            } else {
-                lbInformations.SelectionFont=new Font(lbInformations.Font,FontStyle.Regular); // Definir a fonte em itálico
-            }
-
-            return String.Empty;
-
-        }
+       
         private void calibrarToolStripMenuItem_Click(object sender,EventArgs e) {
             Calibracao FCal = new Calibracao(tex);
             FCal.ShowDialog();
         }
 
+        private void tararToolStripMenuItem_Click(object sender,EventArgs e) {
+            tex.LoadCell.Tarar();
+        }
+
+        private void zeroMáquinaToolStripMenuItem_Click(object sender,EventArgs e) {
+            ZeroMaquina zm = new ZeroMaquina(tex);
+            zm.ShowDialog();
+        }
+        #endregion
+
+        #region Botoes_Controle_JOG
+        private void btnUP_Click(object sender,EventArgs e) {
+            tex.Motor.ModoMotor=ModoMotor.Subir;
+            tex.Motor.Start(ModoMotor.Subir,Properties.Settings.Default.VelManual);
+        }
+        private void btnDN_Click(object sender,EventArgs e) {
+            tex.Motor.Start(ModoMotor.Descer,Properties.Settings.Default.VelManual);
+        }
+        private void btnStop_Click(object sender,EventArgs e) {
+            tex.Motor.Stop();
+        }
+        private void btnFast_Click(object sender,EventArgs e) {
+            switch(tex.Motor.ModoMotor) {
+                case ModoMotor.Subir:
+                    tex.Motor.Start(ModoMotor.Subir,Properties.Settings.Default.VelManualRapida);
+                    break;
+                case ModoMotor.Descer:
+                    tex.Motor.Start(ModoMotor.Descer,Properties.Settings.Default.VelManualRapida);
+                    break;
+                case ModoMotor.Parado:
+                    tex.Motor.Stop();
+                    break;
+            }
+        }
+        #endregion
+
+        #region Botoes_Funcao
+        private void configuraçõesToolStripMenuItem_Click(object sender,EventArgs e) {
+            ConfiguracaoPrograma confP = new ConfiguracaoPrograma(this);
+            confP.ShowDialog();
+        }
+
+        private void sobreToolStripMenuItem_Click(object sender,EventArgs e) {
+            Sobre sb = new Sobre();
+            sb.ShowDialog();
+
+        }
+        #endregion
+
+        private void TexturometroForms_FormClosing(object sender,FormClosingEventArgs e) {
+            try {
+                tex.Serial.LoadCellDetected=null;
+                tex.Serial.EncoderDetected=null;
+                tex.Serial.MotorDetected=null;
+                tick.Stop();
+                bkWork.CancelAsync();
+
+                if(tex.Serial.IsOpen) {
+                    tex.Serial.DiscardInBuffer();
+                    tex.Serial.Close();
+                }
+            } finally { }
+        }
+
+        #region Controle_Grafico
         private void atGraph(object sender,EventArgs e) {
             if(!bkWork.IsBusy) {
                 bkWork.RunWorkerAsync();
@@ -209,7 +232,7 @@ namespace Texturometer {
                     GC.Collect();
                     Graph.SuspendLayout();
                     try {
-                       series.Points.DataBindXY(tex.Produto.Resultado.GetZvalues(),tex.Produto.Resultado.GetXvalues());
+                        series.Points.DataBindXY(tex.Produto.Resultado.GetZvalues(),tex.Produto.Resultado.GetXvalues());
 
                     } finally { }
 
@@ -229,7 +252,7 @@ namespace Texturometer {
                             Graph.ChartAreas[0].RecalculateAxesScale();
                         }
                     }
-                 
+
 
 
                     Graph.Invalidate();
@@ -238,55 +261,67 @@ namespace Texturometer {
             }
         }
 
-        private void btnUP_Click(object sender,EventArgs e) {
-            tex.Motor.ModoMotor=ModoMotor.Subir;
-            tex.Motor.Start(ModoMotor.Subir,Properties.Settings.Default.VelManual);
-        }
-        private void btnDN_Click(object sender,EventArgs e) {
-            tex.Motor.Start(ModoMotor.Descer,Properties.Settings.Default.VelManual);
-        }
-        private void btnStop_Click(object sender,EventArgs e) {
-            tex.Motor.Stop();
-        }
+        private void Graph_MouseMove(object sender,System.Windows.Forms.MouseEventArgs e) {
 
-        private void btnFast_Click(object sender,EventArgs e) {
-            switch(tex.Motor.ModoMotor) {
-                case ModoMotor.Subir:
-                    tex.Motor.Start(ModoMotor.Subir,Properties.Settings.Default.VelManualRapida);
-                    break;
-                case ModoMotor.Descer:
-                    tex.Motor.Start(ModoMotor.Descer,Properties.Settings.Default.VelManualRapida);
-                    break;
-                case ModoMotor.Parado:
-                    tex.Motor.Stop();
-                    break;
+            try {
+
+                if(Graph.ChartAreas[0].AxisX.PixelPositionToValue(e.X)>Graph.ChartAreas[0].AxisX.Minimum&&
+                   Graph.ChartAreas[0].AxisX.PixelPositionToValue(e.X)<Graph.ChartAreas[0].AxisX.Maximum&&
+                   Graph.ChartAreas[0].AxisY.PixelPositionToValue(e.Y)>Graph.ChartAreas[0].AxisY.Minimum&&
+                   Graph.ChartAreas[0].AxisY.PixelPositionToValue(e.Y)<Graph.ChartAreas[0].AxisY.Maximum) {
+
+                    double mouseX = Graph.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
+                    double mouseY = Graph.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
+                    lxy.Visible=true;
+
+                    Graph.ChartAreas[0].CursorX.Position=mouseX;
+                    Graph.ChartAreas[0].CursorY.Position=mouseY;
+
+                    lxy.Text=$"x:{mouseX:F1}  y:{mouseY:F1}";
+                    lxy.Location=new Point(e.X+5,e.Y-20);
+
+                } else {
+                    lxy.Visible=false;
+                    Graph.ChartAreas[0].CursorX.Position=double.NaN;
+                    Graph.ChartAreas[0].CursorY.Position=double.NaN;
+                }
+            } finally {
+                Graph.Update();
             }
         }
-        private void TexturometroForms_FormClosing(object sender,FormClosingEventArgs e) {
-            try {
-                tex.Serial.LoadCellDetected=null;
-                tex.Serial.EncoderDetected=null;
-                tex.Serial.MotorDetected=null;
-                tick.Stop();
-                bkWork.CancelAsync();
 
-                if(tex.Serial.IsOpen) {
-                    tex.Serial.DiscardInBuffer();
-                    tex.Serial.Close();
+        private void Graph_MouseLeave(object sender,EventArgs e) {
+            lxy.Visible=false;
+            Graph.ChartAreas[0].CursorX.Position=double.NaN;
+            Graph.ChartAreas[0].CursorY.Position=double.NaN;
+            Graph.Update();
+
+        }
+
+        private static Image getImgGrafico(Panel panel) {
+            Image img;
+
+            Bitmap bitmap = new Bitmap(panel.Width,panel.Height);
+            panel.DrawToBitmap(bitmap,new Rectangle(0,0,panel.Width,panel.Height));
+
+            using(Graphics g = Graphics.FromImage(bitmap)) {
+                foreach(Control control in panel.Controls) {
+                    if(control!=null) {
+                        using(Bitmap controlBitmap = new Bitmap(control.Width,control.Height)) {
+                            control.DrawToBitmap(controlBitmap,new Rectangle(Point.Empty,control.Size));
+                            g.DrawImage(controlBitmap,control.Location);
+                        }
+                    }
                 }
-            } finally { }
+            }
+
+            img=bitmap;
+
+            return img;
         }
-
-        private void sobreToolStripMenuItem_Click(object sender,EventArgs e) {
-            Sobre sb = new Sobre();
-            sb.ShowDialog();
-
-        }
-
-        private void tararToolStripMenuItem_Click(object sender,EventArgs e) {
-            tex.LoadCell.Tarar();
-        }
-
+        #endregion
+        
+        #region Atualizacao_Labels
         private void atualizaLbLoad(object sender,SerialMessageArgument e) {
             if(lbLoad.InvokeRequired) {
                 lbLoad.BeginInvoke((MethodInvoker)delegate {
@@ -305,12 +340,32 @@ namespace Texturometer {
             } else {
                 lbPosition.Text=e.doubleValue1.ToString()+" mm";
             }
-
         }
 
-        private void configuraçõesToolStripMenuItem_Click(object sender,EventArgs e) {
-            ConfiguracaoPrograma confP = new ConfiguracaoPrograma(this);
-            confP.ShowDialog();
+        public void atualizaLbVel(object sender,SerialMessageArgument e) {
+            if(lbVel.InvokeRequired) {
+                lbVel.BeginInvoke((MethodInvoker)delegate {
+                    lbVel.Text=e.doubleValue.ToString()+" mm";
+                });
+            } else {
+                lbVel.Text=e.doubleValue.ToString()+" mm";
+            }
+        }
+        #endregion
+
+        #region Funcoes_Especiais
+        protected override bool ProcessCmdKey(ref Message msg,Keys keyData) {
+            Key key = KeyInterop.KeyFromVirtualKey((int)keyData);
+            KeyEventArgs e = new KeyEventArgs(keyData);
+
+            if(key>0) {
+                if(Keyboard.IsKeyDown(key)) {
+                }
+                if(Keyboard.IsKeyUp(key)) {
+                }
+            }
+
+            return base.ProcessCmdKey(ref msg,keyData);
         }
 
         public void reconfigura() {
@@ -338,58 +393,9 @@ namespace Texturometer {
 
         }
 
-        private void zeroMáquinaToolStripMenuItem_Click(object sender,EventArgs e) {
-            ZeroMaquina zm = new ZeroMaquina(tex);
-            zm.ShowDialog();
-        }
-
-        private void Graph_MouseMove(object sender,System.Windows.Forms.MouseEventArgs e) {
-
-            try {
-
-                if(Graph.ChartAreas[0].AxisX.PixelPositionToValue(e.X)>Graph.ChartAreas[0].AxisX.Minimum&&
-                   Graph.ChartAreas[0].AxisX.PixelPositionToValue(e.X)<Graph.ChartAreas[0].AxisX.Maximum&&
-                   Graph.ChartAreas[0].AxisY.PixelPositionToValue(e.Y)>Graph.ChartAreas[0].AxisY.Minimum&&
-                   Graph.ChartAreas[0].AxisY.PixelPositionToValue(e.Y)<Graph.ChartAreas[0].AxisY.Maximum) {
-
-                    double mouseX = Graph.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
-                    double mouseY = Graph.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
-                    lxy.Visible=true;
-
-                    Graph.ChartAreas[0].CursorX.Position=mouseX;
-                    Graph.ChartAreas[0].CursorY.Position=mouseY;
-
-                    lxy.Text=$"x:{mouseX:F1}  y:{mouseY:F1}";
-                    lxy.Location=new Point(e.X+5,e.Y-20);
-                } else {
-                    lxy.Visible=false;
-                    Graph.ChartAreas[0].CursorX.Position=double.NaN;
-                    Graph.ChartAreas[0].CursorY.Position=double.NaN;
-                }
-            } finally { }
-        }
-
         private void LoadCelCalibrated(object sender, SerialMessageArgument args) {
             Properties.Settings.Default.CalLoadCell=args.doubleValue;
             Properties.Settings.Default.Save();
-        }
-
-        private void ToolStripMenuExportCSV_Click(object sender,EventArgs e) {
-            ExportacaoCSV.exportarCSV(tex.Produto.Resultado.GetTable());
-        }
-
-        private void ToolStripMenuExportExcel_Click(object sender,EventArgs e) {
-            ExportacaoExcel.exportarExcel(tex.Produto.Resultado.GetTable());
-        }
-
-        private void ToolStripMenuExportPDF_Click(object sender,EventArgs e) {
-            for(int i = 0; i < 10;i++)
-                tex.Produto.Resultado.Add(new Coord(1*i,2*i,3*i));
-            
-            CorpoDeProva cp = Dados.getCP();
-            tex.Produto.Resultado = cp.Resultado;
-            
-            ExportacaoRelatorioPDF.exportaPDF(cp,tex.DadosTeste,getImgGrafico(panelGraph));
         }
 
         private void execFimTeste(object sender, EventArgs e) {
@@ -434,31 +440,56 @@ namespace Texturometer {
 
         }
 
-        private static Image getImgGrafico(Panel panel ){
-            Image img;
+        private void AtInfoLabel(DataTest DadosDeEnsaio) {
 
-            Bitmap bitmap = new Bitmap(panel.Width,panel.Height);
-            panel.DrawToBitmap(bitmap,new Rectangle(0,0,panel.Width,panel.Height));
+            String un;
+            lbInformations.Clear();
+            WriteLineLabel("Informações do Teste:","\n");
 
-            using(Graphics g = Graphics.FromImage(bitmap)) {
-                foreach(Control control in panel.Controls) {
-                    if(control!=null) {
-                        using(Bitmap controlBitmap = new Bitmap(control.Width,control.Height)) {
-                            control.DrawToBitmap(controlBitmap,new Rectangle(Point.Empty,control.Size));
-                            g.DrawImage(controlBitmap,control.Location);
-                        }
-                    }
-                }
+            WriteLineLabel("Tipo de Ensaio: ",$"{DadosDeEnsaio.Tipo}");
+            WriteLineLabel("Velocidade de pré-teste: ",$"{DadosDeEnsaio.VelPreTeste} mm/s");
+            WriteLineLabel("Velocidade de Teste: ",$"{DadosDeEnsaio.VelTeste} mm/s");
+            WriteLineLabel("Tipo de Alvo: ",$"{DadosDeEnsaio.TipoLimite}");
+
+            un=DadosDeEnsaio.TipoLimite==TipoTarget.Distancia ? "mm" : DadosDeEnsaio.TipoLimite==TipoTarget.Deformacao ? "%" : "g";
+            var valAlvo = DadosDeEnsaio.TipoLimite==TipoTarget.Deformacao ? DadosDeEnsaio.ValorLimite*100 : DadosDeEnsaio.ValorLimite;
+
+            WriteLineLabel("Valor Alvo: ",$"{valAlvo} {un}");
+            WriteLineLabel("Tempo de Intervalo: ",$"{DadosDeEnsaio.Tempo} s");
+            WriteLineLabel("Tipo de Detecção: ",$"{DadosDeEnsaio.TipoDeteccao}");
+
+            un=DadosDeEnsaio.TipoDeteccao==TipoTrigger.Distancia ? "mm" : DadosDeEnsaio.TipoDeteccao==TipoTrigger.Forca ? "g" : String.Empty;
+
+            WriteLineLabel("Valor de Detecção: ",$"{DadosDeEnsaio.ValorDeteccao} {un}");
+            WriteLineLabel("Tipo de Tara: ",$"{DadosDeEnsaio.TipoTara}");
+            WriteLineLabel("Tipo de Probe: ",$"{DadosDeEnsaio.PontaDeTeste.Tipo}");
+            WriteLineLabel("Dimensões da Probe: ",$"{DadosDeEnsaio.PontaDeTeste.getDimin()}");
+            lbInformations.AppendText($"\n");
+
+        }
+
+        private void WriteLineLabel(String text1,String text2) {
+            lbInformations.SelectionFont=new Font(lbInformations.Font,FontStyle.Bold);
+
+            lbInformations.AppendText(text1);
+            flipLbStyle();
+            lbInformations.AppendText(text2+"\n");
+            flipLbStyle();
+        }
+
+        private string flipLbStyle() {
+            if(!lbInformations.SelectionFont.Bold) {
+                lbInformations.SelectionFont=new Font(lbInformations.Font,FontStyle.Bold); // Definir a fonte em negrito
+            } else {
+                lbInformations.SelectionFont=new Font(lbInformations.Font,FontStyle.Regular); // Definir a fonte em itálico
             }
-
-            img = bitmap;   
-
-            return img;
+            return String.Empty;
         }
 
         private void button1_Click_1(object sender,EventArgs e) {
             execFimTeste(this,EventArgs.Empty);
         }
+        #endregion
 
     }
 }

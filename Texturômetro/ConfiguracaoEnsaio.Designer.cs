@@ -498,6 +498,7 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(8, 413);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
@@ -548,8 +549,10 @@
             // 
             // ConfiguracaoEnsaio
             // 
+            this.AcceptButton = this.Iniciar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(800, 469);
             this.Controls.Add(this.tabs);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

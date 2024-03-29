@@ -224,7 +224,7 @@ namespace ClassesSuporteTexturometro {
             res.Springiness = (tb.GetZvalues()[indexp2]-tb.GetZvalues()[index2])/((tb.GetZvalues()[indexp1]-tb.GetZvalues()[index0]));
             res.Cohesiveness = A2/A1;
             res.Resilience = R2/R1;
-            res.Adhesiveness = A3;
+            res.Adhesiveness = A3<0?A3:0;
             res.Gumminess = res.Hardness*res.Cohesiveness;
             res.Chewiness = res.Gumminess*res.Springiness;      
             res.TamProd =tb.GetYvalues()[index0];
