@@ -84,7 +84,8 @@ namespace TexturometroClass {
 		private static Timer _timer;
 
         public EventHandler fimTeste;
-        
+        public bool testRunning = false;
+
         public Texturometro() {
 			LoadCell = new LoadCell();
 
@@ -111,7 +112,7 @@ namespace TexturometroClass {
             LoadCell.ZeroSet+=Serial.EnvTARA;
 			LoadCell.Calibration+=Serial.CalLC;
 			LoadCell.ZerarTime+=Serial.EnvZeroTime;
-
+            
             Encoder=new Encoder();
             Produto = new CorpoDeProva();
             _timer = new Timer();
@@ -129,6 +130,7 @@ namespace TexturometroClass {
                 LoadCell.Tarar();
                 Thread.Sleep(1000);
             }
+            testRunning=true;
             ExecTeste(this, new EventArgs());
 		}
 
@@ -171,6 +173,7 @@ namespace TexturometroClass {
 
         public void StartAddResults(object sender,SerialMessageArgument e) {
             if(!ContainsHandler(Serial.LoadCellDetected,_atualizaResultadoL)&&!ContainsHandler(Serial.EncoderDetected,_atualizaResultadoE)) {
+                Produto.Resultado.Clear();
                 Serial.LoadCellDetected+=_atualizaResultadoL;
                 Serial.EncoderDetected+=_atualizaResultadoE;
             }
@@ -216,12 +219,11 @@ namespace TexturometroClass {
                         Produto.TamanhoOriginal=Encoder.Position;
                         Serial.EncoderDetected+=_atualizaTamanho;
                         LoadCell.ZeroTime();
-                        Produto.Resultado.Clear();
                     } else if(Produto.TamanhoRecuperacao==0) {
                         Produto.TamanhoRecuperacao = Encoder.Position;
                     }
 
-                    StartAddResults(this,new SerialMessageArgument());
+                    //StartAddResults(this,new SerialMessageArgument());
                     Motor.Start(ModoMotor.Descer,DadosTeste.VelTeste);
 
                     switch(DadosTeste.TipoLimite) {
@@ -232,6 +234,7 @@ namespace TexturometroClass {
                         default :
                             break;
                     }
+
                     break;
 
                 case Acao.SubirTeste: //Sobe em velocidade de teste
@@ -254,12 +257,14 @@ namespace TexturometroClass {
                     break;
                 case Acao.Fim:
                     Motor.Stop();
+                    testRunning=false;
                     fimTeste?.Invoke(this,EventArgs.Empty);
                     break;
                 default:
                     break;
             }
         }
+
 
         private void RemoveEvento(object sender) {
             EventInfo[] eventos = sender.GetType().GetEvents();

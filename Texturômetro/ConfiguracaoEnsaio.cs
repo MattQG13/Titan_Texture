@@ -24,7 +24,7 @@ namespace Texturometer {
             cbTara.SelectedIndex=0;
             cbProbe.SelectedIndex=0;
 
-            txID.Text=DateTime.Now.Year.ToString()+DateTime.Now.Month.ToString().PadLeft(2,'0')+DateTime.Now.Day.ToString().PadLeft(2,'0')+DateTime.Now.Hour.ToString().PadLeft(2,'0')+DateTime.Now.Minute.ToString().PadLeft(2,'0')+DateTime.Now.Second.ToString().PadLeft(2,'0');
+            txNome.Text=DateTime.Now.Year.ToString()+DateTime.Now.Month.ToString().PadLeft(2,'0')+DateTime.Now.Day.ToString().PadLeft(2,'0')+DateTime.Now.Hour.ToString().PadLeft(2,'0')+DateTime.Now.Minute.ToString().PadLeft(2,'0')+DateTime.Now.Second.ToString().PadLeft(2,'0');
         }
         private void btnIniciar_Click(object sender,EventArgs e) {
             if(capturaDados()) {
@@ -53,6 +53,8 @@ namespace Texturometer {
                 }else if(cbProbe.SelectedItem.ToString()=="Retangular") {
                     ProbeFactoryMethod.ProbeCreate(Convert.ToDouble(txDim1.Text),Convert.ToDouble(txDim2.Text));
                 }
+                DadosDeEnsaio.Nome = txNome.Text;
+                DadosDeEnsaio.DataHora=DateTime.Now;
                 return true;
             }
             return false;

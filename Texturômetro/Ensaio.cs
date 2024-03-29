@@ -31,7 +31,7 @@ namespace EnsaioTextuometro {
 
                 for(int i = indexZero;i<lista.Count;i++) {
                     var num = lista[i];
-                    if(maiorque?num>valor:num<valor) {
+                    if(maiorque?num>=valor:num<=valor) {
                         return i;
                     }
                 }

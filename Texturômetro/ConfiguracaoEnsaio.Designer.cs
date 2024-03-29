@@ -37,7 +37,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.cbProbe = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.txID = new System.Windows.Forms.TextBox();
+            this.txNome = new System.Windows.Forms.TextBox();
             this.lbUnTrigger = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.lbUnTarget = new System.Windows.Forms.Label();
@@ -120,7 +120,7 @@
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.cbProbe);
             this.panel1.Controls.Add(this.label15);
-            this.panel1.Controls.Add(this.txID);
+            this.panel1.Controls.Add(this.txNome);
             this.panel1.Controls.Add(this.lbUnTrigger);
             this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.lbUnTarget);
@@ -240,16 +240,16 @@
             this.label15.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label15.Location = new System.Drawing.Point(12, 362);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(74, 12);
+            this.label15.Size = new System.Drawing.Size(96, 12);
             this.label15.TabIndex = 37;
-            this.label15.Text = "ID do Arquivo:";
+            this.label15.Text = "Nome da Amostra:";
             // 
-            // txID
+            // txNome
             // 
-            this.txID.Location = new System.Drawing.Point(13, 377);
-            this.txID.Name = "txID";
-            this.txID.Size = new System.Drawing.Size(496, 20);
-            this.txID.TabIndex = 13;
+            this.txNome.Location = new System.Drawing.Point(13, 377);
+            this.txNome.Name = "txNome";
+            this.txNome.Size = new System.Drawing.Size(496, 20);
+            this.txNome.TabIndex = 13;
             // 
             // lbUnTrigger
             // 
@@ -277,9 +277,9 @@
             this.lbUnTarget.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.lbUnTarget.Location = new System.Drawing.Point(333, 126);
             this.lbUnTarget.Name = "lbUnTarget";
-            this.lbUnTarget.Size = new System.Drawing.Size(23, 12);
+            this.lbUnTarget.Size = new System.Drawing.Size(15, 12);
             this.lbUnTarget.TabIndex = 33;
-            this.lbUnTarget.Text = "mm";
+            this.lbUnTarget.Text = "%";
             // 
             // label11
             // 
@@ -355,7 +355,7 @@
             this.txTarget.Name = "txTarget";
             this.txTarget.Size = new System.Drawing.Size(188, 20);
             this.txTarget.TabIndex = 5;
-            this.txTarget.Text = "20";
+            this.txTarget.Text = "25";
             this.txTarget.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
             // 
             // label6
@@ -374,9 +374,9 @@
             this.lbTarget.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.lbTarget.Location = new System.Drawing.Point(12, 126);
             this.lbTarget.Name = "lbTarget";
-            this.lbTarget.Size = new System.Drawing.Size(131, 12);
+            this.lbTarget.Size = new System.Drawing.Size(128, 12);
             this.lbTarget.TabIndex = 23;
-            this.lbTarget.Text = "Distância:..........................";
+            this.lbTarget.Text = "Deformação:....................";
             // 
             // label4
             // 
@@ -603,7 +603,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cbTarget;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox txID;
+        private System.Windows.Forms.TextBox txNome;
         private System.Windows.Forms.ComboBox cbTipo;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cbProbe;

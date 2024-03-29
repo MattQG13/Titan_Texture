@@ -35,33 +35,29 @@
             this.pnBackground = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnUP = new System.Windows.Forms.Button();
             this.lbVel = new System.Windows.Forms.Label();
-            this.lbVelSP = new System.Windows.Forms.Label();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.btnFast = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnDN = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
+            this.btnFast = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.lbPosition = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lbLoad = new System.Windows.Forms.Label();
-            this.btnDN = new System.Windows.Forms.Button();
-            this.btnUP = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panelGraph = new System.Windows.Forms.Panel();
             this.lxy = new System.Windows.Forms.Label();
-            this.lbYAxe = new System.Windows.Forms.Label();
-            this.lbXAxe = new System.Windows.Forms.Label();
             this.Graph = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.lbInformations = new System.Windows.Forms.RichTextBox();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.arquivoStripMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.exportarComoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuExportExcel = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuExportCSV = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuExportPDF = new System.Windows.Forms.ToolStripMenuItem();
-            this.resultadosStripMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.TAStripMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.rodarTesteStripMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.calibrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,11 +65,10 @@
             this.zeroMáquinaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraçõesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lbInformations = new System.Windows.Forms.RichTextBox();
             this.pnBackground.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panelGraph.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Graph)).BeginInit();
@@ -108,90 +103,79 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.button1);
-            this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.lbVel);
-            this.panel2.Controls.Add(this.lbVelSP);
-            this.panel2.Controls.Add(this.trackBar1);
-            this.panel2.Controls.Add(this.btnFast);
-            this.panel2.Controls.Add(this.btnStop);
+            this.panel2.Controls.Add(this.panel1);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.lbPosition);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.lbLoad);
-            this.panel2.Controls.Add(this.btnDN);
-            this.panel2.Controls.Add(this.btnUP);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 239);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(766, 194);
             this.panel2.TabIndex = 1;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btnUP);
+            this.panel1.Controls.Add(this.lbVel);
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.btnDN);
+            this.panel1.Controls.Add(this.btnStop);
+            this.panel1.Controls.Add(this.btnFast);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(166, 194);
+            this.panel1.TabIndex = 14;
+            // 
+            // btnUP
+            // 
+            this.btnUP.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.btnUP.Location = new System.Drawing.Point(9, 3);
+            this.btnUP.Name = "btnUP";
+            this.btnUP.Size = new System.Drawing.Size(73, 46);
+            this.btnUP.TabIndex = 2;
+            this.btnUP.TabStop = false;
+            this.btnUP.Text = "SUBIR";
+            this.btnUP.UseVisualStyleBackColor = true;
+            this.btnUP.Click += new System.EventHandler(this.btnUP_Click);
+            // 
+            // lbVel
+            // 
+            this.lbVel.AutoSize = true;
+            this.lbVel.Location = new System.Drawing.Point(42, 175);
+            this.lbVel.Name = "lbVel";
+            this.lbVel.Size = new System.Drawing.Size(51, 13);
+            this.lbVel.TabIndex = 11;
+            this.lbVel.Text = "0.0 mm/s";
+            // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft JhengHei", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(528, 42);
+            this.button1.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(9, 165);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(73, 46);
+            this.button1.Size = new System.Drawing.Size(27, 26);
             this.button1.TabIndex = 13;
             this.button1.TabStop = false;
             this.button1.Text = "γ";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // label3
+            // btnDN
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(352, 140);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(86, 13);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "Velocidade Lida:";
-            // 
-            // lbVel
-            // 
-            this.lbVel.AutoSize = true;
-            this.lbVel.Location = new System.Drawing.Point(438, 140);
-            this.lbVel.Name = "lbVel";
-            this.lbVel.Size = new System.Drawing.Size(51, 13);
-            this.lbVel.TabIndex = 11;
-            this.lbVel.Text = "0.0 mm/s";
-            // 
-            // lbVelSP
-            // 
-            this.lbVelSP.AutoSize = true;
-            this.lbVelSP.Location = new System.Drawing.Point(467, 104);
-            this.lbVelSP.Name = "lbVelSP";
-            this.lbVelSP.Size = new System.Drawing.Size(22, 13);
-            this.lbVelSP.TabIndex = 10;
-            this.lbVelSP.Text = "Vel";
-            // 
-            // trackBar1
-            // 
-            this.trackBar1.Location = new System.Drawing.Point(188, 92);
-            this.trackBar1.Maximum = 200;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(273, 45);
-            this.trackBar1.SmallChange = 2;
-            this.trackBar1.TabIndex = 9;
-            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
-            // 
-            // btnFast
-            // 
-            this.btnFast.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.btnFast.Location = new System.Drawing.Point(88, 62);
-            this.btnFast.Name = "btnFast";
-            this.btnFast.Size = new System.Drawing.Size(73, 46);
-            this.btnFast.TabIndex = 8;
-            this.btnFast.TabStop = false;
-            this.btnFast.Text = "RÁPIDO";
-            this.btnFast.UseVisualStyleBackColor = true;
-            this.btnFast.Click += new System.EventHandler(this.btnFast_Click);
+            this.btnDN.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.btnDN.Location = new System.Drawing.Point(9, 107);
+            this.btnDN.Name = "btnDN";
+            this.btnDN.Size = new System.Drawing.Size(73, 46);
+            this.btnDN.TabIndex = 3;
+            this.btnDN.TabStop = false;
+            this.btnDN.Text = "DESCER";
+            this.btnDN.UseVisualStyleBackColor = true;
+            this.btnDN.Click += new System.EventHandler(this.btnDN_Click);
             // 
             // btnStop
             // 
             this.btnStop.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.btnStop.Location = new System.Drawing.Point(9, 62);
+            this.btnStop.Location = new System.Drawing.Point(9, 55);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(73, 46);
             this.btnStop.TabIndex = 7;
@@ -200,10 +184,22 @@
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
+            // btnFast
+            // 
+            this.btnFast.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.btnFast.Location = new System.Drawing.Point(88, 55);
+            this.btnFast.Name = "btnFast";
+            this.btnFast.Size = new System.Drawing.Size(73, 46);
+            this.btnFast.TabIndex = 8;
+            this.btnFast.TabStop = false;
+            this.btnFast.Text = "RÁPIDO";
+            this.btnFast.UseVisualStyleBackColor = true;
+            this.btnFast.Click += new System.EventHandler(this.btnFast_Click);
+            // 
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("SansSerif", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label2.Location = new System.Drawing.Point(323, 10);
+            this.label2.Location = new System.Drawing.Point(203, 83);
             this.label2.Name = "label2";
             this.label2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label2.Size = new System.Drawing.Size(120, 18);
@@ -216,7 +212,7 @@
             this.lbPosition.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lbPosition.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lbPosition.Font = new System.Drawing.Font("SansSerif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.lbPosition.Location = new System.Drawing.Point(323, 28);
+            this.lbPosition.Location = new System.Drawing.Point(203, 101);
             this.lbPosition.Name = "lbPosition";
             this.lbPosition.Size = new System.Drawing.Size(120, 46);
             this.lbPosition.TabIndex = 5;
@@ -226,7 +222,7 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("SansSerif", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label1.Location = new System.Drawing.Point(188, 10);
+            this.label1.Location = new System.Drawing.Point(203, 7);
             this.label1.Name = "label1";
             this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label1.Size = new System.Drawing.Size(120, 18);
@@ -239,36 +235,12 @@
             this.lbLoad.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lbLoad.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lbLoad.Font = new System.Drawing.Font("SansSerif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.lbLoad.Location = new System.Drawing.Point(188, 28);
+            this.lbLoad.Location = new System.Drawing.Point(203, 25);
             this.lbLoad.Name = "lbLoad";
             this.lbLoad.Size = new System.Drawing.Size(120, 46);
             this.lbLoad.TabIndex = 0;
             this.lbLoad.Text = "–";
             this.lbLoad.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnDN
-            // 
-            this.btnDN.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.btnDN.Location = new System.Drawing.Point(9, 114);
-            this.btnDN.Name = "btnDN";
-            this.btnDN.Size = new System.Drawing.Size(73, 46);
-            this.btnDN.TabIndex = 3;
-            this.btnDN.TabStop = false;
-            this.btnDN.Text = "DESCER";
-            this.btnDN.UseVisualStyleBackColor = true;
-            this.btnDN.Click += new System.EventHandler(this.btnDN_Click);
-            // 
-            // btnUP
-            // 
-            this.btnUP.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.btnUP.Location = new System.Drawing.Point(9, 10);
-            this.btnUP.Name = "btnUP";
-            this.btnUP.Size = new System.Drawing.Size(73, 46);
-            this.btnUP.TabIndex = 2;
-            this.btnUP.TabStop = false;
-            this.btnUP.Text = "SUBIR";
-            this.btnUP.UseVisualStyleBackColor = true;
-            this.btnUP.Click += new System.EventHandler(this.btnUP_Click);
             // 
             // tableLayoutPanel2
             // 
@@ -288,8 +260,6 @@
             // panelGraph
             // 
             this.panelGraph.Controls.Add(this.lxy);
-            this.panelGraph.Controls.Add(this.lbYAxe);
-            this.panelGraph.Controls.Add(this.lbXAxe);
             this.panelGraph.Controls.Add(this.Graph);
             this.panelGraph.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelGraph.Location = new System.Drawing.Point(203, 3);
@@ -309,37 +279,11 @@
             this.lxy.Text = "lxy";
             this.lxy.Visible = false;
             // 
-            // lbYAxe
-            // 
-            this.lbYAxe.AutoSize = true;
-            this.lbYAxe.BackColor = System.Drawing.Color.Transparent;
-            this.lbYAxe.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.lbYAxe.Location = new System.Drawing.Point(0, 0);
-            this.lbYAxe.Name = "lbYAxe";
-            this.lbYAxe.Size = new System.Drawing.Size(29, 14);
-            this.lbYAxe.TabIndex = 2;
-            this.lbYAxe.Text = "F(g)";
-            this.lbYAxe.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lbYAxe.Visible = false;
-            // 
-            // lbXAxe
-            // 
-            this.lbXAxe.AutoSize = true;
-            this.lbXAxe.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.lbXAxe.Location = new System.Drawing.Point(528, 209);
-            this.lbXAxe.Name = "lbXAxe";
-            this.lbXAxe.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbXAxe.Size = new System.Drawing.Size(26, 14);
-            this.lbXAxe.TabIndex = 3;
-            this.lbXAxe.Text = "t(s)";
-            this.lbXAxe.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lbXAxe.Visible = false;
-            // 
             // Graph
             // 
             this.Graph.BackColor = System.Drawing.SystemColors.Control;
             chartArea1.AxisX.IsLabelAutoFit = false;
-            chartArea1.AxisX.Maximum = 120D;
+            chartArea1.AxisX.Maximum = 100D;
             chartArea1.AxisX.MaximumAutoSize = 90F;
             chartArea1.AxisX.Minimum = 0D;
             chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.LightGray;
@@ -394,11 +338,24 @@
             this.panel3.Size = new System.Drawing.Size(194, 224);
             this.panel3.TabIndex = 1;
             // 
+            // lbInformations
+            // 
+            this.lbInformations.BackColor = System.Drawing.Color.White;
+            this.lbInformations.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbInformations.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbInformations.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.lbInformations.Location = new System.Drawing.Point(0, 0);
+            this.lbInformations.Name = "lbInformations";
+            this.lbInformations.ReadOnly = true;
+            this.lbInformations.Size = new System.Drawing.Size(194, 224);
+            this.lbInformations.TabIndex = 1;
+            this.lbInformations.TabStop = false;
+            this.lbInformations.Text = "";
+            // 
             // menuStrip
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.arquivoStripMenu,
-            this.resultadosStripMenu,
             this.TAStripMenu,
             this.configuraçõesToolStripMenuItem,
             this.sobreToolStripMenuItem});
@@ -413,8 +370,8 @@
             this.arquivoStripMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportarComoToolStripMenuItem});
             this.arquivoStripMenu.Name = "arquivoStripMenu";
-            this.arquivoStripMenu.Size = new System.Drawing.Size(61, 20);
-            this.arquivoStripMenu.Text = "Arquivo";
+            this.arquivoStripMenu.Size = new System.Drawing.Size(71, 20);
+            this.arquivoStripMenu.Text = "Resultado";
             // 
             // exportarComoToolStripMenuItem
             // 
@@ -447,12 +404,6 @@
             this.ToolStripMenuExportPDF.Text = "Exportar como .pdf";
             this.ToolStripMenuExportPDF.Click += new System.EventHandler(this.ToolStripMenuExportPDF_Click);
             // 
-            // resultadosStripMenu
-            // 
-            this.resultadosStripMenu.Name = "resultadosStripMenu";
-            this.resultadosStripMenu.Size = new System.Drawing.Size(76, 20);
-            this.resultadosStripMenu.Text = "Resultados";
-            // 
             // TAStripMenu
             // 
             this.TAStripMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -467,28 +418,28 @@
             // rodarTesteStripMenu
             // 
             this.rodarTesteStripMenu.Name = "rodarTesteStripMenu";
-            this.rodarTesteStripMenu.Size = new System.Drawing.Size(180, 22);
+            this.rodarTesteStripMenu.Size = new System.Drawing.Size(157, 22);
             this.rodarTesteStripMenu.Text = "Rodar teste...";
             this.rodarTesteStripMenu.Click += new System.EventHandler(this.rodarTesteToolStripMenuItem_Click);
             // 
             // calibrarToolStripMenuItem
             // 
             this.calibrarToolStripMenuItem.Name = "calibrarToolStripMenuItem";
-            this.calibrarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.calibrarToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.calibrarToolStripMenuItem.Text = "Calibrar...";
             this.calibrarToolStripMenuItem.Click += new System.EventHandler(this.calibrarToolStripMenuItem_Click);
             // 
             // tararToolStripMenuItem
             // 
             this.tararToolStripMenuItem.Name = "tararToolStripMenuItem";
-            this.tararToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.tararToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.tararToolStripMenuItem.Text = "Tarar...";
             this.tararToolStripMenuItem.Click += new System.EventHandler(this.tararToolStripMenuItem_Click);
             // 
             // zeroMáquinaToolStripMenuItem
             // 
             this.zeroMáquinaToolStripMenuItem.Name = "zeroMáquinaToolStripMenuItem";
-            this.zeroMáquinaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.zeroMáquinaToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.zeroMáquinaToolStripMenuItem.Text = "Zero Máquina...";
             this.zeroMáquinaToolStripMenuItem.Click += new System.EventHandler(this.zeroMáquinaToolStripMenuItem_Click);
             // 
@@ -506,20 +457,6 @@
             this.sobreToolStripMenuItem.Text = "Sobre";
             this.sobreToolStripMenuItem.Click += new System.EventHandler(this.sobreToolStripMenuItem_Click);
             // 
-            // lbInformations
-            // 
-            this.lbInformations.BackColor = System.Drawing.Color.White;
-            this.lbInformations.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lbInformations.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbInformations.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.lbInformations.Location = new System.Drawing.Point(0, 0);
-            this.lbInformations.Name = "lbInformations";
-            this.lbInformations.ReadOnly = true;
-            this.lbInformations.Size = new System.Drawing.Size(194, 224);
-            this.lbInformations.TabIndex = 1;
-            this.lbInformations.TabStop = false;
-            this.lbInformations.Text = "";
-            // 
             // TexturometroForms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -535,13 +472,12 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TexturometroForms_FormClosing);
             this.Load += new System.EventHandler(this.Texturometro_Load);
-            this.SizeChanged += new System.EventHandler(this.TexturometroForms_SizeChanged);
             this.pnBackground.ResumeLayout(false);
             this.pnBackground.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panelGraph.ResumeLayout(false);
             this.panelGraph.PerformLayout();
@@ -558,7 +494,6 @@
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem arquivoStripMenu;
         private System.Windows.Forms.Button btnUP;
-        private System.Windows.Forms.ToolStripMenuItem resultadosStripMenu;
         private System.Windows.Forms.ToolStripMenuItem TAStripMenu;
         private System.Windows.Forms.ToolStripMenuItem rodarTesteStripMenu;
         private System.Windows.Forms.Button btnDN;
@@ -577,10 +512,7 @@
         private System.Windows.Forms.ToolStripMenuItem zeroMáquinaToolStripMenuItem;
         private System.Windows.Forms.Button btnFast;
         private System.Windows.Forms.Button btnStop;
-        private System.Windows.Forms.TrackBar trackBar1;
-        private System.Windows.Forms.Label lbVelSP;
         private System.Windows.Forms.Label lbVel;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ToolStripMenuItem exportarComoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuExportExcel;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuExportCSV;
@@ -588,10 +520,9 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panelGraph;
         private System.Windows.Forms.Label lxy;
-        private System.Windows.Forms.Label lbYAxe;
-        private System.Windows.Forms.Label lbXAxe;
         private System.Windows.Forms.DataVisualization.Charting.Chart Graph;
         private System.Windows.Forms.RichTextBox lbInformations;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

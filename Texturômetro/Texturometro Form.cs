@@ -18,13 +18,13 @@ using EnsaioTextuometro;
 using System.Drawing.Imaging;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Texturometer {
     public partial class TexturometroForms : Form {
 
         static Texturometro tex = new Texturometro();
         Series series = new Series("Pontos");
-        Series series2 = new Series("XZ");
 
         static Timer tick = new Timer();
         static BackgroundWorker bkWork = new BackgroundWorker();
@@ -32,7 +32,7 @@ namespace Texturometer {
 
         public TexturometroForms() {
             InitializeComponent();
-            tick.Interval = 10;
+            tick.Interval =16;
             tick.Tick +=new EventHandler(atGraph);
             tick.Enabled=true;
             bkWork.DoWork+= bkWork_DoWork;
@@ -68,12 +68,22 @@ namespace Texturometer {
             tex.setSerial(Properties.Settings.Default.PortaCOM,Properties.Settings.Default.Baudrate);
 
             series.ChartType=SeriesChartType.Line;
-            series2.ChartType=SeriesChartType.Line;
             series.BorderWidth = 2;
 
             Graph.Series.Clear();
             Graph.Series.Add(series);
-            Graph.Series.Add(series2);
+            Series s = new Series("0");
+            s.ChartType=SeriesChartType.Spline;
+            List<double> ly = new List<double>();
+            List<double> lx = new List<double>();
+
+            ly.Add(0);
+            ly.Add(3);
+            lx.Add(0);
+            lx.Add(0.01);
+
+            s.Points.DataBindXY(lx,ly);
+            Graph.Series.Add(s);
             Graph.Update();
             Graph.MouseMove+=Graph_MouseMove;
             Graph.ChartAreas[0].Position.X=0;
@@ -91,8 +101,9 @@ namespace Texturometer {
             tex.Serial.LoadCellDetected+=atualizaLbLoad;
             tex.Serial.EncoderDetected+=atualizaLbPosition;
             tex.Serial.LoadCalibrated+=LoadCelCalibrated;
+            Thread.Sleep(1000);
             tex.LoadCell.ZeroTime();
-            //tex.Serial.EnvCalibration(Properties.Settings.Default.CalLoadCell);
+            tex.Serial.EnvCalibration(Properties.Settings.Default.CalLoadCell); //Verificar
             tex.Serial.DiscardInBuffer();
             tex.Produto.Resultado.Clear();
 
@@ -141,6 +152,7 @@ namespace Texturometer {
             lbInformations.Clear();
             WriteLineLabel("Informações do Teste:","\n");
 
+            WriteLineLabel("Tipo de Ensaio: ",$"{DadosDeEnsaio.Tipo}");
             WriteLineLabel("Velocidade de pré-teste: ",$"{ DadosDeEnsaio.VelPreTeste} mm/s");
             WriteLineLabel("Velocidade de Teste: ",$"{DadosDeEnsaio.VelTeste} mm/s");
             WriteLineLabel("Tipo de Alvo: ",$"{DadosDeEnsaio.TipoLimite}");
@@ -194,22 +206,34 @@ namespace Texturometer {
         private void bkWork_DoWork(object sender,DoWorkEventArgs e) {
             if(InvokeRequired) {
                 this.Invoke(new Action(() => {
+                    GC.Collect();
                     Graph.SuspendLayout();
                     try {
                        series.Points.DataBindXY(tex.Produto.Resultado.GetZvalues(),tex.Produto.Resultado.GetXvalues());
-                        series2.Points.DataBindXY(tex.Produto.Resultado.GetZvalues(),tex.Produto.Resultado.GetYvalues());
 
                     } finally { }
-                    if(Graph.ChartAreas[0].AxisX.Maximum<=120) {
+
+                    if(Graph.ChartAreas[0].AxisX.Maximum<=100&&tex.testRunning) {
                         var tempo = tex.Produto.Resultado.GetZvalues();
-                       
-                        if(tempo.Last()>=120) {
-                            Graph.ChartAreas[0].AxisX.Maximum = Double.NaN;
+                        if(tempo.Count!=0) {
+                            var lTempo = tempo.Last();
+                            if(lTempo>=100) {
+                                Graph.ChartAreas[0].AxisX.Maximum=Double.NaN;
+                                Graph.ChartAreas[0].RecalculateAxesScale();
+                            } else {
+                                Graph.ChartAreas[0].AxisX.Maximum=100;
+                                Graph.ChartAreas[0].RecalculateAxesScale();
+                            }
+                        } else {
+                            Graph.ChartAreas[0].AxisX.Maximum=100;
                             Graph.ChartAreas[0].RecalculateAxesScale();
                         }
                     }
+                 
+
+
                     Graph.Invalidate();
-                    Graph.ResumeLayout();;
+                    Graph.ResumeLayout();
                 }));
             }
         }
@@ -274,14 +298,6 @@ namespace Texturometer {
         }
 
         private void atualizaLbPosition(object sender,SerialMessageArgument e) {
-            /*Task.Run(() => {
-                this.Invoke(new Action(() => {
-                    if(!cancelTokenSrc.Token.IsCancellationRequested) {
-                        lbPosition.Text=e.doubleValue1.ToString()+" mm";
-                    }
-                }));
-            },cancelTokenSrc.Token);*/
-
             if(lbPosition.InvokeRequired) {
                 lbPosition.BeginInvoke((MethodInvoker)delegate {
                     lbPosition.Text=e.doubleValue1.ToString()+" mm";
@@ -322,10 +338,6 @@ namespace Texturometer {
 
         }
 
-        private void TexturometroForms_SizeChanged(object sender,EventArgs e) {
-            lbXAxe.Location= new Point(Graph.Size.Width-lbXAxe.Size.Width-20,Graph.Size.Height-lbXAxe.Size.Height);
-        }
-
         private void zeroMáquinaToolStripMenuItem_Click(object sender,EventArgs e) {
             ZeroMaquina zm = new ZeroMaquina(tex);
             zm.ShowDialog();
@@ -351,6 +363,8 @@ namespace Texturometer {
                     lxy.Location=new Point(e.X+5,e.Y-20);
                 } else {
                     lxy.Visible=false;
+                    Graph.ChartAreas[0].CursorX.Position=double.NaN;
+                    Graph.ChartAreas[0].CursorY.Position=double.NaN;
                 }
             } finally { }
         }
@@ -360,25 +374,8 @@ namespace Texturometer {
             Properties.Settings.Default.Save();
         }
 
-        private void trackBar1_Scroll(object sender,EventArgs e) {
-            switch(tex.Motor.ModoMotor) {
-                case ModoMotor.Subir:
-                    tex.Motor.Start(ModoMotor.Subir,((double)trackBar1.Value/10));
-                    break;
-                case ModoMotor.Descer:
-                    tex.Motor.Start(ModoMotor.Descer,((double)trackBar1.Value/10));
-                    break;
-                case ModoMotor.Parado:
-                    tex.Motor.Stop();
-                    break;
-            }
-            lbVelSP.Text=((double)trackBar1.Value/10).ToString();
-        }
-
         private void ToolStripMenuExportCSV_Click(object sender,EventArgs e) {
-
             ExportacaoCSV.exportarCSV(tex.Produto.Resultado.GetTable());
-
         }
 
         private void ToolStripMenuExportExcel_Click(object sender,EventArgs e) {
@@ -388,17 +385,11 @@ namespace Texturometer {
         private void ToolStripMenuExportPDF_Click(object sender,EventArgs e) {
             for(int i = 0; i < 10;i++)
                 tex.Produto.Resultado.Add(new Coord(1*i,2*i,3*i));
-
+            
             CorpoDeProva cp = Dados.getCP();
-
-
+            tex.Produto.Resultado = cp.Resultado;
+            
             ExportacaoRelatorioPDF.exportaPDF(cp,tex.DadosTeste,getImgGrafico(panelGraph));
-
-            getImgGrafico(panelGraph).Save(@"D:\TestDrawToBitmap.jpeg",ImageFormat.Jpeg);
-        }
-
-        private void button1_Click(object sender,EventArgs e) {
-            //tex.StopAddResults();
         }
 
         private void execFimTeste(object sender, EventArgs e) {
@@ -406,57 +397,40 @@ namespace Texturometer {
 
             var tb = tex.Produto.Resultado;
 
-            var cp = Dados.getCP();
-            tb= cp.Resultado;
-
-            tex.Produto.Resultado=tb;
-            tex.DadosTeste=new DataTest() { ValorDeteccao=3, Tipo = TipoDeTeste.TPA };
+            
+                var cp = Dados.getCP();
+                tb=cp.Resultado;
+                tex.testRunning=false;
+                tex.Produto.Resultado=tb;
+                tex.DadosTeste=new DataTest() { ValorDeteccao=3,Tipo=TipoDeTeste.TPA };
+            
 
             if(tex.DadosTeste.Tipo==TipoDeTeste.TPA) {
-                int index0 = Ensaio.Calculo.SearchFirstOccurrence(tb.GetXvalues(),tex.DadosTeste.ValorDeteccao,0,true);
-                int index1 = Ensaio.Calculo.SearchFirstOccurrence(tb.GetXvalues(),tex.DadosTeste.ValorDeteccao,index0+10,false);
 
-                int index2 = Ensaio.Calculo.SearchFirstOccurrence(tb.GetXvalues(),tex.DadosTeste.ValorDeteccao,index1+10,true);
-
-                int index3 = Ensaio.Calculo.SearchFirstOccurrence(tb.GetXvalues(),tex.DadosTeste.ValorDeteccao,index2+10,false);
-
-                double max1 = tb.GetXvalues().GetRange(index0,(index1-index0)).Max();
-                double max2 = tb.GetXvalues().GetRange(index2,(index3-index2)).Max();
-
-                int indexMax1 = tb.GetXvalues().IndexOf(max1);
-                int indexMax2 = tb.GetXvalues().IndexOf(max2);
-
-                double A1 = Ensaio.Calculo.GetArea(tb.GetZvalues(),tb.GetXvalues(),index0,index1);
-                double A2 = Ensaio.Calculo.GetArea(tb.GetZvalues(),tb.GetXvalues(),index2,index3);
-
-                double A3 = Ensaio.Calculo.GetArea(tb.GetZvalues(),tb.GetXvalues(),index1,index2);
-
-                double R1 = Ensaio.Calculo.GetArea(tb.GetZvalues(),tb.GetXvalues(),index0,indexMax1);
-                double R2 = Ensaio.Calculo.GetArea(tb.GetZvalues(),tb.GetXvalues(),indexMax1,index1);
-
-                var Hardness = max1;
-                var Springiness = tb.GetYvalues()[index2]/tb.GetYvalues()[index0];
-                var Cohesiveness = max2/max1;
-                var Resilience = R2/R1;
-                var Adhesiveness = A3;
-                var Gumminess = Hardness*Cohesiveness;
-                var Chewiness = Gumminess*Springiness;
-
+                ResultadosTPA res = ResultadosTPA.CalcTPA(tb,tex.DadosTeste.ValorDeteccao);
+                
                 Task.Run(() => {
                     this.Invoke(new Action(() => {
+                        Graph.ChartAreas[0].AxisX.Maximum =Math.Round(tex.Produto.Resultado.GetZvalues().Last());
+                        Graph.ChartAreas[0].RecalculateAxesScale();
+
+
+
                         WriteLineLabel("Resultados:","\n");
-                        WriteLineLabel("Tamanho do produto: ",$"{Math.Round(tb.GetYvalues()[index0],2)} mm");
-                        WriteLineLabel("Dureza: ",$"{Math.Round(Hardness,2)} g");
-                        WriteLineLabel("Elasticidade: ",$"{Math.Round(Springiness*100,2)} %");
-                        WriteLineLabel("Coesividade: ",$"{Math.Round(Cohesiveness*100,2)} %");
-                        WriteLineLabel("Resiliência: ",$"{Math.Round(Resilience*100,2)} %");
-                        WriteLineLabel("Adesividade : ",$"{Math.Round(Adhesiveness,2)} g.seg");
-                        WriteLineLabel("Gumosidade: ",$"{Math.Round(Gumminess,2)}");
-                        WriteLineLabel("Mastigabilidade: ",$"{Math.Round(Chewiness,2)}");
+                        WriteLineLabel("Tamanho do produto: ",$"{Math.Round(res.TamProd,2)} mm");
+                        WriteLineLabel("Dureza: ",$"{Math.Round(res.Hardness,2)} g");
+                        WriteLineLabel("Elasticidade: ",$"{Math.Round(res.Springiness*100,2)} %");
+                        WriteLineLabel("Coesividade: ",$"{Math.Round(res.Cohesiveness*100,2)} %");
+                        WriteLineLabel("Resiliência: ",$"{Math.Round(res.Resilience*100,2)} %");
+                        WriteLineLabel("Adesividade : ",$"{Math.Round(res.Adhesiveness,2)} g.s");
+                        WriteLineLabel("Gumosidade: ",$"{Math.Round(res.Gumminess,2)}");
+                        WriteLineLabel("Mastigabilidade: ",$"{Math.Round(res.Chewiness,2)}");
 
                     }));
                 });
             }
+
+            
 
         }
 
@@ -485,5 +459,6 @@ namespace Texturometer {
         private void button1_Click_1(object sender,EventArgs e) {
             execFimTeste(this,EventArgs.Empty);
         }
+
     }
 }

@@ -215,6 +215,9 @@
   <ItemGroup>
     <Content Include="DiagramaDeClasses.png" />
     <Content Include="icon.ico" />
+    <None Include="Resources\MargemSup.jpg" />
+    <None Include="Resources\MargemInf.jpg" />
+    <None Include="Resources\icon.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
