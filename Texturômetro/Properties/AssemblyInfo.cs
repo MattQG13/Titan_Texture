@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Titan Texture")]
 [assembly: AssemblyDescription("Software de análise de textura desenvolvido para o projeto de TCC do curso de Engenharia de Controle e Automação.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("BHMMO")]
+[assembly: AssemblyCompany("BHMMMO")]
 [assembly: AssemblyProduct("Titan Texture")]
 [assembly: AssemblyCopyright("Copyright ©  2024")]
 [assembly: AssemblyTrademark("")]

@@ -31,6 +31,8 @@
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbTempo = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cbDistancia = new System.Windows.Forms.ComboBox();
@@ -42,8 +44,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.cbTempo = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -96,6 +96,7 @@
             // cbBaud
             // 
             this.cbBaud.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbBaud.Enabled = false;
             this.cbBaud.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbBaud.FormattingEnabled = true;
             this.cbBaud.Items.AddRange(new object[] {
@@ -149,6 +150,29 @@
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Unidades de Medida";
+            // 
+            // cbTempo
+            // 
+            this.cbTempo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTempo.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cbTempo.FormattingEnabled = true;
+            this.cbTempo.Items.AddRange(new object[] {
+            "s"});
+            this.cbTempo.Location = new System.Drawing.Point(8, 114);
+            this.cbTempo.Name = "cbTempo";
+            this.cbTempo.Size = new System.Drawing.Size(188, 21);
+            this.cbTempo.TabIndex = 17;
+            this.cbTempo.SelectedIndexChanged += new System.EventHandler(this.ChangedConfig);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label5.Location = new System.Drawing.Point(6, 99);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(39, 12);
+            this.label5.TabIndex = 16;
+            this.label5.Text = "Tempo";
             // 
             // label4
             // 
@@ -268,29 +292,6 @@
             this.label8.Size = new System.Drawing.Size(96, 12);
             this.label8.TabIndex = 14;
             this.label8.Text = "Velocidade manual";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label5.Location = new System.Drawing.Point(6, 99);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(39, 12);
-            this.label5.TabIndex = 16;
-            this.label5.Text = "Tempo";
-            // 
-            // cbTempo
-            // 
-            this.cbTempo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTempo.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cbTempo.FormattingEnabled = true;
-            this.cbTempo.Items.AddRange(new object[] {
-            "s"});
-            this.cbTempo.Location = new System.Drawing.Point(8, 114);
-            this.cbTempo.Name = "cbTempo";
-            this.cbTempo.Size = new System.Drawing.Size(188, 21);
-            this.cbTempo.TabIndex = 17;
-            this.cbTempo.SelectedIndexChanged += new System.EventHandler(this.ChangedConfig);
             // 
             // ConfiguracaoPrograma
             // 

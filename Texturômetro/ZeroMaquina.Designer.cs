@@ -68,7 +68,7 @@
             this.tabs.Multiline = true;
             this.tabs.Name = "tabs";
             this.tabs.SelectedIndex = 0;
-            this.tabs.Size = new System.Drawing.Size(371, 289);
+            this.tabs.Size = new System.Drawing.Size(349, 289);
             this.tabs.TabIndex = 7;
             // 
             // tab1
@@ -80,27 +80,26 @@
             this.tab1.Location = new System.Drawing.Point(4, 22);
             this.tab1.Name = "tab1";
             this.tab1.Padding = new System.Windows.Forms.Padding(3);
-            this.tab1.Size = new System.Drawing.Size(363, 263);
+            this.tab1.Size = new System.Drawing.Size(341, 263);
             this.tab1.TabIndex = 0;
             this.tab1.Text = "tab1";
             // 
             // label7
             // 
-            this.label7.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label7.Location = new System.Drawing.Point(172, 6);
+            this.label7.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label7.Location = new System.Drawing.Point(129, 6);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(183, 118);
+            this.label7.Size = new System.Drawing.Size(206, 118);
             this.label7.TabIndex = 10;
-            this.label7.Text = "1. Retire todos os produtos do antes de realizar a rotina de Zero Máquina.\r\n\r\n2. " +
-    "Certifique-se de que a célula de carga esteja calibrada.\r\n\r\n3. Aperte \"Próximo\"." +
-    "\r\n";
+            this.label7.Text = "1. Retire todos os produtos antes de realizar a rotina de Zero Máquina.\r\n\r\n2. Cer" +
+    "tifique-se de que a célula de carga esteja calibrada.\r\n\r\n3. Aperte \"Próximo\".\r\n";
             // 
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(3, 6);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(193, 221);
+            this.pictureBox2.Size = new System.Drawing.Size(163, 221);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 8;
             this.pictureBox2.TabStop = false;
@@ -112,12 +111,12 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(3, 231);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(357, 29);
+            this.panel1.Size = new System.Drawing.Size(335, 29);
             this.panel1.TabIndex = 9;
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(279, 3);
+            this.btnNext.Location = new System.Drawing.Point(257, 3);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(75, 23);
             this.btnNext.TabIndex = 0;
@@ -147,7 +146,7 @@
             this.tab2.Location = new System.Drawing.Point(4, 22);
             this.tab2.Name = "tab2";
             this.tab2.Padding = new System.Windows.Forms.Padding(3);
-            this.tab2.Size = new System.Drawing.Size(363, 263);
+            this.tab2.Size = new System.Drawing.Size(341, 263);
             this.tab2.TabIndex = 1;
             this.tab2.Text = "tab2";
             // 
@@ -298,7 +297,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(3, 231);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(357, 29);
+            this.panel2.Size = new System.Drawing.Size(335, 29);
             this.panel2.TabIndex = 18;
             // 
             // btnFinsh
@@ -325,7 +324,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(371, 289);
+            this.ClientSize = new System.Drawing.Size(349, 289);
             this.Controls.Add(this.tabs);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

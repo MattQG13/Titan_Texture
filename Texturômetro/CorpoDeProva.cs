@@ -15,12 +15,6 @@ namespace ProdutoTexturometro {
         
         public event EventHandler DeformacaoReached;
 
-        public CorpoDeProva() {
-            TamanhoOriginal = 0;
-            _deformacao=0;
-        }
-
-
         public double TamanhoAtual {
             get {
                 return _tamanhoAtual;
@@ -53,8 +47,10 @@ namespace ProdutoTexturometro {
             get { return _deformacao; }
         }
 
-
-        
+        public CorpoDeProva() {
+            TamanhoOriginal=0;
+            _deformacao=0;
+        }
 
         public void TargetDeformation(double deformacaoAlvo = double.NaN) {
             if(deformacaoAlvo!=0||deformacaoAlvo!=double.NaN) {

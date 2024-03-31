@@ -30,6 +30,9 @@ namespace Texturometer {
         static BackgroundWorker bkWork = new BackgroundWorker();
         CancellationTokenSource cancelTokenSrc = new CancellationTokenSource();
 
+        Timer tmRampa = new Timer();
+        static double velRampa = 0;
+
         public TexturometroForms() {
             InitializeComponent();
             tick.Interval =16;
@@ -50,6 +53,10 @@ namespace Texturometer {
             BindingFlags.NonPublic|BindingFlags.Instance|BindingFlags.SetProperty,
             null,Graph,new object[] { true });
 
+            tmRampa.Interval=100;
+            tmRampa.Enabled=true;
+            tmRampa.Tick+=new EventHandler(Rampa);
+
         }
 
         private void Texturometro_Load(object sender,EventArgs e) {
@@ -58,7 +65,6 @@ namespace Texturometer {
 
             series.ChartType=SeriesChartType.Line;
             series.BorderWidth = 2;
-            series.Color = Color.BlueViolet;
 
             Graph.Series.Clear();
             Graph.Series.Add(series);
@@ -104,27 +110,39 @@ namespace Texturometer {
 
             tex.Serial.VelDetected+=atualizaLbVel;
             tex.fimTeste+=execFimTeste;
+
+           
         }
 
         #region Botoes_Exportacao
 
         private void ToolStripMenuExportCSV_Click(object sender,EventArgs e) {
-            ExportacaoCSV.exportarCSV(tex.Produto.Resultado.GetTable());
+            if(tex.Produto.Resultado.Count!=0) {
+                ExportacaoCSV.exportarCSV(tex.Produto.Resultado.GetTable());
+            } else {
+                MessageBox.Show("Não há resultados para serem exportados","Erro de exportação",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            }
         }
 
         private void ToolStripMenuExportExcel_Click(object sender,EventArgs e) {
-            ExportacaoExcel.exportarExcel(tex.Produto.Resultado.GetTable());
+            if(tex.Produto.Resultado.Count!=0) {
+                ExportacaoExcel.exportarExcel(tex.Produto.Resultado.GetTable());
+            } else {
+                MessageBox.Show("Não há resultados para serem exportados","Erro de exportação",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            }
         }
 
         private void ToolStripMenuExportPDF_Click(object sender,EventArgs e) {
-            for(int i = 0;i<10;i++)
-                tex.Produto.Resultado.Add(new Coord(1*i,2*i,3*i));
 
             CorpoDeProva cp = Dados.getCP();
             tex.Produto.Resultado=cp.Resultado;
-
-            ExportacaoRelatorioPDF.exportaPDF(cp,tex.DadosTeste,getImgGrafico(panelGraph));
+            if(tex.Produto.Resultado.Count!=0) {
+                ExportacaoRelatorioPDF.exportaPDF(tex.Produto,tex.DadosTeste,getImgGrafico(panelGraph));
+            } else {
+                MessageBox.Show("Não há resultados para serem exportados","Erro de exportação",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            }
         }
+
         #endregion
 
         #region Botoes_Controle_TA
@@ -491,5 +509,19 @@ namespace Texturometer {
         }
         #endregion
 
+        private void button2_Click(object sender,EventArgs e) {
+            velRampa=0;
+            tmRampa.Start();
+        }
+
+        private void Rampa (object sender, EventArgs e) {
+            tex.Serial.EnvComandoMotor(ModoMotor.Descer, velRampa);
+            velRampa+=0.1;
+
+            if(velRampa>=10) {
+                tex.Serial.EnvComandoMotor(ModoMotor.Parado,0);
+                tmRampa.Stop();
+            }
+        }
     }
 }

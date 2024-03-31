@@ -10,7 +10,7 @@ namespace EnsaioTextuometro {
         public TipoDeTeste Tipo { get; set; }
         public List<Acao> Acoes { get; set; }
         private int integrager = 0;
-
+        public bool DirecaoTeste { get; set; }
 
         public Acao AcaoAtual {
             get {
@@ -52,7 +52,8 @@ namespace EnsaioTextuometro {
     public class EnsaioCompressao : Ensaio{
 
         public EnsaioCompressao(){
-            Tipo=TipoDeTeste.Compressao;
+            DirecaoTeste=true;
+            Tipo =TipoDeTeste.Compressao;
             Acoes=new List<Acao> {
                 Acao.DescerPreTeste,
                 Acao.DescerTeste,
@@ -64,6 +65,7 @@ namespace EnsaioTextuometro {
     }
     public class EnsaioTracao : Ensaio {
             public EnsaioTracao() {
+            DirecaoTeste=false;
             Tipo=TipoDeTeste.Tracao;
             Acoes=new List<Acao> {
                 Acao.SubirPreTeste,
@@ -77,6 +79,7 @@ namespace EnsaioTextuometro {
     public class EnsaioTPA : Ensaio {
 
         public EnsaioTPA() {
+            DirecaoTeste=true;
             Tipo=TipoDeTeste.TPA;
             Acoes=new List<Acao> {
                 Acao.DescerPreTeste,

@@ -10,11 +10,6 @@ namespace EncoderMotor {
         public event EventHandler positionChanged;
         public event EventHandler positionReached;
 
-
-        public Encoder() {
-
-        }
-
         public double Position {
             get {
                 return _position;
@@ -27,6 +22,10 @@ namespace EncoderMotor {
                 }
                 positionChanged?.Invoke(this,EventArgs.Empty);
             }
+        }
+
+        public Encoder() {
+
         }
 
         public void TargetPosition(double posicaoAlvo=double.NaN,double posicaoAtual=double.NaN) {

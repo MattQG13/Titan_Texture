@@ -19,6 +19,7 @@ namespace SerialManagerTexturometro{
         public EventHandler<SerialMessageArgument> ZeroSeated;
         public EventHandler<SerialMessageArgument> LoadCalibrated;
         public EventHandler<SerialMessageArgument> VelDetected;
+        public EventHandler<SerialMessageArgument> WarningDetected;
 
         private CultureInfo culture = new CultureInfo("en-US"); //CultureInfo.InvariantCulture;
         private char endChar = '!';
@@ -37,6 +38,7 @@ namespace SerialManagerTexturometro{
             _serialPort.WriteTimeout=2048;
 
         }
+
         public SerialManager() {
             _serialPort=new SerialPort();
             _serialPort.DataReceived+=_dataReceived;
@@ -80,7 +82,7 @@ namespace SerialManagerTexturometro{
                     _serialPort.Open();
                     _serialPort.DiscardInBuffer();
 
-                } catch(Exception) {
+                } catch(Exception ex) {
                     MessageBox.Show("Erro de conexão com texturômetro!","ERRO",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 }
             }
@@ -131,81 +133,98 @@ namespace SerialManagerTexturometro{
         }
 
         private void _interpretaMensagem(string[] partesDaMensagem) {
-            SerialMessageArgument args = new SerialMessageArgument();
-            args.Objeto=partesDaMensagem[0];
+            try {
+                SerialMessageArgument args = new SerialMessageArgument();
+                args.Objeto=partesDaMensagem[0];
 
-            switch(partesDaMensagem.Length) {
-                case 2: //Load cell ou Encoder
-                    if(args.Objeto=="LS"||args.Objeto=="LI") {
-                        args.boolValue=partesDaMensagem[1]=="1" ? true : false;
-                    }
-                    if(args.Objeto=="E"){
-                        args.doubleValue1=double.Parse(partesDaMensagem[1],culture);
-                    }
-                    if(args.Objeto=="CAL") {
-                        args.doubleValue=double.Parse(partesDaMensagem[1],culture);
-                    }
-                    if(args.Objeto=="L") {
-                        args.doubleValue1=double.Parse(partesDaMensagem[1],culture);
-                    }
-                    if(args.Objeto=="LCC") {
-                        args.doubleValue =double.Parse(partesDaMensagem[1], culture);
-                    }
-                    if(args.Objeto=="V") {
-                        args.doubleValue=double.Parse(partesDaMensagem[1],culture);
-                    }
-                    break;
-                case 3: //Motor
-                    if(args.Objeto=="M") {
-                        args.Comando=partesDaMensagem[1];
-                        args.doubleValue=double.Parse(partesDaMensagem[2],culture);
-                    }
+                switch(partesDaMensagem.Length) {
+                    case 2: //Load cell ou Encoder
+                        if(args.Objeto=="LS"||args.Objeto=="LI") {
+                            args.boolValue=partesDaMensagem[1]=="1" ? true : false;
+                        }
+                        if(args.Objeto=="E") {
+                            args.doubleValue1=double.Parse(partesDaMensagem[1],culture);
+                        }
+                        if(args.Objeto=="CAL") {
+                            args.doubleValue=double.Parse(partesDaMensagem[1],culture);
+                        }
+                        if(args.Objeto=="L") {
+                            args.doubleValue1=double.Parse(partesDaMensagem[1],culture);
+                        }
+                        if(args.Objeto=="LCC") {
+                            args.doubleValue=double.Parse(partesDaMensagem[1],culture);
+                        }
+                        if(args.Objeto=="V") {
+                            args.doubleValue=double.Parse(partesDaMensagem[1],culture);
+                        }
+                        if(args.Objeto=="W") {
+                            switch(partesDaMensagem[1]) {
+                                case "O":
+                                    args.stringValue="Limite de carga atingido!";
+                                    break;
+                                default: 
+                                    break;
+                            }                        
+                        }
+                        break;
+                    case 3: //Motor
+                        if(args.Objeto=="M") {
+                            args.Comando=partesDaMensagem[1];
+                            args.doubleValue=double.Parse(partesDaMensagem[2],culture);
+                        }
 
-                    if(args.Objeto=="L") {
-                        args.doubleValue1=double.Parse(partesDaMensagem[1],culture);
-                        args.doubleValue2=double.Parse(partesDaMensagem[2],culture);
-                    }
-                    if(args.Objeto=="E") {
-                        args.doubleValue1=double.Parse(partesDaMensagem[1],culture);
-                        args.doubleValue2=double.Parse(partesDaMensagem[2],culture);
-                    }
-                    break;
-                default:
-                    break;
-            }
-            MessageInterpreted?.Invoke(this,args);
+                        if(args.Objeto=="L") {
+                            args.doubleValue1=double.Parse(partesDaMensagem[1],culture);
+                            args.doubleValue2=double.Parse(partesDaMensagem[2],culture);
+                        }
+                        if(args.Objeto=="E") {
+                            args.doubleValue1=double.Parse(partesDaMensagem[1],culture);
+                            args.doubleValue2=double.Parse(partesDaMensagem[2],culture);
+                        }
+                        break;
+                    default:
+                        break;
+                }
 
-            switch (args.Objeto) { 
-                case "LS": 
-                        LSDetected?.Invoke(this, args);         
-                        break; 
-                case "LI": 
-                        LIDetected?.Invoke(this, args);  
-                        break; 
-                case "L": 
-                        LoadCellDetected?.Invoke(this, args);  
-                        break; 
-                case "E": 
-                        EncoderDetected?.Invoke(this, args);  
-                        break; 
-                case "M": 
-                        MotorDetected?.Invoke(this, args);  
+                MessageInterpreted?.Invoke(this,args);
+
+                switch(args.Objeto) {
+                    case "LS":
+                        LSDetected?.Invoke(this,args);
                         break;
-                case "INITIME":
-                        TimeSeted?.Invoke(this, args);
+                    case "LI":
+                        LIDetected?.Invoke(this,args);
                         break;
-                case "ZERO":
-                        ZeroSeated?.Invoke(this, args);
+                    case "L":
+                        LoadCellDetected?.Invoke(this,args);
                         break;
-                case "LCC":
-                        LoadCalibrated?.Invoke(this, args);
+                    case "E":
+                        EncoderDetected?.Invoke(this,args);
                         break;
-                case "V":
-                    VelDetected?.Invoke(this, args);
+                    case "M":
+                        MotorDetected?.Invoke(this,args);
                         break;
+                    case "INITIME":
+                        TimeSeted?.Invoke(this,args);
+                        break;
+                    case "ZERO":
+                        ZeroSeated?.Invoke(this,args);
+                        break;
+                    case "LCC":
+                        LoadCalibrated?.Invoke(this,args);
+                        break;
+                    case "V":
+                        VelDetected?.Invoke(this,args);
+                        break;
+                    case "W":
+                        WarningDetected?.Invoke(this,args);
+                        break;
+                }
+            } catch (Exception ex) {
             }
         }
 
+        #region Envia_Mensagens
         public void EnvComandoMotor(ModoMotor comando,double vel=0) {
             StringBuilder sB = new StringBuilder("");
             sB.Append("[M;");
@@ -225,6 +244,7 @@ namespace SerialManagerTexturometro{
 
             Write(sB.ToString());
         }
+
         public void EnvComandoMotor(ModoMotor comando,double vel,double finalPosition) {
             StringBuilder sB = new StringBuilder("");
             sB.Append("[M;");
@@ -280,5 +300,6 @@ namespace SerialManagerTexturometro{
             for(int i = 0;i<3;i++)
                 Write(s);
         }
+        #endregion
     }
 }

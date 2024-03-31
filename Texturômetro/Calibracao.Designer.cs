@@ -26,11 +26,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Calibracao));
             this.tabs = new System.Windows.Forms.TabControl();
             this.tab1 = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnCancel1 = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
             this.tab2 = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txCal = new System.Windows.Forms.TextBox();
@@ -40,8 +42,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCancel2 = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tab1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -60,7 +60,7 @@
             this.tabs.Multiline = true;
             this.tabs.Name = "tabs";
             this.tabs.SelectedIndex = 0;
-            this.tabs.Size = new System.Drawing.Size(340, 264);
+            this.tabs.Size = new System.Drawing.Size(342, 316);
             this.tabs.TabIndex = 6;
             // 
             // tab1
@@ -72,16 +72,26 @@
             this.tab1.Location = new System.Drawing.Point(4, 22);
             this.tab1.Name = "tab1";
             this.tab1.Padding = new System.Windows.Forms.Padding(3);
-            this.tab1.Size = new System.Drawing.Size(332, 238);
+            this.tab1.Size = new System.Drawing.Size(334, 290);
             this.tab1.TabIndex = 0;
             this.tab1.Text = "tab1";
+            // 
+            // label7
+            // 
+            this.label7.Font = new System.Drawing.Font("SansSerif", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label7.Location = new System.Drawing.Point(140, 6);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(186, 76);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "1. Retire todos os produtos antes de realizar a calibração.\r\n\r\n2. Pressione \"Próx" +
+    "imo\".\r\n";
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(8, 6);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(138, 195);
+            this.pictureBox1.Size = new System.Drawing.Size(148, 246);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
@@ -91,9 +101,9 @@
             this.panel1.Controls.Add(this.btnCancel1);
             this.panel1.Controls.Add(this.btnNext);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(3, 206);
+            this.panel1.Location = new System.Drawing.Point(3, 258);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(326, 29);
+            this.panel1.Size = new System.Drawing.Size(328, 29);
             this.panel1.TabIndex = 10;
             // 
             // btnCancel1
@@ -130,33 +140,43 @@
             this.tab2.Location = new System.Drawing.Point(4, 22);
             this.tab2.Name = "tab2";
             this.tab2.Padding = new System.Windows.Forms.Padding(3);
-            this.tab2.Size = new System.Drawing.Size(332, 238);
+            this.tab2.Size = new System.Drawing.Size(334, 263);
             this.tab2.TabIndex = 1;
             this.tab2.Text = "tab2";
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("SansSerif", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label3.Location = new System.Drawing.Point(155, 8);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(171, 117);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "1. Posicione a carga de calibração no local indicado.\r\n\r\n2. Indique corretamente " +
+    "a carga de calibração abaixo.\r\n\r\n3. Pressione \"Ok\".\r\n";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label2.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label2.Location = new System.Drawing.Point(158, 164);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(116, 12);
+            this.label2.Size = new System.Drawing.Size(132, 14);
             this.label2.TabIndex = 9;
             this.label2.Text = "Carga para calibração:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label1.Location = new System.Drawing.Point(274, 181);
+            this.label1.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label1.Location = new System.Drawing.Point(276, 184);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(11, 12);
+            this.label1.Size = new System.Drawing.Size(14, 14);
             this.label1.TabIndex = 8;
             this.label1.Text = "g";
             // 
             // txCal
             // 
-            this.txCal.Location = new System.Drawing.Point(154, 176);
+            this.txCal.Location = new System.Drawing.Point(155, 181);
             this.txCal.Name = "txCal";
             this.txCal.Size = new System.Drawing.Size(117, 20);
             this.txCal.TabIndex = 6;
@@ -195,9 +215,9 @@
             this.panel2.Controls.Add(this.btnCancel2);
             this.panel2.Controls.Add(this.btnOk);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(3, 206);
+            this.panel2.Location = new System.Drawing.Point(3, 231);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(326, 29);
+            this.panel2.Size = new System.Drawing.Size(328, 29);
             this.panel2.TabIndex = 11;
             // 
             // btnCancel2
@@ -220,31 +240,11 @@
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
-            // label7
-            // 
-            this.label7.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label7.Location = new System.Drawing.Point(152, 6);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(174, 76);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "1. Retire todos os produtos antes de realizar a calibração.\r\n\r\n2. Pressione \"Próx" +
-    "imo\".\r\n";
-            // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label3.Location = new System.Drawing.Point(155, 8);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(171, 96);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "1. Posicione a carga de calibração no local indicado.\r\n\r\n2. Indique corretamente " +
-    "a carga de calibração abaixo.\r\n\r\n3. Pressione \"Ok\".\r\n";
-            // 
             // Calibracao
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(340, 264);
+            this.ClientSize = new System.Drawing.Size(342, 316);
             this.Controls.Add(this.tabs);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

@@ -6,20 +6,14 @@ using ProdutoTexturometro;
 using ClassesSuporteTexturometro;
 using CsvHelper.Configuration;
 using System.Globalization;
-using Microsoft.Win32;
-using System.IO.Packaging;
 using System.Text;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using EnsaioTextuometro;
 using System.Collections.Generic;
 using DadosDeEnsaio;
 using Image = System.Drawing.Image;
 using System.Drawing;
-using static System.Net.Mime.MediaTypeNames;
 using System;
-using OfficeOpenXml.Style;
-using System.Linq;
 
 namespace ExportacaoResultado {
     public class ExportacaoExcel {
@@ -30,14 +24,11 @@ namespace ExportacaoResultado {
         }
 
         public static void exportarExcel(in List<Coord> cp) {
+
             ExcelPackage.LicenseContext=OfficeOpenXml.LicenseContext.NonCommercial;
 
-            //var cp=corpoDeProva.Resultado.GetTable();
-            //for(int i = 0; i < 10;i++)
-            //cp.Add(new Coord(1*i,2*i,3*i));
             var dados = cp;
-            
-           
+                       
             using(var package = new ExcelPackage()) {
 
                 SaveFileDialog SalvarArquivo = new SaveFileDialog();
@@ -136,7 +127,6 @@ namespace ExportacaoResultado {
                     float scale = (doc.PageSize.Width)/Marca.Width;
                     Marca.ScaleAbsoluteWidth(scale*Marca.Width);
                     Marca.ScaleAbsoluteHeight(scale*Marca.Height);
-                    //Marca.ScaleAbsoluteWidth(doc.PageSize.Width);
                     Marca.Alignment=Element.ALIGN_CENTER;
                     doc.Add(Marca);
 
@@ -157,7 +147,6 @@ namespace ExportacaoResultado {
                     {
                         Paragraph InfsEnsaio = new Paragraph();
                         InfsEnsaio.SetLeading(0,1.2f);
-                        //InfsEnsaio.Font=FontFactory.GetFont("Arial",12,(int)FontStyle.Bold);
                         InfsEnsaio.Alignment=Element.ALIGN_LEFT;
                         InfsEnsaio.IndentationRight=1;
                         InfsEnsaio.Add(new Chunk("Nome da Amostra: ",FontFactory.GetFont("Arial",9,(int)FontStyle.Bold)));
@@ -256,10 +245,7 @@ namespace ExportacaoResultado {
                         infs.AddCell(infsLeft);
                         infs.AddCell(infsRight);
 
-
-
                         doc.Add(infs);
-
                     }
 
                     Paragraph Titulo3= new Paragraph();
@@ -290,7 +276,6 @@ namespace ExportacaoResultado {
                     Titulo4.Add(new Chunk("Resultados:"));
                     
                     {
-
                         var tb = corpoDeProva.Resultado;
 
                         if(Teste.Tipo==TipoDeTeste.TPA) {
@@ -382,7 +367,7 @@ namespace ExportacaoResultado {
                     baseboard.AddCell(cellImMargInf);
 
 
-                    Paragraph phRp = new Paragraph(@"TCC - BHMMO - 2024");
+                    Paragraph phRp = new Paragraph(@"TCC - BHMMMO - 2024");
                     phRp.Alignment=Element.ALIGN_RIGHT;
                     phRp.Font=FontFactory.GetFont("SansSerif",8,(int)FontStyle.Bold,new BaseColor(0x6B,0x4D,0x3E));
                     phRp.SpacingBefore=0;
@@ -415,10 +400,6 @@ namespace ExportacaoResultado {
 
         public static void exportarCSV(in List<Coord> cp) {
 
-            //Tabela cp = new Tabela();
-
-            //var cp =corpoDeProva.Resultado.GetTable();
-
             var dados = cp;
 
             var config = new CsvConfiguration(CultureInfo.CurrentCulture);
@@ -434,8 +415,8 @@ namespace ExportacaoResultado {
             if(res==DialogResult.OK) {
                 using(var writer = new StreamWriter(SalvarArquivo.FileName,false,Encoding.Default))
                 using(var csv = new CsvWriter(writer,config)) {
+                    
                     // Escreve o cabeçalho
-
                     csv.WriteField("Tempo (s)");
                     csv.WriteField("Carga (g)");
                     csv.WriteField("Posicao (mm)");
