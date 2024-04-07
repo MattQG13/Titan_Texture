@@ -36,6 +36,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.btnUP = new System.Windows.Forms.Button();
             this.lbVel = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -65,7 +66,6 @@
             this.zeroMáquinaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraçõesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button2 = new System.Windows.Forms.Button();
             this.pnBackground.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -128,6 +128,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(166, 194);
             this.panel1.TabIndex = 14;
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(42, 165);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(27, 26);
+            this.button2.TabIndex = 14;
+            this.button2.TabStop = false;
+            this.button2.Text = "Ω";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // btnUP
             // 
@@ -382,7 +394,7 @@
             this.ToolStripMenuExportCSV,
             this.ToolStripMenuExportPDF});
             this.exportarComoToolStripMenuItem.Name = "exportarComoToolStripMenuItem";
-            this.exportarComoToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.exportarComoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exportarComoToolStripMenuItem.Text = "Exportar";
             // 
             // ToolStripMenuExportExcel
@@ -420,28 +432,28 @@
             // rodarTesteStripMenu
             // 
             this.rodarTesteStripMenu.Name = "rodarTesteStripMenu";
-            this.rodarTesteStripMenu.Size = new System.Drawing.Size(157, 22);
+            this.rodarTesteStripMenu.Size = new System.Drawing.Size(180, 22);
             this.rodarTesteStripMenu.Text = "Rodar teste...";
             this.rodarTesteStripMenu.Click += new System.EventHandler(this.rodarTesteToolStripMenuItem_Click);
             // 
             // calibrarToolStripMenuItem
             // 
             this.calibrarToolStripMenuItem.Name = "calibrarToolStripMenuItem";
-            this.calibrarToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.calibrarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.calibrarToolStripMenuItem.Text = "Calibrar...";
             this.calibrarToolStripMenuItem.Click += new System.EventHandler(this.calibrarToolStripMenuItem_Click);
             // 
             // tararToolStripMenuItem
             // 
             this.tararToolStripMenuItem.Name = "tararToolStripMenuItem";
-            this.tararToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.tararToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.tararToolStripMenuItem.Text = "Tarar...";
             this.tararToolStripMenuItem.Click += new System.EventHandler(this.tararToolStripMenuItem_Click);
             // 
             // zeroMáquinaToolStripMenuItem
             // 
             this.zeroMáquinaToolStripMenuItem.Name = "zeroMáquinaToolStripMenuItem";
-            this.zeroMáquinaToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.zeroMáquinaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.zeroMáquinaToolStripMenuItem.Text = "Zero Máquina...";
             this.zeroMáquinaToolStripMenuItem.Click += new System.EventHandler(this.zeroMáquinaToolStripMenuItem_Click);
             // 
@@ -458,18 +470,6 @@
             this.sobreToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
             this.sobreToolStripMenuItem.Text = "Sobre";
             this.sobreToolStripMenuItem.Click += new System.EventHandler(this.sobreToolStripMenuItem_Click);
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(42, 165);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(27, 26);
-            this.button2.TabIndex = 14;
-            this.button2.TabStop = false;
-            this.button2.Text = "Ω";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // TexturometroForms
             // 

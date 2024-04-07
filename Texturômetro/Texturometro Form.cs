@@ -19,6 +19,7 @@ using System.Drawing.Imaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 
 namespace Texturometer {
     public partial class TexturometroForms : Form {
@@ -56,6 +57,7 @@ namespace Texturometer {
             tmRampa.Interval=100;
             tmRampa.Enabled=true;
             tmRampa.Tick+=new EventHandler(Rampa);
+            tmRampa.Stop();
 
         }
 
@@ -103,7 +105,7 @@ namespace Texturometer {
             tex.Serial.LoadCalibrated+=LoadCelCalibrated;
             Thread.Sleep(1000);
             tex.LoadCell.ZeroTime(); //Comentar depos
-            tex.Serial.EnvCalibration(Properties.Settings.Default.CalLoadCell); //Verificar
+            //tex.Serial.EnvCalibration(Properties.Settings.Default.CalLoadCell); //Verificar
 
             tex.Serial.DiscardInBuffer();
             tex.Produto.Resultado.Clear();
@@ -134,8 +136,8 @@ namespace Texturometer {
 
         private void ToolStripMenuExportPDF_Click(object sender,EventArgs e) {
 
-            CorpoDeProva cp = Dados.getCP();
-            tex.Produto.Resultado=cp.Resultado;
+            //CorpoDeProva cp = Dados.getCP();
+            //tex.Produto.Resultado=cp.Resultado;
             if(tex.Produto.Resultado.Count!=0) {
                 ExportacaoRelatorioPDF.exportaPDF(tex.Produto,tex.DadosTeste,getImgGrafico(panelGraph));
             } else {
@@ -153,8 +155,8 @@ namespace Texturometer {
             var DialogResult = ConfigEnsaio.ShowDialog();
 
             if(DialogResult == DialogResult.OK &&ConfigEnsaio.DadosDeEnsaio != null) {
-                if(true){//if(tex.Motor.ZeroSeated) {
-                ConfigEnsaio.DadosDeEnsaio.PosInicial=tex.Encoder.Position;
+                if(true) {//if(tex.Motor.ZeroSeated) {
+                    ConfigEnsaio.DadosDeEnsaio.PosInicial=tex.Encoder.Position;
                     tex.TesteStart(ConfigEnsaio.DadosDeEnsaio);
                     AtInfoLabel(ConfigEnsaio.DadosDeEnsaio);
                 } else {
@@ -421,13 +423,13 @@ namespace Texturometer {
 
             var tb = tex.Produto.Resultado;
 
-            
-                var cp = Dados.getCP();
-                tb=cp.Resultado;
-                tex.testRunning=false;
-                tex.Produto.Resultado=tb;
-                tex.DadosTeste=new DataTest() { ValorDeteccao=3,Tipo=TipoDeTeste.TPA };
-            
+
+            //var cp = Dados.getCP();
+            //tb=cp.Resultado;
+            //tex.testRunning=false;
+            //tex.Produto.Resultado=tb;
+            //tex.DadosTeste=new DataTest() { ValorDeteccao=3,Tipo=TipoDeTeste.TPA };
+
 
             if(tex.DadosTeste.Tipo==TipoDeTeste.TPA) {
 
@@ -505,19 +507,26 @@ namespace Texturometer {
         }
 
         private void button1_Click_1(object sender,EventArgs e) {
+            tex.testRunning=false;
             execFimTeste(this,EventArgs.Empty);
         }
         #endregion
 
         private void button2_Click(object sender,EventArgs e) {
             velRampa=0;
+            tex.Motor.Start(ModoMotor.Subir,0.1);
             tmRampa.Start();
         }
 
         private void Rampa (object sender, EventArgs e) {
-            tex.Serial.EnvComandoMotor(ModoMotor.Descer, velRampa);
-            velRampa+=0.1;
 
+            if(tex.Motor.ModoMotor==ModoMotor.Parado) {
+                tex.Motor.Stop();
+                tmRampa.Stop();
+            } else {
+                tex.Motor.Start(ModoMotor.Subir,velRampa);
+            }
+            velRampa+=0.1;
             if(velRampa>=10) {
                 tex.Serial.EnvComandoMotor(ModoMotor.Parado,0);
                 tmRampa.Stop();

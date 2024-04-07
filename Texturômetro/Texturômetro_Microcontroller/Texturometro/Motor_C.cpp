@@ -4,13 +4,9 @@
 
 void atualizaMotor(double vel) {
   if (vel > 0.001 || vel < -0.001) {
-    TIMSK1 &= ~(1 << OCIE1A);
-    
-    timerValue = (passo * 1000) / (ppr * (vel > 0 ? vel : -vel) * 2);
-    intervalo = (int)(timerValue * 250);
-    OCR1A = intervalo;
-    TCNT1 = OCR1A - 1;
-    TIMSK1 |= (1 << OCIE1A);
+         
+    double timerValue = (passo * 1000) / (ppr * (vel > 0 ? vel : -vel) * 2); //ms
+    setInterval(timerValue);
 
     if (vel > 0){
       digitalWrite(direcao,0);
@@ -18,16 +14,28 @@ void atualizaMotor(double vel) {
     if (vel < 0) {
       digitalWrite(direcao,1); 
     }
-    //PORTB &= ~(1 << enMotor);
-    
+        
     digitalWrite(enMotor,0);
+
   } else {
-    //intervalo = (int)(((passo * 1000) / (ppr * 0.001 * 2)) * 250);
-    //OCR1A = intervalo;
     TIMSK1 &= ~(1 << OCIE1A);
     digitalWrite(pulso,0);
     digitalWrite(enMotor,0);
   }
+}
+
+
+void setInterval(double intervaloMS){
+    int intervalo = (int)(intervaloMS * 250); //ms -> timerCount
+    if (intervalo>0){
+      TIMSK1 &= ~(1 << OCIE1A);
+      OCR1A = intervalo;
+      TCNT1 = OCR1A - 1;
+      TIMSK1 |= (1 << OCIE1A);
+    }else{
+      TIMSK1 &= ~(1 << OCIE1A);
+    }
+  
 }
 
 ISR(TIMER1_COMPA_vect)

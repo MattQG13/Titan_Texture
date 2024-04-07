@@ -12,14 +12,17 @@
 //====DEFINE LEITOR DE POSIÇÃO=====
 #define WITH_ENCODER
 //=================================
+#define WITH_PID
 
 extern long contador;
 
 extern bool positionLimited;
 extern double finalPosition;
 extern double posicao;
-extern double timerValue;
 extern double filtredload;
+
+//PID
+extern double SPVel;
 
 //LOAD CELL=========================================
 

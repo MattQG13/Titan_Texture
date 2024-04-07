@@ -153,7 +153,7 @@ namespace ExportacaoResultado {
                         InfsEnsaio.Add(new Chunk(Teste.Nome,FontFactory.GetFont("Arial",9)));
                         InfsEnsaio.Add("\n");
                         InfsEnsaio.Add(new Chunk("Data e Hora: ",FontFactory.GetFont("Arial",9,(int)FontStyle.Bold)));
-                        InfsEnsaio.Add(new Chunk(Teste.DataHora.ToString("yyyy-MM-dd HH:mm:ss"),FontFactory.GetFont("Arial",9)));
+                        InfsEnsaio.Add(new Chunk("N/A"/*Teste.DataHora.ToString("yyyy-MM-dd HH:mm:ss")*/,FontFactory.GetFont("Arial",9)));
                         InfsEnsaio.Add("\n");
                         InfsEnsaio.Add(new Chunk("Tipo de Ensaio: ",FontFactory.GetFont("Arial",9,(int)FontStyle.Bold)));
                         InfsEnsaio.Add(new Chunk(Teste.Tipo.ToString(),FontFactory.GetFont("Arial",9)));
@@ -331,7 +331,7 @@ namespace ExportacaoResultado {
                                 pars2.Add(new Chunk(Math.Round(resTPA.Gumminess,2).ToString(),FontFactory.GetFont("Arial",9)));
                                 pars2.Add("\n");
 
-                                pars2.Add(new Chunk("Msstigabilidade: ",FontFactory.GetFont("Arial",9,(int)FontStyle.Bold)));
+                                pars2.Add(new Chunk("Mastigabilidade: ",FontFactory.GetFont("Arial",9,(int)FontStyle.Bold)));
                                 pars2.Add(new Chunk(Math.Round(resTPA.Chewiness,2).ToString(),FontFactory.GetFont("Arial",9)));
 
 

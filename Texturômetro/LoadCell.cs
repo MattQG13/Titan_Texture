@@ -12,7 +12,7 @@ namespace LoadCellTexturometro {
         private bool _deteccaoDeCarga = false;
         private bool _targetedLoad = false;
         private double _targetLoad = 0;
-
+        private bool _maiorque = true;
         public event EventHandler ZeroSet;
         public event EventHandler LoadReached;
         public event EventHandler CargaDetected;
@@ -34,7 +34,7 @@ namespace LoadCellTexturometro {
             }
             set {
                 _val=(double)value;
-                if(_val>_valDeteccao&&_deteccaoDeCarga) {
+                if(_maiorque?(_val>_valDeteccao):(_val<_valDeteccao)&&_deteccaoDeCarga) {
                     _deteccaoDeCarga=false;
                     CargaDetected?.Invoke(this,EventArgs.Empty);
                 }
@@ -88,8 +88,9 @@ namespace LoadCellTexturometro {
             }
         }
 
-        public void DetectLoad(double cargaDeteccao = double.NaN) {
+        public void DetectLoad(double cargaDeteccao = double.NaN,bool maiorque = true) {
             if(cargaDeteccao!=0||cargaDeteccao!=double.NaN) {
+                _maiorque=maiorque;
                 _valDeteccao=cargaDeteccao;
                 _deteccaoDeCarga=true;
             } else {

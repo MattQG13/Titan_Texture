@@ -137,11 +137,12 @@ namespace TexturometroClass {
 
             Acao Action = Teste.AcaoAtual;
             Teste.Next();
+
             switch(Action) {
 
                 case Acao.DescerPreTeste: //Desce pre teste até deteccao //Ok
-                    Motor.Start(ModoMotor.Descer,DadosTeste.VelPreTeste);
                     if(Teste.DirecaoTeste) {
+                        Motor.Start(ModoMotor.Descer,DadosTeste.VelPreTeste);
                         switch(DadosTeste.TipoDeteccao) {
                             case TipoTrigger.Forca:
                                 LoadCell.DetectLoad(DadosTeste.ValorDeteccao);
@@ -158,12 +159,12 @@ namespace TexturometroClass {
                     break;
 
                 case Acao.SubirPreTeste: //Sobe em velocidade de preteste //Ok
-                    if(Teste.DirecaoTeste) {
-                        Motor.Start(ModoMotor.Subir,DadosTeste.VelTeste);
+                    if(!Teste.DirecaoTeste) {
+                        Motor.Start(ModoMotor.Subir,DadosTeste.VelPreTeste);
 
                         switch(DadosTeste.TipoDeteccao) {
                             case TipoTrigger.Forca:
-                                LoadCell.DetectLoad(-DadosTeste.ValorDeteccao);
+                                LoadCell.DetectLoad(-DadosTeste.ValorDeteccao,false);
                                 LoadCell.CargaDetected+=ExecTeste;
                                 break;
                             case TipoTrigger.Distancia:
@@ -178,7 +179,6 @@ namespace TexturometroClass {
 
                 case Acao.DescerTeste:  //Desce para teste até limite //Ok Acho
                     Motor.Start(ModoMotor.Descer,DadosTeste.VelTeste);
-
                     if(Teste.DirecaoTeste) {
                         if(Produto.TamanhoOriginal==0) {
                             Produto.TamanhoOriginal=Encoder.Position;
@@ -227,7 +227,7 @@ namespace TexturometroClass {
 
                         switch(DadosTeste.TipoLimite) {
                             case TipoTarget.Deformacao:
-                                Produto.TargetDeformation(1+DadosTeste.ValorLimite);
+                                Produto.TargetDeformation(-DadosTeste.ValorLimite,false);
                                 Produto.DeformacaoReached+=ExecTeste;
                                 break;
                             case TipoTarget.Distancia:
@@ -235,7 +235,7 @@ namespace TexturometroClass {
                                 Encoder.positionReached+=ExecTeste;
                                 break;
                             case TipoTarget.Forca:
-                                LoadCell.TargetLoad(-DadosTeste.ValorLimite);
+                                LoadCell.DetectLoad(-DadosTeste.ValorLimite,false);
                                 LoadCell.LoadReached+=ExecTeste;
                                 break;
                             default:
@@ -370,7 +370,7 @@ namespace TexturometroClass {
         }
 
         public void ShowWarning(object sender, SerialMessageArgument args) {
-            MessageBox.Show(args.stringValue,"Aviso!",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            //MessageBox.Show(args.stringValue,"Aviso!",MessageBoxButtons.OK,MessageBoxIcon.Warning);
         }
 
         #endregion

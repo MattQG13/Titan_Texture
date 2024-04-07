@@ -3,14 +3,13 @@
 #include "Motor_C.h"
 #include "VARS.h"
 #include "Encoder_C.h"
-
+#include "PID.h"
 #define LI 6 //PD6 //6
 #define LS 7 //PD7 //7
 
 
 void executaComando(SerialInterpreter com);
 void envMens();
-
 char endChar = '!';
 
 static long iniTimer = 0;
@@ -32,7 +31,7 @@ void setup() {
   #ifdef WITH_ENCODER
   configEncoder();
   #endif
-  //    configEnv();
+  configEnv();
   pinMode(LI, INPUT_PULLUP);
   pinMode(LS, INPUT_PULLUP);
 }
@@ -64,7 +63,8 @@ void loop() {
     digitalWrite(enMotor, 1);
   }
   
-  envMens();
+  //envMens();
+  //PID(FMMV.filtrar(getVel()));
   delay(10);
 }
 
@@ -110,12 +110,14 @@ void executaComando(SerialInterpreter com) {
 
     case 3:
       if (com.Comando == "M") {
+        SPVel = com.Valor;
         if (com.Modo == "UP") {
           atualizaMotor(dirUP * abs(com.Valor));
         } else if (com.Modo == "DN") {
           atualizaMotor(-dirUP * abs(com.Valor));
         } else if (com.Modo == "S") {
           atualizaMotor(0);
+          SPVel = 0;
         }
         positionLimited = false;
       }
@@ -125,12 +127,14 @@ void executaComando(SerialInterpreter com) {
       break;
     case 4:
       if (com.Comando == "M") {
+         SPVel = com.Valor;
         if (com.Modo == "UP") {
           atualizaMotor(dirUP * abs(com.Valor));
         } else if (com.Modo == "DN") {
           atualizaMotor(-dirUP * abs(com.Valor));
         } else if (com.Modo == "S") {
           atualizaMotor(0);
+          SPVel = 0;
         }
         positionLimited = true;
         finalPosition = com.Valor2;
@@ -179,16 +183,20 @@ void envMens() {
     Serial.print("[W;O]!");
   }
   #ifdef WITH_ENCODER
-  if(contVel>10){
+  //if(contVel>=1){
     bufferText += "[V;"; 
-  
-    bufferText += String (FMMV.filtrar(getVel()), 1);
+    double velReal = FMMV.filtrar(getVel());
+    bufferText += String (velReal, 1);
   
     bufferText += "]";
     bufferText += endChar;
     
     contVel=0;
-  }
+    
+    #ifndef WITH_PID
+      PID(velReal);
+    #endif
+ // }
   contVel++;
   #endif
   

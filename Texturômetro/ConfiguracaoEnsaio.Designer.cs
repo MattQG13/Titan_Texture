@@ -193,7 +193,7 @@
             this.txDim1.Name = "txDim1";
             this.txDim1.Size = new System.Drawing.Size(188, 20);
             this.txDim1.TabIndex = 11;
-            this.txDim1.Text = "40";
+            this.txDim1.Text = "36";
             this.txDim1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
             // 
             // lbDim1
@@ -317,7 +317,7 @@
             this.txTrigger.Name = "txTrigger";
             this.txTrigger.Size = new System.Drawing.Size(188, 20);
             this.txTrigger.TabIndex = 8;
-            this.txTrigger.Text = "3";
+            this.txTrigger.Text = "2";
             this.txTrigger.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
             // 
             // lbTrigger
@@ -355,7 +355,7 @@
             this.txTarget.Name = "txTarget";
             this.txTarget.Size = new System.Drawing.Size(188, 20);
             this.txTarget.TabIndex = 5;
-            this.txTarget.Text = "25";
+            this.txTarget.Text = "40";
             this.txTarget.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
             // 
             // label6
@@ -484,7 +484,7 @@
             this.txVelPT.Name = "txVelPT";
             this.txVelPT.Size = new System.Drawing.Size(188, 20);
             this.txVelPT.TabIndex = 2;
-            this.txVelPT.Text = "1";
+            this.txVelPT.Text = "2";
             this.txVelPT.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
             // 
             // txVel
@@ -493,7 +493,7 @@
             this.txVel.Name = "txVel";
             this.txVel.Size = new System.Drawing.Size(188, 20);
             this.txVel.TabIndex = 3;
-            this.txVel.Text = "2";
+            this.txVel.Text = "5";
             this.txVel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
             // 
             // btnCancel
