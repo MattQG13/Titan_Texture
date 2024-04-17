@@ -7,50 +7,49 @@
 */
 
 /*
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxddddddddxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxddol:,,,'.'',',,;:codxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxddlc;..................',coxxxxxxxxxxxxxxxxxx
-xxxxxxxxdoc;'......................''',cdxxxxxxxxxxxxxxx
-xxxxxxdc,...............................':oxxxxxxxxxxxxx
-xxxxdd;.........;,.........................;oxxxxxxxxxxx
-xxxdl...'.......';,..........................:xxxxxxxxxx
-xxdl.............;;'..................     ...,dxxxxxxxx
-xdl.  ..........'::,...............          ..'oxxxxxxx
-do'   ..........';:,...............             .oxxxxxx
-d,     .........':ol;,'............              'dxxxxx
-c.     ....''',:ldxxxdllllllllc:,'...             ;xxxxx
-,       ..';:cdxO0000KKKKK000KK00Okkdl:,.. .      .lxxxx
-.      ..,:oddO0KKKKKKKKKKKKKKKKKK000OOxxxc,.      'dxxx
-.     .,:oxxdOKKKKKKKKKKKKKKKKKK00000OOOkOkd:.     .cxxx
-.    .:dxkkkO0KXXKKKKKKKKKKKKKKKKK00OOOOOOOkdc.....',dxx
-l.  .:dxkkOO0KXXXKKKKKKKKKKKKKKKK000OOOOOOOkkd,..lxl:lxx
-ol,..:ddxkkOO0KKKKK00KKKKK000000OOOOOOOOOOkkkkc.cxxl:;xx
-dol;.,ddkkkkkkOOOO000000K0000KK0OO0OOOOOkkkkkkd;lxxxl'ox
-dd:c:;dkkOkkkkO000OOOOOOO0000000kkkkkkxxddxkkkxc;coxo.:x
-ddolocddddxxxdxkO0OOkdxOOxdxdodoolloxkkkkkkOOkxlclcd;.'d
-dddoocooooodddlcclc;;:dkkkddol;,:;.':ldxkOOOOkxo:coo...o
-dddllcoxxxdol;'.,c,;clxkOOkkkkdooooodxO000OOOkxolod:...c
-dool::okOkkdoollolloxxkO00OkOOOOkkkOO00K00OOOkxdddc....:
-oolcc.ckOO0000OOOOOOkkk0KKOOOOO0K000000KK0OOOkxc;,.....,
-oclll..dkO0KXKKKK00Okkk0KKOOOOOOO000000KK0OOOkd;.......'
-lllll'.:xkOKKK0000OkkkkO0K0OOOkkxdkkOOOOOOOOkkd,........
-olcll' .okkOOOOOkxodkkkk0K0OOOOkOxoldxkkkkkkxxd'........
-lllcc' .,dxxkkkxoclxkOkkO00OOOkkOOkxoclodddxxxl.........
-llllc'...,looooc:cdxxxkO000Okkkkkkkkkxolcdxxxx,.........
-lcllc.....'clc:;cdxxxdddddxkxkOOOkkkkxxdoxkxxl..........
-c:c:,......'loolllodxxxkkkOOkkxxdd::dkkdxxxdo...........
-.........   .:ddooooc:lllodooocolodkkkkxxdol. .'..'.....
-.......      .'codxxxdodoododdxkOkkkkkkxddl.   ...'.....
-.......      . .'lddddxkOOOOOkkxxdxxkkxdoc.    .........
-.......      ..   'ldddollooooddxkkkkxol,'.   .....'....
-........  .. ..     .lxxkkkOOOOOOOkxdl;...     ..'.'....
-..................    'codxxxxxxxdlc;,.....   ..........
-..............'.  .   ..';::::::;;;;,... ..  ....... ...
-.........''....  ..   ...',;,,,,,,'..... .' ........ ...
-.........'......  .........,;;'............... ....   ..
-.........'.....  . .. ...,,';:;'...........   ....    .
-  ...............  .. .  .,;;:;,'..........  ...
+XXXXXXXXXXXXXXXXXXXXK00kxxkkOKKXXNNNNNNNNNNNNNNNNNWWWWWW
+XXXXXXXXXXXXXKK0xd:,''......'';cox0NNNNNNNNNNNNNNNNWWWWW
+XXXXXXXXXXXKOxl;.                ..'cxXNNNNNNNNNNNNNWWWW
+XXXXXXXXKkl,.                      ...'cOXNNNNNNNNNNNNNW
+XXXXXXKd'       ..                    ...;kXNNNNNNNNNNNN
+XXXXKO;         ,'                         ,kXNNNNNNNNNN
+XXXKx.  ..      .:,.                         :KNNNNNNNNN
+XXKd            .,:.                          .xXNNNNNNN
+XKd      .      .:c'.                          .xXNNNNNN
+Kk.             .;:'...      ...                 dXNNNNN
+O'           ...'ckx:;..      .                   kXNNNN
+o         ....'cxKNNX0kxxxxxxxdc,'..              ,KXNNN
+'         .,co0NMMMMMMMMMMMMMMMMMWNXKkl,.          oXXNN
+         'ckOKWMMMMMMMMMMMMMMMMMMMMMMMWNNNx'       .0XXN
+       'lkKXKWMMMMMMMMMMMMMMMMMMMMMMMMMMWWW0l.      :XNN
+.     lONWWNWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNKo.   .,.OXN
+d.   :OXNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWNK: .dXkolXN
+Ox,  :00XWWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWWWNk.oWWOo:0X
+0Ok: ,OKNWWWWWMMMMMMMMMMMMMMMMMMMMMMMMMWWNNWWNKcxXWNx;dX
+00ldo:KNWMWWWWMMMMMMMWMMWMMMMMMMWNWNNNNXK0KNWWNd:okN0.,K
+00OkOo0000KXK0KWWMWMNKXMWX000OOOxddOKXNNNWWWMWNko0d0l .O
+000OOoOOkxO0K0xooxo::cONWN0OOx:,l;..ck0XWMMMMWXOldOO.  d
+000xxlOXXXKkd:..,o;:oxXWMMWWWMKOOOOOKXMMMMMMMWXOdkKl   c
+00OdccOWMWWKkOkkOkxOXXNMMMMMMMMMWWWWMMMMMMMMMWX0KKd.   :
+OOdlo.oNMMMMMWWWWWMMWNWMMMMMMMMMMMMMMMMMMMMMMWXo;,     '
+koxxx. 0WMMMMMMMMMMMWWWMMMMMMMMMMMMMMMMMMMMMMWKc .     .
+xxdxx. :XWMMMMMMMMWNNNNWMMMMMMWNK0XWMMMMMMMMWNK; .
+kxoxd.  kNWMMMMMWXO0NNNWMMMMMMMMWXOxOXNWWWNNXK0' .
+kxdoo.  '0KXNNNXkcdKNMWWMMMMMMWWMMWXkooxO00KKXO. .
+xdxxo.   'xkkkxo;o0XXXWMMMMMNNWWMMWWWXOdoOXXXK:    .
+xoxdl. .  .ooo:;oO0KK0KK0KXNXNMMMWWNNNXKkXNXXx
+occ:'      .dkkxddk0KKXNNWWWWNXXOOcc0NWKKXK0k.    .
+             lO0kkOxlcxxxkOkOOoOxOKWWWWNK0kx.  . ..
+              .lk0KKXK0KOO0O0KNNWWNNNNNX0Ox.   . ..
+                .d00OOKNWMMMWWNXK0KXNNKOOd.      . .
+                  .d00OxxxxkkOO0KNNWNKOd,.      ....
+              .     .dKXNNWWMMMMMMWXOd:. .       . .
+     .       ..       .lkKKXXXXXKOxl:,.  .       . .
+     .       ..         .;:cccc::;;;'.    .      ..
+     .. ... ...          .';;,,,,'..      .       .
+        ..    .         ...,:;'..         .
+        ..   ..         .''';c:'..  ..   .
+          .....           ':;cc;.        .
  */
 
 using ClassesSuporteTexturometro;
@@ -67,6 +66,8 @@ using System.Reflection;
 using System.Timers;
 using Timer = System.Timers.Timer;
 using System.Threading;
+using System.ComponentModel;
+
 
 namespace TexturometroClass {
 	public class Texturometro {
@@ -80,9 +81,13 @@ namespace TexturometroClass {
         public SerialManager Serial;
 		public CorpoDeProva Produto;
 		private static Timer _timer;
-
+        private bool Warning = true;
         public EventHandler fimTeste;
+        public event EventHandler ZerarTime;
+
         public bool testRunning = false;
+        private object LastSender;
+
 
         public Texturometro() {
 			LoadCell = new LoadCell();
@@ -109,7 +114,7 @@ namespace TexturometroClass {
 
             LoadCell.ZeroSet+=Serial.EnvTARA;
 			LoadCell.Calibration+=Serial.CalLC;
-			LoadCell.ZerarTime+=Serial.EnvZeroTime;
+			ZerarTime+=Serial.EnvZeroTime;
             
             Encoder=new Encoder();
             Produto = new CorpoDeProva();
@@ -132,9 +137,17 @@ namespace TexturometroClass {
             ExecTeste(this, new EventArgs());
 		}
 
+        public void TesteStop(){
+            DadosTeste=null;
+            Teste=null;
+            Produto=null;
+            testRunning=false;
+            RemoveEvento(LastSender);
+        }
+
         private void ExecTeste(object sender,EventArgs args) {
             RemoveEvento(sender);
-
+            LastSender = sender;
             Acao Action = Teste.AcaoAtual;
             Teste.Next();
 
@@ -183,7 +196,7 @@ namespace TexturometroClass {
                         if(Produto.TamanhoOriginal==0) {
                             Produto.TamanhoOriginal=Encoder.Position;
                             Serial.EncoderDetected+=_atualizaTamanho;
-                            LoadCell.ZeroTime();
+                            ZeroTime();
                         } else if(Produto.TamanhoRecuperacao==0) {
                             Produto.TamanhoRecuperacao=Encoder.Position;
                         }
@@ -205,7 +218,7 @@ namespace TexturometroClass {
                                 break;
                         }
                     } else {
-                        Encoder.TargetPosition(Produto.TamanhoOriginal,Encoder.Position);
+                        Encoder.TargetPosition(Produto.TamanhoOriginal-0.1,Encoder.Position);
                         Encoder.positionReached+=ExecTeste;
                     }
                     break;
@@ -214,13 +227,13 @@ namespace TexturometroClass {
                     Motor.Start(ModoMotor.Subir,DadosTeste.VelTeste);
 
                     if(Teste.DirecaoTeste) {
-                        Encoder.TargetPosition(Produto.TamanhoOriginal,Encoder.Position);
+                        Encoder.TargetPosition(Produto.TamanhoOriginal+0.1,Encoder.Position);
                         Encoder.positionReached+=ExecTeste;
                     } else {
                         if(Produto.TamanhoOriginal==0) {
                             Produto.TamanhoOriginal=Encoder.Position;
                             Serial.EncoderDetected+=_atualizaTamanho;
-                            LoadCell.ZeroTime();
+                            ZeroTime();
                         } else if(Produto.TamanhoRecuperacao==0) {
                             Produto.TamanhoRecuperacao=Encoder.Position;
                         }
@@ -291,6 +304,10 @@ namespace TexturometroClass {
         }
         #endregion
 
+        public void ZeroTime() {
+            ZerarTime?.Invoke(this,EventArgs.Empty);
+        }
+
         public void StartAddResults(object sender,SerialMessageArgument e) {
             if(!ContainsHandler(Serial.LoadCellDetected,_atualizaResultadoL)&&!ContainsHandler(Serial.EncoderDetected,_atualizaResultadoE)) {
                 Produto.Resultado.Clear();
@@ -324,7 +341,16 @@ namespace TexturometroClass {
         }
 
         private void _atualizaResultadoL(object sender,SerialMessageArgument e) {
-            Produto.Resultado.AddXZvalue(e.doubleValue1,e.doubleValue2);
+            if(Teste != null)
+                Produto.Resultado.AddXZvalue(e.doubleValue1*(Teste.DirecaoTeste?1:-1),e.doubleValue2);
+            else
+                Produto.Resultado.AddXZvalue(e.doubleValue1,e.doubleValue2);
+
+            if(!Warning) {
+                if(e.doubleValue1<10000) {
+                    Warning = true;
+                }
+            }
         }
         private void _atualizaResultadoE(object sender,SerialMessageArgument e) {
             Produto.Resultado.AddYZvalue(e.doubleValue1,e.doubleValue2);
@@ -336,6 +362,7 @@ namespace TexturometroClass {
         private void _enviaSerialMotorGoTo(object sender, MotorArgument e) {
             Serial.EnvComandoMotor(e.Modo,e.Vel,e.FinalPosition);
         }
+
 
         #region Funcoes_Especiais
         private void RemoveEvento(object sender) {
@@ -370,7 +397,10 @@ namespace TexturometroClass {
         }
 
         public void ShowWarning(object sender, SerialMessageArgument args) {
-            //MessageBox.Show(args.stringValue,"Aviso!",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            if(Warning) {
+                MessageBox.Show(args.stringValue,"Aviso!",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                Warning= false;
+            }
         }
 
         #endregion

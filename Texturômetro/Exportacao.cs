@@ -14,6 +14,7 @@ using DadosDeEnsaio;
 using Image = System.Drawing.Image;
 using System.Drawing;
 using System;
+using System.Linq;
 
 namespace ExportacaoResultado {
     public class ExportacaoExcel {
@@ -23,11 +24,11 @@ namespace ExportacaoResultado {
             
         }
 
-        public static void exportarExcel(in List<Coord> cp) {
+        public static void exportarExcel(in CorpoDeProva corpoDeProva,in DataTest Test) {
 
             ExcelPackage.LicenseContext=OfficeOpenXml.LicenseContext.NonCommercial;
 
-            var dados = cp;
+            var dados = corpoDeProva.Resultado.GetTable();
                        
             using(var package = new ExcelPackage()) {
 
@@ -52,6 +53,31 @@ namespace ExportacaoResultado {
 
                     linha++;
                 }
+                if(Test.Tipo==TipoDeTeste.TPA) {
+                    ResultadosTPA resTPA = ResultadosTPA.CalcTPA(corpoDeProva.Resultado,Test.ValorDeteccao);
+
+                    worksheet.Cells[1,5].Value="Altura(mm)";
+                    worksheet.Cells[2,5].Value=resTPA.TamProd;
+                    worksheet.Cells[1,6].Value="Dureza(g)";
+                    worksheet.Cells[2,6].Value=resTPA.Hardness;
+                    worksheet.Cells[1,7].Value="Elasticidade(%)";
+                    worksheet.Cells[2,7].Value=resTPA.Springiness; 
+                    worksheet.Cells[2,7].Style.Numberformat.Format="0.00%";
+                    worksheet.Cells[1,8].Value="Coesividade(%)";
+                    worksheet.Cells[2,8].Value=resTPA.Cohesiveness;
+                    worksheet.Cells[2,8].Style.Numberformat.Format="0.00%";
+                    worksheet.Cells[1,9].Value="Resiliência(%)";
+                    worksheet.Cells[2,9].Value=resTPA.Resilience;
+                    worksheet.Cells[2,9].Style.Numberformat.Format="0.00%";
+                    worksheet.Cells[1,10].Value="Adesividade(g.s)";
+                    worksheet.Cells[2,10].Value=resTPA.Adhesiveness;
+                    worksheet.Cells[1,11].Value="Gumosidade";
+                    worksheet.Cells[2,11].Value = resTPA.Gumminess;
+                    worksheet.Cells[1,12].Value="Mastigabilidade";
+                    worksheet.Cells[2,12].Value=resTPA.Chewiness;
+                }
+
+
                 var res = SalvarArquivo.ShowDialog();
                 
                 if (res == DialogResult.OK) {
@@ -75,13 +101,14 @@ namespace ExportacaoResultado {
             doc.AddCreationDate();
 
             SaveFileDialog SalvarArquivo = new SaveFileDialog();
+            SalvarArquivo.SupportMultiDottedExtensions=true;
             SalvarArquivo.Filter="PDF Files|*.pdf";
             SalvarArquivo.DefaultExt="*.pdf";
             SalvarArquivo.Title="Exportar resultados";
             SalvarArquivo.OverwritePrompt=true;
 
             var res = SalvarArquivo.ShowDialog();
-
+            
             if(res==DialogResult.OK) {
                 try {
                    
@@ -367,7 +394,7 @@ namespace ExportacaoResultado {
                     baseboard.AddCell(cellImMargInf);
 
 
-                    Paragraph phRp = new Paragraph(@"TCC - BHMMMO - 2024");
+                    Paragraph phRp = new Paragraph(@"TCC - BH3MO - 2024");
                     phRp.Alignment=Element.ALIGN_RIGHT;
                     phRp.Font=FontFactory.GetFont("SansSerif",8,(int)FontStyle.Bold,new BaseColor(0x6B,0x4D,0x3E));
                     phRp.SpacingBefore=0;
@@ -398,9 +425,9 @@ namespace ExportacaoResultado {
         
         }
 
-        public static void exportarCSV(in List<Coord> cp) {
+        public static void exportarCSV(in CorpoDeProva corpoDeProva) {
 
-            var dados = cp;
+            var dados = corpoDeProva.Resultado.GetTable();
 
             var config = new CsvConfiguration(CultureInfo.CurrentCulture);
             config.HasHeaderRecord=true;
@@ -411,11 +438,12 @@ namespace ExportacaoResultado {
             SalvarArquivo.Title="Exportar resultados";
 
             var res = SalvarArquivo.ShowDialog();
+            string dl;
 
             if(res==DialogResult.OK) {
                 using(var writer = new StreamWriter(SalvarArquivo.FileName,false,Encoding.Default))
                 using(var csv = new CsvWriter(writer,config)) {
-                    
+
                     // Escreve o cabeçalho
                     csv.WriteField("Tempo (s)");
                     csv.WriteField("Carga (g)");
@@ -430,8 +458,9 @@ namespace ExportacaoResultado {
 
                         csv.NextRecord();
                     }
-
+                    dl=csv.Configuration.Delimiter;
                 }
+                
             }
 
         }

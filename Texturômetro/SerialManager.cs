@@ -9,6 +9,7 @@ namespace SerialManagerTexturometro{
     public class SerialManager {
         private SerialPort _serialPort;
 
+        public EventHandler<SerialMessageArgument> MessageRecieved;
         public EventHandler<SerialMessageArgument> MessageInterpreted;
         public EventHandler<SerialMessageArgument> LSDetected;
         public EventHandler<SerialMessageArgument> LIDetected;
@@ -76,13 +77,13 @@ namespace SerialManagerTexturometro{
         }
 
 
-        public void Open() {
+        public async void Open() {
             if(!string.IsNullOrEmpty(_serialPort.PortName)) {
                 try {
                     _serialPort.Open();
                     _serialPort.DiscardInBuffer();
-
-                } catch(Exception ex) {
+                    while(!_serialPort.IsOpen) { }
+                    } catch(Exception ex) {
                     MessageBox.Show("Erro de conexão com texturômetro!","ERRO",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 }
             }
@@ -115,7 +116,8 @@ namespace SerialManagerTexturometro{
             if(_serialPort.IsOpen)
                 while(_serialPort.BytesToRead>0) {
                 try {
-                     string mensagem = _serialPort.ReadTo("!");
+                        string mensagem = _serialPort.ReadTo("!");
+                        MessageRecieved?.Invoke(this,new SerialMessageArgument() {stringValue =mensagem });
                     if(mensagem.Contains("V"))
                         mensagem=mensagem;
                     string[] partesDaMensagem = _processaSerial(mensagem);
@@ -269,12 +271,12 @@ namespace SerialManagerTexturometro{
         }
 
         public void CalLC(object sender,SerialMessageArgument e) {
-            string s = "[CAL;"+e.doubleValue.ToString(culture) +"]";
+            string s = "[CAL;"+e.doubleValue.ToString(culture).Replace(",",string.Empty)+"]";
             Write(s);
         }
 
         public void EnvZeroMaquina(object sender,SerialMessageArgument e) {
-            string s = "[ZERAR;"+e.doubleValue1.ToString(culture)+";"+e.doubleValue2.ToString(culture)+"]";
+            string s = "[ZERAR;"+e.doubleValue1.ToString(culture).Replace(",",string.Empty)+";"+e.doubleValue2.ToString(culture).Replace(",",string.Empty)+"]";
             Write(s);
         }
 
@@ -290,13 +292,13 @@ namespace SerialManagerTexturometro{
         }
 
         public void EnvCalibration(double Cal) {
-            string s = "[LCC;"+Cal.ToString("N8",culture)+"]";
+            string s = "[LCC;"+Cal.ToString("N8",culture).Replace(",",string.Empty)+"]";
             for(int i = 0;i<3;i++) 
                 Write(s);
         }
 
         public void EnvCalibration(object sender,SerialMessageArgument e) {
-            string s = "[LCC;"+e.doubleValue.ToString("N8",culture)+"]";
+            string s = "[LCC;"+e.doubleValue.ToString("N8",culture).Replace(",",string.Empty)+"]";
             for(int i = 0;i<3;i++)
                 Write(s);
         }

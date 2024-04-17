@@ -17,7 +17,6 @@ namespace LoadCellTexturometro {
         public event EventHandler LoadReached;
         public event EventHandler CargaDetected;
         public EventHandler<SerialMessageArgument> Calibration;
-        public event EventHandler ZerarTime;
 
         public LoadCell(double valorMax) {
             CargaMax=valorMax;
@@ -74,9 +73,7 @@ namespace LoadCellTexturometro {
             args.doubleValue=loadCal;
             Calibration?.Invoke(this,args);
         }
-        public void ZeroTime() {
-            ZerarTime?.Invoke(this,EventArgs.Empty);
-        }
+
 
         public void TargetLoad(double cargaAlvo = double.NaN) {
             if(cargaAlvo!=0||cargaAlvo!=double.NaN) {

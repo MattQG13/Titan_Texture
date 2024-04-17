@@ -54,10 +54,10 @@ namespace Texturometer {
             BindingFlags.NonPublic|BindingFlags.Instance|BindingFlags.SetProperty,
             null,Graph,new object[] { true });
 
-            tmRampa.Interval=100;
+            /*tmRampa.Interval=100;
             tmRampa.Enabled=true;
             tmRampa.Tick+=new EventHandler(Rampa);
-            tmRampa.Stop();
+            tmRampa.Stop();*/
 
         }
 
@@ -95,40 +95,53 @@ namespace Texturometer {
             tick.Start();
 
             tex.iniciaSerial();
-            tex.Serial.Write("[LIMPAMEMORIA]!");
-            tex.Serial.Write("[LIMPADENOVO]!");
-            tex.Serial.Write("[LIMPADENOVO]!");
-            tex.Serial.Write("[LIMPADENOVO]!");
+           /* tex.Serial.Write("[LIMPAMEMORIA]");
+            tex.Serial.Write("[LIMPADENOVO]");
+            tex.Serial.Write("[LIMPADENOVO]");
+            tex.Serial.Write("[LIMPADENOVO]");*/
+
+            double lcc = Properties.Settings.Default.CalLoadCell;
+            tex.Serial.EnvCalibration(lcc!=0?lcc:108); //Verificar
+           // tex.Serial.Write("[LCC;"+lcc+"]");
 
             tex.Serial.LoadCellDetected+=atualizaLbLoad;
             tex.Serial.EncoderDetected+=atualizaLbPosition;
             tex.Serial.LoadCalibrated+=LoadCelCalibrated;
-            Thread.Sleep(1000);
-            tex.LoadCell.ZeroTime(); //Comentar depos
-            //tex.Serial.EnvCalibration(Properties.Settings.Default.CalLoadCell); //Verificar
+
+            Thread.Sleep(100);
+            #if DEBUG
+            tex.ZeroTime(); //Comentar depois
+            #endif
 
             tex.Serial.DiscardInBuffer();
             tex.Produto.Resultado.Clear();
 
-            tex.Serial.VelDetected+=atualizaLbVel;
             tex.fimTeste+=execFimTeste;
 
-           
+            #if DEBUG
+            tex.Serial.VelDetected+=atualizaLbVel;
+            tex.Serial.MessageRecieved+=EscreveMensTxb;
+            #endif
+
         }
 
         #region Botoes_Exportacao
 
         private void ToolStripMenuExportCSV_Click(object sender,EventArgs e) {
+            //CorpoDeProva cp = Dados.getCP();
+            //tex.Produto.Resultado=cp.Resultado;
             if(tex.Produto.Resultado.Count!=0) {
-                ExportacaoCSV.exportarCSV(tex.Produto.Resultado.GetTable());
+                ExportacaoCSV.exportarCSV(tex.Produto);
             } else {
                 MessageBox.Show("Não há resultados para serem exportados","Erro de exportação",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
         }
 
         private void ToolStripMenuExportExcel_Click(object sender,EventArgs e) {
+            //CorpoDeProva cp = Dados.getCP();
+            //tex.Produto.Resultado=cp.Resultado;
             if(tex.Produto.Resultado.Count!=0) {
-                ExportacaoExcel.exportarExcel(tex.Produto.Resultado.GetTable());
+                ExportacaoExcel.exportarExcel(tex.Produto,tex.DadosTeste);
             } else {
                 MessageBox.Show("Não há resultados para serem exportados","Erro de exportação",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
@@ -194,7 +207,11 @@ namespace Texturometer {
             tex.Motor.Start(ModoMotor.Descer,Properties.Settings.Default.VelManual);
         }
         private void btnStop_Click(object sender,EventArgs e) {
+            if(tex.testRunning) {
+                tex.TesteStop();
+            }
             tex.Motor.Stop();
+            
         }
         private void btnFast_Click(object sender,EventArgs e) {
             switch(tex.Motor.ModoMotor) {
@@ -229,6 +246,8 @@ namespace Texturometer {
                 tex.Serial.LoadCellDetected=null;
                 tex.Serial.EncoderDetected=null;
                 tex.Serial.MotorDetected=null;
+                tex.Serial.MessageRecieved=null;
+
                 tick.Stop();
                 bkWork.CancelAsync();
 
@@ -272,8 +291,6 @@ namespace Texturometer {
                             Graph.ChartAreas[0].RecalculateAxesScale();
                         }
                     }
-
-
 
                     Graph.Invalidate();
                     Graph.ResumeLayout();
@@ -361,7 +378,7 @@ namespace Texturometer {
                 lbPosition.Text=e.doubleValue1.ToString()+" mm";
             }
         }
-
+        #if DEBUG //------------------------------------
         public void atualizaLbVel(object sender,SerialMessageArgument e) {
             if(lbVel.InvokeRequired) {
                 lbVel.BeginInvoke((MethodInvoker)delegate {
@@ -371,7 +388,8 @@ namespace Texturometer {
                 lbVel.Text=e.doubleValue.ToString()+" mm";
             }
         }
-        #endregion
+        #endif
+#endregion
 
         #region Funcoes_Especiais
         protected override bool ProcessCmdKey(ref Message msg,Keys keyData) {
@@ -403,7 +421,9 @@ namespace Texturometer {
                 }
             } finally { }
 
-            tex.setSerial(Properties.Settings.Default.PortaCOM,Properties.Settings.Default.Baudrate);
+            try {
+                tex.setSerial(Properties.Settings.Default.PortaCOM,Properties.Settings.Default.Baudrate);
+            } finally { }
             tex.Serial.LoadCellDetected+=atualizaLbLoad;
             tex.Serial.EncoderDetected+=atualizaLbPosition;
 
@@ -423,24 +443,19 @@ namespace Texturometer {
 
             var tb = tex.Produto.Resultado;
 
-
-            //var cp = Dados.getCP();
-            //tb=cp.Resultado;
-            //tex.testRunning=false;
-            //tex.Produto.Resultado=tb;
-            //tex.DadosTeste=new DataTest() { ValorDeteccao=3,Tipo=TipoDeTeste.TPA };
-
+            Task.Run(() => {
+                this.Invoke(new Action(() => {
+                    Graph.ChartAreas[0].AxisX.Maximum=Math.Ceiling(tex.Produto.Resultado.GetZvalues().Last());
+                    Graph.ChartAreas[0].RecalculateAxesScale();
+                }));
+            });
 
             if(tex.DadosTeste.Tipo==TipoDeTeste.TPA) {
 
-                ResultadosTPA res = ResultadosTPA.CalcTPA(tb,tex.DadosTeste.ValorDeteccao);
+                ResultadosTPA res = ResultadosTPA.CalcTPA(tb,tex.DadosTeste.ValorDeteccao); //OU OUTRO VALOR ARBITRÁRIO 
                 
                 Task.Run(() => {
                     this.Invoke(new Action(() => {
-                        Graph.ChartAreas[0].AxisX.Maximum =Math.Round(tex.Produto.Resultado.GetZvalues().Last());
-                        Graph.ChartAreas[0].RecalculateAxesScale();
-
-
 
                         WriteLineLabel("Resultados:","\n");
                         WriteLineLabel("Tamanho do produto: ",$"{Math.Round(res.TamProd,2)} mm");
@@ -455,8 +470,6 @@ namespace Texturometer {
                     }));
                 });
             }
-
-            
 
         }
 
@@ -506,11 +519,38 @@ namespace Texturometer {
             return String.Empty;
         }
 
+#if DEBUG //----------------------------------------------------
         private void button1_Click_1(object sender,EventArgs e) {
             tex.testRunning=false;
             execFimTeste(this,EventArgs.Empty);
         }
-        #endregion
+
+        private void btnEnv_Click(object sender,EventArgs e) {
+            tex.Serial.Write(txbMensEnv.Text);
+        }
+
+        private void EscreveMensTxb(object sender,SerialMessageArgument e) {
+                Task.Run(() => {
+                    this.Invoke(new Action(() => {
+                        if(tex.Serial.IsOpen) {
+
+                            if(!(e.stringValue.Contains("[L;")||e.stringValue.Contains("[E;")||e.stringValue.Contains("[V;"))) {
+                                txbMensRecebida.AppendText(e.stringValue+"\n");
+                                txbMensRecebida.SelectionStart=txbMensRecebida.Text.Length;
+                                txbMensRecebida.ScrollToCaret();
+                            }
+                        }
+
+                    }));
+
+                });
+            
+        }
+#endif
+#endregion
+
+
+#if DEBUG //----------------------------------------------------
 
         private void button2_Click(object sender,EventArgs e) {
             velRampa=0;
@@ -532,5 +572,6 @@ namespace Texturometer {
                 tmRampa.Stop();
             }
         }
+#endif
     }
 }

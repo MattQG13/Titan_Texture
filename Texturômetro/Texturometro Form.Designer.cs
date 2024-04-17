@@ -35,10 +35,14 @@
             this.pnBackground = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.btnUP = new System.Windows.Forms.Button();
+            #if DEBUG //----------------------------------------------------
+            this.btnEnv = new System.Windows.Forms.Button();
+            this.txbMensEnv = new System.Windows.Forms.RichTextBox();
+            this.txbMensRecebida = new System.Windows.Forms.RichTextBox();
             this.lbVel = new System.Windows.Forms.Label();
+            #endif
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnUP = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnDN = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
@@ -66,6 +70,9 @@
             this.zeroMáquinaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraçõesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            #if DEBUG
+            this.button2 = new System.Windows.Forms.Button();
+            #endif
             this.pnBackground.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -104,6 +111,11 @@
             // 
             // panel2
             // 
+            #if DEBUG
+            this.panel2.Controls.Add(this.btnEnv);
+            this.panel2.Controls.Add(this.txbMensEnv);
+            this.panel2.Controls.Add(this.txbMensRecebida);
+            #endif
             this.panel2.Controls.Add(this.panel1);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.lbPosition);
@@ -115,12 +127,54 @@
             this.panel2.Size = new System.Drawing.Size(766, 194);
             this.panel2.TabIndex = 1;
             // 
+            // btnEnv
+            // 
+#if DEBUG //----------------------------------------------------
+            this.btnEnv.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.btnEnv.Location = new System.Drawing.Point(332, 31);
+            this.btnEnv.Name = "btnEnv";
+            this.btnEnv.Size = new System.Drawing.Size(77, 26);
+            this.btnEnv.TabIndex = 17;
+            this.btnEnv.Text = "Enviar";
+            this.btnEnv.UseVisualStyleBackColor = true;
+            this.btnEnv.Click += new System.EventHandler(this.btnEnv_Click);
+            // 
+            // txbMensEnv
+            // 
+            this.txbMensEnv.BackColor = System.Drawing.Color.White;
+            this.txbMensEnv.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txbMensEnv.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.txbMensEnv.Location = new System.Drawing.Point(332, 3);
+            this.txbMensEnv.Multiline = false;
+            this.txbMensEnv.Name = "txbMensEnv";
+            this.txbMensEnv.Size = new System.Drawing.Size(263, 22);
+            this.txbMensEnv.TabIndex = 16;
+            this.txbMensEnv.TabStop = false;
+            this.txbMensEnv.Text = "";
+            // 
+            // txbMensRecebida
+            // 
+            this.txbMensRecebida.BackColor = System.Drawing.Color.White;
+            this.txbMensRecebida.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txbMensRecebida.Dock = System.Windows.Forms.DockStyle.Right;
+            this.txbMensRecebida.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.txbMensRecebida.Location = new System.Drawing.Point(601, 0);
+            this.txbMensRecebida.Name = "txbMensRecebida";
+            this.txbMensRecebida.ReadOnly = true;
+            this.txbMensRecebida.Size = new System.Drawing.Size(165, 194);
+            this.txbMensRecebida.TabIndex = 15;
+            this.txbMensRecebida.TabStop = false;
+            this.txbMensRecebida.Text = "";
+#endif
+            // 
             // panel1
             // 
+#if DEBUG
             this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.btnUP);
-            this.panel1.Controls.Add(this.lbVel);
             this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.lbVel);
+#endif
+            this.panel1.Controls.Add(this.btnUP);
             this.panel1.Controls.Add(this.btnDN);
             this.panel1.Controls.Add(this.btnStop);
             this.panel1.Controls.Add(this.btnFast);
@@ -128,18 +182,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(166, 194);
             this.panel1.TabIndex = 14;
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(42, 165);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(27, 26);
-            this.button2.TabIndex = 14;
-            this.button2.TabStop = false;
-            this.button2.Text = "Ω";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // btnUP
             // 
@@ -155,6 +197,7 @@
             // 
             // lbVel
             // 
+            #if DEBUG //----------------------------------------------------
             this.lbVel.AutoSize = true;
             this.lbVel.Location = new System.Drawing.Point(75, 175);
             this.lbVel.Name = "lbVel";
@@ -173,6 +216,7 @@
             this.button1.Text = "γ";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            #endif
             // 
             // btnDN
             // 
@@ -394,7 +438,7 @@
             this.ToolStripMenuExportCSV,
             this.ToolStripMenuExportPDF});
             this.exportarComoToolStripMenuItem.Name = "exportarComoToolStripMenuItem";
-            this.exportarComoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportarComoToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.exportarComoToolStripMenuItem.Text = "Exportar";
             // 
             // ToolStripMenuExportExcel
@@ -432,28 +476,28 @@
             // rodarTesteStripMenu
             // 
             this.rodarTesteStripMenu.Name = "rodarTesteStripMenu";
-            this.rodarTesteStripMenu.Size = new System.Drawing.Size(180, 22);
+            this.rodarTesteStripMenu.Size = new System.Drawing.Size(157, 22);
             this.rodarTesteStripMenu.Text = "Rodar teste...";
             this.rodarTesteStripMenu.Click += new System.EventHandler(this.rodarTesteToolStripMenuItem_Click);
             // 
             // calibrarToolStripMenuItem
             // 
             this.calibrarToolStripMenuItem.Name = "calibrarToolStripMenuItem";
-            this.calibrarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.calibrarToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.calibrarToolStripMenuItem.Text = "Calibrar...";
             this.calibrarToolStripMenuItem.Click += new System.EventHandler(this.calibrarToolStripMenuItem_Click);
             // 
             // tararToolStripMenuItem
             // 
             this.tararToolStripMenuItem.Name = "tararToolStripMenuItem";
-            this.tararToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.tararToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.tararToolStripMenuItem.Text = "Tarar...";
             this.tararToolStripMenuItem.Click += new System.EventHandler(this.tararToolStripMenuItem_Click);
             // 
             // zeroMáquinaToolStripMenuItem
             // 
             this.zeroMáquinaToolStripMenuItem.Name = "zeroMáquinaToolStripMenuItem";
-            this.zeroMáquinaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.zeroMáquinaToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.zeroMáquinaToolStripMenuItem.Text = "Zero Máquina...";
             this.zeroMáquinaToolStripMenuItem.Click += new System.EventHandler(this.zeroMáquinaToolStripMenuItem_Click);
             // 
@@ -470,6 +514,20 @@
             this.sobreToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
             this.sobreToolStripMenuItem.Text = "Sobre";
             this.sobreToolStripMenuItem.Click += new System.EventHandler(this.sobreToolStripMenuItem_Click);
+            // 
+            // button2
+            // 
+#if DEBUG //----------------------------------------------------
+            this.button2.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(42, 165);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(27, 26);
+            this.button2.TabIndex = 14;
+            this.button2.TabStop = false;
+            this.button2.Text = "Ω";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+#endif
             // 
             // TexturometroForms
             // 
@@ -503,7 +561,7 @@
 
         }
 
-        #endregion
+#endregion
         private System.Windows.Forms.Panel pnBackground;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem arquivoStripMenu;
@@ -526,7 +584,7 @@
         private System.Windows.Forms.ToolStripMenuItem zeroMáquinaToolStripMenuItem;
         private System.Windows.Forms.Button btnFast;
         private System.Windows.Forms.Button btnStop;
-        private System.Windows.Forms.Label lbVel;
+
         private System.Windows.Forms.ToolStripMenuItem exportarComoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuExportExcel;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuExportCSV;
@@ -537,7 +595,13 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart Graph;
         private System.Windows.Forms.RichTextBox lbInformations;
         private System.Windows.Forms.Panel panel1;
+        #if DEBUG //----------------------------------------------------
+        private System.Windows.Forms.RichTextBox txbMensRecebida;
+        private System.Windows.Forms.RichTextBox txbMensEnv;
+        private System.Windows.Forms.Label lbVel;
+        private System.Windows.Forms.Button btnEnv;
         private System.Windows.Forms.Button button2;
+        #endif
     }
 }
 
