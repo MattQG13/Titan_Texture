@@ -33,7 +33,7 @@ namespace Texturometer {
                 DialogResult=DialogResult.OK;
                 this.Close();
             } else {
-                MessageBox.Show("Por favor, preencha todos os dados","Erro de preenchimento",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                MessageBox.Show("Por favor, preencha todos os dados","Erro de preenchimento",MessageBoxButtons.OK,MessageBoxIcon.
             }
         }
 
