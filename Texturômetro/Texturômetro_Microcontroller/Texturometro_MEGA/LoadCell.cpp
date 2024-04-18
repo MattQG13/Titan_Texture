@@ -40,7 +40,7 @@ void configADC(){
 
 #ifdef WITH_NO_ADC
    long double ReadLoad(){
-      return analogRead(A0)*10; 
+      return analogRead(A0); 
    }  
 #endif
 

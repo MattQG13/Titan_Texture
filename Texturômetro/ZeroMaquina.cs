@@ -84,7 +84,9 @@ namespace Texturometer {
         private void ZeroMaquina_FormClosing(object sender,FormClosingEventArgs e) {
             if(zerando) {
                 e.Cancel=true;
-            }else tex.Serial.ZeroSeated-=goToFinalPosition;
+            } else {
+                tex.Serial.ZeroSeated-=goToFinalPosition;
+            }
         }
 
         private void btnFinsh_Click(object sender,EventArgs e) {

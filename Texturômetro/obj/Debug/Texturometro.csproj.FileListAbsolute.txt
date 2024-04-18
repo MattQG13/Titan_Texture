@@ -63,4 +63,5 @@ C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Softwa
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\System.Numerics.Vectors.xml
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Debug\System.Threading.Tasks.Extensions.xml
-C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Texturom.A4BAA14A.Up2Date
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Texturometro.csproj.SuggestedBindingRedirects.cache
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\obj\Debug\Texturometro.csproj.CopyComplete

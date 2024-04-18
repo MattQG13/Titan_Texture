@@ -68,7 +68,7 @@
             this.tabs.Multiline = true;
             this.tabs.Name = "tabs";
             this.tabs.SelectedIndex = 0;
-            this.tabs.Size = new System.Drawing.Size(354, 289);
+            this.tabs.Size = new System.Drawing.Size(349, 289);
             this.tabs.TabIndex = 7;
             // 
             // tab1
@@ -80,14 +80,14 @@
             this.tab1.Location = new System.Drawing.Point(4, 22);
             this.tab1.Name = "tab1";
             this.tab1.Padding = new System.Windows.Forms.Padding(3);
-            this.tab1.Size = new System.Drawing.Size(346, 263);
+            this.tab1.Size = new System.Drawing.Size(341, 263);
             this.tab1.TabIndex = 0;
             this.tab1.Text = "tab1";
             // 
             // label7
             // 
             this.label7.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label7.Location = new System.Drawing.Point(134, 6);
+            this.label7.Location = new System.Drawing.Point(129, 6);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(206, 118);
             this.label7.TabIndex = 10;
@@ -111,13 +111,12 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(3, 231);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(340, 29);
+            this.panel1.Size = new System.Drawing.Size(335, 29);
             this.panel1.TabIndex = 9;
             // 
             // btnNext
             // 
-            this.btnNext.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnNext.Location = new System.Drawing.Point(262, 3);
+            this.btnNext.Location = new System.Drawing.Point(257, 3);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(75, 23);
             this.btnNext.TabIndex = 0;
@@ -127,7 +126,6 @@
             // 
             // btnCancel1
             // 
-            this.btnCancel1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel1.Location = new System.Drawing.Point(3, 3);
             this.btnCancel1.Name = "btnCancel1";
             this.btnCancel1.Size = new System.Drawing.Size(75, 23);
@@ -140,6 +138,7 @@
             // 
             this.tab2.BackColor = System.Drawing.Color.Transparent;
             this.tab2.Controls.Add(this.groupBox1);
+            this.tab2.Controls.Add(this.btnZerar);
             this.tab2.Controls.Add(this.button4);
             this.tab2.Controls.Add(this.button5);
             this.tab2.Controls.Add(this.pictureBox1);
@@ -147,14 +146,13 @@
             this.tab2.Location = new System.Drawing.Point(4, 22);
             this.tab2.Name = "tab2";
             this.tab2.Padding = new System.Windows.Forms.Padding(3);
-            this.tab2.Size = new System.Drawing.Size(346, 263);
+            this.tab2.Size = new System.Drawing.Size(341, 263);
             this.tab2.TabIndex = 1;
             this.tab2.Text = "tab2";
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.btnZerar);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.txbCargaLimite);
             this.groupBox1.Controls.Add(this.txbVelociadeZero);
@@ -164,9 +162,9 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.groupBox1.Location = new System.Drawing.Point(124, 6);
+            this.groupBox1.Location = new System.Drawing.Point(119, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(216, 168);
+            this.groupBox1.Size = new System.Drawing.Size(216, 137);
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             // 
@@ -256,8 +254,7 @@
             // 
             // btnZerar
             // 
-            this.btnZerar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnZerar.Location = new System.Drawing.Point(139, 139);
+            this.btnZerar.Location = new System.Drawing.Point(126, 149);
             this.btnZerar.Name = "btnZerar";
             this.btnZerar.Size = new System.Drawing.Size(75, 23);
             this.btnZerar.TabIndex = 4;
@@ -300,13 +297,12 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(3, 231);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(340, 29);
+            this.panel2.Size = new System.Drawing.Size(335, 29);
             this.panel2.TabIndex = 18;
             // 
             // btnFinsh
             // 
-            this.btnFinsh.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnFinsh.Location = new System.Drawing.Point(262, 3);
+            this.btnFinsh.Location = new System.Drawing.Point(257, 3);
             this.btnFinsh.Name = "btnFinsh";
             this.btnFinsh.Size = new System.Drawing.Size(75, 23);
             this.btnFinsh.TabIndex = 19;
@@ -328,8 +324,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.btnCancel1;
-            this.ClientSize = new System.Drawing.Size(354, 289);
+            this.ClientSize = new System.Drawing.Size(349, 289);
             this.Controls.Add(this.tabs);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
