@@ -110,9 +110,9 @@ namespace Texturometer {
         private bool capturaDados() {
             if(Preenchido(this)) {
                 DadosDeEnsaio.Tipo=cbTipo.Text=="TPA" ? TipoDeTeste.TPA : cbTipo.Text=="Compressão" ? TipoDeTeste.Compressao : cbTipo.Text=="Tração" ? TipoDeTeste.Tracao : TipoDeTeste.CicloDuploTracao;
-                DadosDeEnsaio.VelPreTeste=Convert.ToDouble(txVelPT.Text);
+                DadosDeEnsaio.VelPreTeste=Convert.ToDouble(txVelPreTeste.Text);
                 DadosDeEnsaio.VelTeste=Convert.ToDouble(txVel.Text);
-
+                DadosDeEnsaio.VelPosTeste=Convert.ToDouble(txVelPosTeste.Text);
                 DadosDeEnsaio.TipoLimite=cbTarget.Text=="Distância" ? TipoTarget.Distancia : cbTarget.Text=="Deformação" ? TipoTarget.Deformacao : TipoTarget.Forca;
 
                 DadosDeEnsaio.ValorLimite=DadosDeEnsaio.TipoLimite==TipoTarget.Deformacao ? Convert.ToDouble(txTarget.Text)/100 : Convert.ToDouble(txTarget.Text);

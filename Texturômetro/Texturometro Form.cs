@@ -14,12 +14,8 @@ using Timer = System.Windows.Forms.Timer;
 using System.Linq;
 using ExportacaoResultado;
 using ProdutoTexturometro;
-using EnsaioTextuometro;
-using System.Drawing.Imaging;
-using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 
 namespace Texturometer {
     public partial class TexturometroForms : Form {
@@ -138,8 +134,8 @@ namespace Texturometer {
         }
 
         private void ToolStripMenuExportExcel_Click(object sender,EventArgs e) {
-            //CorpoDeProva cp = Dados.getCP();
-            //tex.Produto.Resultado=cp.Resultado;
+            CorpoDeProva cp = Dados.getCP();
+            tex.Produto.Resultado=cp.Resultado;
             if(tex.Produto.Resultado.Count!=0) {
                 ExportacaoExcel.exportarExcel(tex.Produto,tex.DadosTeste);
             } else {
@@ -432,7 +428,7 @@ namespace Texturometer {
             tick.Start();
 
         }
-
+        
         private void LoadCelCalibrated(object sender, SerialMessageArgument args) {
             Properties.Settings.Default.CalLoadCell=args.doubleValue;
             Properties.Settings.Default.Save();

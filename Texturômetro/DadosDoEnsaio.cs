@@ -12,6 +12,7 @@ namespace DadosDeEnsaio
         public Probe PontaDeTeste { get; set; }
         public double VelPreTeste { get; set; }
         public double VelTeste { get; set; }
+        public double VelPosTeste { get; set; }
         public TipoTarget TipoLimite { get; set; }
         public double ValorLimite { get; set; }
         public double Tempo { get; set; }

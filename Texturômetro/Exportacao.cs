@@ -1,22 +1,29 @@
-﻿using System.IO;
+﻿#define OpenSource
+
+using System;
+using System.IO;
 using System.Windows.Forms;
-using OfficeOpenXml;
-using CsvHelper;
+using System.Globalization;
+using System.Drawing;
+using System.Text;
 using ProdutoTexturometro;
 using ClassesSuporteTexturometro;
-using CsvHelper.Configuration;
-using System.Globalization;
-using System.Text;
+using DadosDeEnsaio;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using System.Collections.Generic;
-using DadosDeEnsaio;
+using CsvHelper;
+using CsvHelper.Configuration;
+#if OpenSource
+using ClosedXML.Excel;
+#else
+using OfficeOpenXml;
+#endif
+using Color = System.Drawing.Color;
 using Image = System.Drawing.Image;
-using System.Drawing;
-using System;
-using System.Linq;
 
 namespace ExportacaoResultado {
+
+#if !OpenSource
     public class ExportacaoExcel {
 
 
@@ -88,6 +95,76 @@ namespace ExportacaoResultado {
             }
         }
     }
+#else
+    public class ExportacaoExcel {
+
+
+        public ExportacaoExcel() {
+
+        }
+
+        public static void exportarExcel(in CorpoDeProva corpoDeProva,in DataTest Test) {
+
+
+            var dados = corpoDeProva.Resultado.GetTable();
+
+            SaveFileDialog SalvarArquivo = new SaveFileDialog();
+            SalvarArquivo.Filter="Excel Files|*.xlsx";
+
+            SalvarArquivo.DefaultExt="*.xlsx";
+            SalvarArquivo.Title="Exportar resultado";
+            var res = SalvarArquivo.ShowDialog();
+
+            if(res==DialogResult.OK) {
+                var ExcelArquivo = new XLWorkbook();
+
+
+                var worksheet = ExcelArquivo.Worksheets.Add("Dados do Ensaio");
+
+                worksheet.Cell("A1").Value="Tempo (s)";
+                worksheet.Cell("B1").Value="Carga (g)";
+                worksheet.Cell("C1").Value="Posicao (mm)";
+
+                int linha = 2;
+
+                foreach(var row in dados) {
+                    worksheet.Cell($"A{linha}").Value=row.Z;
+                    worksheet.Cell($"B{linha}").Value=row.X;
+                    worksheet.Cell($"C{linha}").Value=row.Y;
+
+                    linha++;
+                }
+
+                if(Test.Tipo==TipoDeTeste.TPA) {
+                    ResultadosTPA resTPA = ResultadosTPA.CalcTPA(corpoDeProva.Resultado,Test.ValorDeteccao);
+
+                    worksheet.Cell("E1").Value="Altura(mm)";
+                    worksheet.Cell("E2").Value=resTPA.TamProd;
+                    worksheet.Cell("F1").Value="Dureza(g)";
+                    worksheet.Cell("F2").Value=resTPA.Hardness;
+                    worksheet.Cell("G1").Value="Elasticidade(%)";
+                    worksheet.Cell("G2").Value=resTPA.Springiness;
+                    worksheet.Cell("G2").Style.NumberFormat.Format="0.00%";
+                    worksheet.Cell("H1").Value="Coesividade(%)";
+                    worksheet.Cell("H2").Value=resTPA.Cohesiveness;
+                    worksheet.Cell("H2").Style.NumberFormat.Format="0.00%";
+                    worksheet.Cell("I1").Value="Resiliência(%)";
+                    worksheet.Cell("I2").Value=resTPA.Resilience;
+                    worksheet.Cell("I2").Style.NumberFormat.Format="0.00%";
+                    worksheet.Cell("J1").Value="Adesividade(g.s)";
+                    worksheet.Cell("J2").Value=resTPA.Adhesiveness;
+                    worksheet.Cell("K1").Value="Gumosidade";
+                    worksheet.Cell("K2").Value=resTPA.Gumminess;
+                    worksheet.Cell("L1").Value="Mastigabilidade";
+                    worksheet.Cell("L2").Value=resTPA.Chewiness;
+                    
+                }
+                ExcelArquivo.SaveAs(SalvarArquivo.FileName);
+
+            }
+        }
+    }
+#endif
 
 
     public class ExportacaoRelatorioPDF {

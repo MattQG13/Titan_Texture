@@ -66,8 +66,6 @@ using System.Reflection;
 using System.Timers;
 using Timer = System.Timers.Timer;
 using System.Threading;
-using System.ComponentModel;
-
 
 namespace TexturometroClass {
 	public class Texturometro {
@@ -86,7 +84,7 @@ namespace TexturometroClass {
         public event EventHandler ZerarTime;
 
         public bool testRunning = false;
-        private object LastSender;
+        private object NextSender;
 
 
         public Texturometro() {
@@ -139,15 +137,14 @@ namespace TexturometroClass {
 
         public void TesteStop(){
             DadosTeste=null;
-            Teste=null;
+            Teste=null; 
             Produto=null;
             testRunning=false;
-            RemoveEvento(LastSender);
+            RemoveEvento(NextSender);
         }
 
         private void ExecTeste(object sender,EventArgs args) {
             RemoveEvento(sender);
-            LastSender = sender;
             Acao Action = Teste.AcaoAtual;
             Teste.Next();
 
@@ -160,10 +157,13 @@ namespace TexturometroClass {
                             case TipoTrigger.Forca:
                                 LoadCell.DetectLoad(DadosTeste.ValorDeteccao);
                                 LoadCell.CargaDetected+=ExecTeste;
+                                NextSender=LoadCell;
+
                                 break;
                             case TipoTrigger.Distancia:
                                 Encoder.TargetPosition(DadosTeste.ValorDeteccao,Encoder.Position);
                                 Encoder.positionReached+=ExecTeste;
+                                NextSender=Encoder;
                                 break;
                             default:
                                 break;
@@ -179,10 +179,12 @@ namespace TexturometroClass {
                             case TipoTrigger.Forca:
                                 LoadCell.DetectLoad(-DadosTeste.ValorDeteccao,false);
                                 LoadCell.CargaDetected+=ExecTeste;
+                                NextSender=LoadCell;
                                 break;
                             case TipoTrigger.Distancia:
                                 Encoder.TargetPosition(DadosTeste.ValorDeteccao,Encoder.Position);
                                 Encoder.positionReached+=ExecTeste;
+                                NextSender=Encoder;
                                 break;
                             default:
                                 break;
@@ -204,22 +206,27 @@ namespace TexturometroClass {
                         switch(DadosTeste.TipoLimite) {
                             case TipoTarget.Deformacao:
                                 Produto.TargetDeformation(DadosTeste.ValorLimite);
-                                Produto.DeformacaoReached+=ExecTeste; 
+                                Produto.DeformacaoReached+=ExecTeste;
+                                NextSender=Produto;
+
                                 break;
                             case TipoTarget.Distancia:
                                 Encoder.TargetPosition(DadosTeste.ValorLimite,Encoder.Position);
                                 Encoder.positionReached+=ExecTeste;
+                                NextSender=Encoder;
                                 break;
                             case TipoTarget.Forca:
                                 LoadCell.TargetLoad(DadosTeste.ValorLimite);
                                 LoadCell.LoadReached+=ExecTeste;
+                                NextSender=LoadCell;
                                 break;
                             default:
                                 break;
                         }
                     } else {
-                        Encoder.TargetPosition(Produto.TamanhoOriginal-0.1,Encoder.Position);
+                        Encoder.TargetPosition(Produto.TamanhoOriginal-0.2,Encoder.Position);
                         Encoder.positionReached+=ExecTeste;
+                        NextSender=Encoder;
                     }
                     break;
 
@@ -227,8 +234,9 @@ namespace TexturometroClass {
                     Motor.Start(ModoMotor.Subir,DadosTeste.VelTeste);
 
                     if(Teste.DirecaoTeste) {
-                        Encoder.TargetPosition(Produto.TamanhoOriginal+0.1,Encoder.Position);
+                        Encoder.TargetPosition(Produto.TamanhoOriginal+0.2,Encoder.Position);
                         Encoder.positionReached+=ExecTeste;
+                        NextSender=Encoder;
                     } else {
                         if(Produto.TamanhoOriginal==0) {
                             Produto.TamanhoOriginal=Encoder.Position;
@@ -242,14 +250,17 @@ namespace TexturometroClass {
                             case TipoTarget.Deformacao:
                                 Produto.TargetDeformation(-DadosTeste.ValorLimite,false);
                                 Produto.DeformacaoReached+=ExecTeste;
+                                NextSender=Produto;
                                 break;
                             case TipoTarget.Distancia:
                                 Encoder.TargetPosition(DadosTeste.ValorLimite,Encoder.Position);
                                 Encoder.positionReached+=ExecTeste;
+                                NextSender=Encoder;
                                 break;
                             case TipoTarget.Forca:
                                 LoadCell.DetectLoad(-DadosTeste.ValorLimite,false);
                                 LoadCell.LoadReached+=ExecTeste;
+                                NextSender=LoadCell;
                                 break;
                             default:
                                 break;
@@ -261,17 +272,20 @@ namespace TexturometroClass {
                     Motor.Stop();
                     _timer.Interval=Convert.ToInt32(DadosTeste.Tempo*1000);
                     _timer.Elapsed+=ExecTeste;
+                    NextSender=_timer;
                     _timer.Start();
                     break;
                 case Acao.SubirPosTeste: // OK
-                    Motor.Start(ModoMotor.Subir,DadosTeste.VelTeste);
+                    Motor.Start(ModoMotor.Subir,DadosTeste.VelPosTeste);
                     Encoder.TargetPosition(DadosTeste.PosInicial,Encoder.Position);
                     Encoder.positionReached+=ExecTeste;
+                    NextSender=Encoder;
                     break;
                 case Acao.DescerPosTeste: // OK
-                    Motor.Start(ModoMotor.Descer,DadosTeste.VelTeste);
+                    Motor.Start(ModoMotor.Descer,DadosTeste.VelPosTeste);
                     Encoder.TargetPosition(DadosTeste.PosInicial,Encoder.Position);
                     Encoder.positionReached+=ExecTeste;
+                    NextSender=Encoder;
                     break;
                 case Acao.Fim: // OK
                     Motor.Stop();
