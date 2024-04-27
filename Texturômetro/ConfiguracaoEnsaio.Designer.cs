@@ -28,6 +28,9 @@
             this.tab1 = new System.Windows.Forms.TabPage();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txVelPosTeste = new System.Windows.Forms.TextBox();
             this.lbUnDim2 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.lbDim2 = new System.Windows.Forms.Label();
@@ -66,9 +69,6 @@
             this.tab2 = new System.Windows.Forms.TabPage();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.txVelPosTeste = new System.Windows.Forms.TextBox();
             this.tabs.SuspendLayout();
             this.tab1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -154,6 +154,34 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(517, 422);
             this.panel1.TabIndex = 3;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label12.Location = new System.Drawing.Point(333, 95);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(32, 12);
+            this.label12.TabIndex = 48;
+            this.label12.Text = "mm/s";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label14.Location = new System.Drawing.Point(12, 95);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(127, 12);
+            this.label14.TabIndex = 47;
+            this.label14.Text = "Velocidade pós teste:......";
+            // 
+            // txVelPosTeste
+            // 
+            this.txVelPosTeste.Location = new System.Drawing.Point(143, 91);
+            this.txVelPosTeste.Name = "txVelPosTeste";
+            this.txVelPosTeste.Size = new System.Drawing.Size(188, 20);
+            this.txVelPosTeste.TabIndex = 4;
+            this.txVelPosTeste.Text = "2";
             // 
             // lbUnDim2
             // 
@@ -323,7 +351,7 @@
             this.txTrigger.Name = "txTrigger";
             this.txTrigger.Size = new System.Drawing.Size(188, 20);
             this.txTrigger.TabIndex = 8;
-            this.txTrigger.Text = "9";
+            this.txTrigger.Text = "2";
             this.txTrigger.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txb_KeyPress);
             // 
             // lbTrigger
@@ -531,7 +559,7 @@
             this.tab2.Location = new System.Drawing.Point(4, 22);
             this.tab2.Name = "tab2";
             this.tab2.Padding = new System.Windows.Forms.Padding(3);
-            this.tab2.Size = new System.Drawing.Size(792, 443);
+            this.tab2.Size = new System.Drawing.Size(792, 459);
             this.tab2.TabIndex = 1;
             this.tab2.Text = "tab2";
             // 
@@ -552,34 +580,6 @@
             this.button5.TabIndex = 2;
             this.button5.Text = "Next";
             this.button5.UseVisualStyleBackColor = true;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label12.Location = new System.Drawing.Point(333, 95);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(32, 12);
-            this.label12.TabIndex = 48;
-            this.label12.Text = "mm/s";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label14.Location = new System.Drawing.Point(12, 95);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(127, 12);
-            this.label14.TabIndex = 47;
-            this.label14.Text = "Velocidade pós teste:......";
-            // 
-            // txVelPosTeste
-            // 
-            this.txVelPosTeste.Location = new System.Drawing.Point(143, 91);
-            this.txVelPosTeste.Name = "txVelPosTeste";
-            this.txVelPosTeste.Size = new System.Drawing.Size(188, 20);
-            this.txVelPosTeste.TabIndex = 4;
-            this.txVelPosTeste.Text = "2";
             // 
             // ConfiguracaoEnsaio
             // 

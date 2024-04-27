@@ -134,8 +134,8 @@ namespace Texturometer {
         }
 
         private void ToolStripMenuExportExcel_Click(object sender,EventArgs e) {
-            CorpoDeProva cp = Dados.getCP();
-            tex.Produto.Resultado=cp.Resultado;
+            //CorpoDeProva cp = Dados.getCP();
+            //tex.Produto.Resultado=cp.Resultado;
             if(tex.Produto.Resultado.Count!=0) {
                 ExportacaoExcel.exportarExcel(tex.Produto,tex.DadosTeste);
             } else {
@@ -448,7 +448,7 @@ namespace Texturometer {
 
             if(tex.DadosTeste.Tipo==TipoDeTeste.TPA) {
 
-                ResultadosTPA res = ResultadosTPA.CalcTPA(tb,tex.DadosTeste.ValorDeteccao); //OU OUTRO VALOR ARBITRÁRIO 
+                ResultadosTPA res = ResultadosTPA.CalcTPA(tb,5); //OU OUTRO VALOR ARBITRÁRIO 
                 
                 Task.Run(() => {
                     this.Invoke(new Action(() => {
@@ -460,7 +460,7 @@ namespace Texturometer {
                         WriteLineLabel("Coesividade: ",$"{Math.Round(res.Cohesiveness*100,2)} %");
                         WriteLineLabel("Resiliência: ",$"{Math.Round(res.Resilience*100,2)} %");
                         WriteLineLabel("Adesividade : ",$"{Math.Round(res.Adhesiveness,2)} g.s");
-                        WriteLineLabel("Gumosidade: ",$"{Math.Round(res.Gumminess,2)}");
+                        WriteLineLabel("Gomosidade: ",$"{Math.Round(res.Gumminess,2)}");
                         WriteLineLabel("Mastigabilidade: ",$"{Math.Round(res.Chewiness,2)}");
 
                     }));

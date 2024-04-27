@@ -52,3 +52,9 @@ C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Softwa
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Release\ExcelNumberFormat.xml
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Release\SixLabors.Fonts.xml
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Release\System.IO.Packaging.xml
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Release\PdfSharp.Charting.dll
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Release\PdfSharp.dll
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Release\PdfSharp.xml
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Release\PdfSharp.Charting.xml
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Release\de\PdfSharp.resources.dll
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3-Software\1-Software IHM\Texturômetro\Texturômetro\bin\Release\de\PdfSharp.Charting.resources.dll

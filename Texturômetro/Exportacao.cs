@@ -9,6 +9,8 @@ using System.Text;
 using ProdutoTexturometro;
 using ClassesSuporteTexturometro;
 using DadosDeEnsaio;
+using PdfSharp.Pdf;
+using PdfSharp.Drawing;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using CsvHelper;
@@ -78,7 +80,7 @@ namespace ExportacaoResultado {
                     worksheet.Cells[2,9].Style.Numberformat.Format="0.00%";
                     worksheet.Cells[1,10].Value="Adesividade(g.s)";
                     worksheet.Cells[2,10].Value=resTPA.Adhesiveness;
-                    worksheet.Cells[1,11].Value="Gumosidade";
+                    worksheet.Cells[1,11].Value="Gomosidade";
                     worksheet.Cells[2,11].Value = resTPA.Gumminess;
                     worksheet.Cells[1,12].Value="Mastigabilidade";
                     worksheet.Cells[2,12].Value=resTPA.Chewiness;
@@ -136,7 +138,7 @@ namespace ExportacaoResultado {
                 }
 
                 if(Test.Tipo==TipoDeTeste.TPA) {
-                    ResultadosTPA resTPA = ResultadosTPA.CalcTPA(corpoDeProva.Resultado,Test.ValorDeteccao);
+                    ResultadosTPA resTPA = ResultadosTPA.CalcTPA(corpoDeProva.Resultado,5);
 
                     worksheet.Cell("E1").Value="Altura(mm)";
                     worksheet.Cell("E2").Value=resTPA.TamProd;
@@ -153,7 +155,7 @@ namespace ExportacaoResultado {
                     worksheet.Cell("I2").Style.NumberFormat.Format="0.00%";
                     worksheet.Cell("J1").Value="Adesividade(g.s)";
                     worksheet.Cell("J2").Value=resTPA.Adhesiveness;
-                    worksheet.Cell("K1").Value="Gumosidade";
+                    worksheet.Cell("K1").Value="Gomosidade";
                     worksheet.Cell("K2").Value=resTPA.Gumminess;
                     worksheet.Cell("L1").Value="Mastigabilidade";
                     worksheet.Cell("L2").Value=resTPA.Chewiness;
@@ -165,7 +167,6 @@ namespace ExportacaoResultado {
         }
     }
 #endif
-
 
     public class ExportacaoRelatorioPDF {
         public ExportacaoRelatorioPDF() { }
@@ -383,7 +384,7 @@ namespace ExportacaoResultado {
                         var tb = corpoDeProva.Resultado;
 
                         if(Teste.Tipo==TipoDeTeste.TPA) {
-                            ResultadosTPA resTPA = ResultadosTPA.CalcTPA(tb,Teste.ValorDeteccao);
+                            ResultadosTPA resTPA = ResultadosTPA.CalcTPA(tb,5);
 
 
                             PdfPTable infs = new PdfPTable(2);
@@ -431,7 +432,7 @@ namespace ExportacaoResultado {
                                 pars2.Add(new Chunk(Math.Round(resTPA.Adhesiveness,2).ToString() +" g.s",FontFactory.GetFont("Arial",9)));
                                 pars2.Add("\n");
 
-                                pars2.Add(new Chunk("Gumosidade: ",FontFactory.GetFont("Arial",9,(int)FontStyle.Bold)));
+                                pars2.Add(new Chunk("Gomosidade: ",FontFactory.GetFont("Arial",9,(int)FontStyle.Bold)));
                                 pars2.Add(new Chunk(Math.Round(resTPA.Gumminess,2).ToString(),FontFactory.GetFont("Arial",9)));
                                 pars2.Add("\n");
 
