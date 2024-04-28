@@ -13,6 +13,9 @@ namespace SerialManagerTexturometro{
         public EventHandler<SerialMessageArgument> MessageInterpreted;
         public EventHandler<SerialMessageArgument> LSDetected;
         public EventHandler<SerialMessageArgument> LIDetected;
+        public EventHandler<SerialMessageArgument> UPDetected;
+        public EventHandler<SerialMessageArgument> DNDetected;
+        public EventHandler<SerialMessageArgument> STOPDetected;
         public EventHandler<SerialMessageArgument> LoadCellDetected;
         public EventHandler<SerialMessageArgument> EncoderDetected;
         public EventHandler<SerialMessageArgument> MotorDetected;

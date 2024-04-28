@@ -511,6 +511,7 @@
             this.cbTipo.Name = "cbTipo";
             this.cbTipo.Size = new System.Drawing.Size(188, 21);
             this.cbTipo.TabIndex = 1;
+            this.cbTipo.SelectedIndexChanged += new System.EventHandler(this.cb_SelectedIndexChanged);
             // 
             // txVelPreTeste
             // 

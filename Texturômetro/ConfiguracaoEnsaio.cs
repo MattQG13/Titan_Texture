@@ -54,6 +54,17 @@ namespace Texturometer {
 
         private void cb_SelectedIndexChanged(object sender,EventArgs e) {
 
+            switch(cbTipo.SelectedItem) {
+                case "TPA":
+                    txTime.Enabled=true;
+                    break;
+                case "Compressão":
+                    txTime.Enabled=false;
+                    break;
+                case "Tração":
+                    txTime.Enabled=false;
+                    break;
+            }
             switch(cbTarget.SelectedItem){
                 case "Distância":
                     lbTarget.Text="Distância:..........................";
@@ -101,6 +112,8 @@ namespace Texturometer {
                 default : 
                     break;
             }
+
+
         }
 
         private void btnCancel_Click(object sender,EventArgs e) {
@@ -151,5 +164,6 @@ namespace Texturometer {
 
             return true;
         }
+
     }
 }

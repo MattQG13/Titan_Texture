@@ -16,6 +16,7 @@ using ExportacaoResultado;
 using ProdutoTexturometro;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using DocumentFormat.OpenXml.Office2013.Drawing.Chart;
 
 namespace Texturometer {
     public partial class TexturometroForms : Form {
@@ -29,6 +30,8 @@ namespace Texturometer {
 
         Timer tmRampa = new Timer();
         static double velRampa = 0;
+
+        public bool salvo = true;
 
         public TexturometroForms() {
             InitializeComponent();
@@ -50,10 +53,12 @@ namespace Texturometer {
             BindingFlags.NonPublic|BindingFlags.Instance|BindingFlags.SetProperty,
             null,Graph,new object[] { true });
 
-            /*tmRampa.Interval=100;
+#if DEBUG
+            tmRampa.Interval=100;
             tmRampa.Enabled=true;
             tmRampa.Tick+=new EventHandler(Rampa);
-            tmRampa.Stop();*/
+            tmRampa.Stop();
+#endif
 
         }
 
@@ -91,14 +96,9 @@ namespace Texturometer {
             tick.Start();
 
             tex.iniciaSerial();
-           /* tex.Serial.Write("[LIMPAMEMORIA]");
-            tex.Serial.Write("[LIMPADENOVO]");
-            tex.Serial.Write("[LIMPADENOVO]");
-            tex.Serial.Write("[LIMPADENOVO]");*/
 
             double lcc = Properties.Settings.Default.CalLoadCell;
             tex.Serial.EnvCalibration(lcc!=0?lcc:108); //Verificar
-           // tex.Serial.Write("[LCC;"+lcc+"]");
 
             tex.Serial.LoadCellDetected+=atualizaLbLoad;
             tex.Serial.EncoderDetected+=atualizaLbPosition;
@@ -106,7 +106,7 @@ namespace Texturometer {
 
             Thread.Sleep(100);
             #if DEBUG
-            tex.ZeroTime(); //Comentar depois
+            tex.ZeroTime();
             #endif
 
             tex.Serial.DiscardInBuffer();
@@ -128,6 +128,8 @@ namespace Texturometer {
             //tex.Produto.Resultado=cp.Resultado;
             if(tex.Produto.Resultado.Count!=0) {
                 ExportacaoCSV.exportarCSV(tex.Produto);
+                salvo=true;
+
             } else {
                 MessageBox.Show("Não há resultados para serem exportados","Erro de exportação",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
@@ -138,6 +140,7 @@ namespace Texturometer {
             //tex.Produto.Resultado=cp.Resultado;
             if(tex.Produto.Resultado.Count!=0) {
                 ExportacaoExcel.exportarExcel(tex.Produto,tex.DadosTeste);
+                salvo=true;
             } else {
                 MessageBox.Show("Não há resultados para serem exportados","Erro de exportação",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
@@ -149,6 +152,8 @@ namespace Texturometer {
             //tex.Produto.Resultado=cp.Resultado;
             if(tex.Produto.Resultado.Count!=0) {
                 ExportacaoRelatorioPDF.exportaPDF(tex.Produto,tex.DadosTeste,getImgGrafico(panelGraph));
+                salvo=true;
+
             } else {
                 MessageBox.Show("Não há resultados para serem exportados","Erro de exportação",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
@@ -159,26 +164,33 @@ namespace Texturometer {
         #region Botoes_Controle_TA
 
         private void rodarTesteToolStripMenuItem_Click(object sender,EventArgs e) {
-            ConfiguracaoEnsaio ConfigEnsaio = new ConfiguracaoEnsaio();
 
-            var DialogResult = ConfigEnsaio.ShowDialog();
+#if DEBUG
+            if(true) {
+#else
+            if(tex.Motor.ZeroSeated) {
+#endif
+                ConfiguracaoEnsaio ConfigEnsaio = new ConfiguracaoEnsaio();
 
-            if(DialogResult == DialogResult.OK &&ConfigEnsaio.DadosDeEnsaio != null) {
-                if(true) {//if(tex.Motor.ZeroSeated) {
+                var DialogResult = ConfigEnsaio.ShowDialog();
+
+                if(DialogResult==DialogResult.OK&&ConfigEnsaio.DadosDeEnsaio!=null) {
+
                     ConfigEnsaio.DadosDeEnsaio.PosInicial=tex.Encoder.Position;
                     tex.TesteStart(ConfigEnsaio.DadosDeEnsaio);
                     AtInfoLabel(ConfigEnsaio.DadosDeEnsaio);
-                } else {
-                    var result = MessageBox.Show("Zero Máquina não definido!\nDefinir Zero Máquina?","Aviso!",MessageBoxButtons.OKCancel,MessageBoxIcon.Warning);
-                    if(result==DialogResult.OK) {
-
-                        zeroMáquinaToolStripMenuItem_Click(this,e);
-                    }
+                  // controlsEnabled(false);
                 }
-            }    
-            ConfigEnsaio.Dispose();
+                ConfigEnsaio.Dispose();
+            } else {
+                var result = MessageBox.Show("Zero Máquina não definido!\nDefinir Zero Máquina?","Aviso!",MessageBoxButtons.OKCancel,MessageBoxIcon.Warning);
+                if(result==DialogResult.OK) {
+
+                    zeroMáquinaToolStripMenuItem_Click(this,e);
+                }
+            }
         }
-       
+
         private void calibrarToolStripMenuItem_Click(object sender,EventArgs e) {
             Calibracao FCal = new Calibracao(tex);
             FCal.ShowDialog();
@@ -192,7 +204,7 @@ namespace Texturometer {
             ZeroMaquina zm = new ZeroMaquina(tex);
             zm.ShowDialog();
         }
-        #endregion
+#endregion
 
         #region Botoes_Controle_JOG
         private void btnUP_Click(object sender,EventArgs e) {
@@ -225,7 +237,7 @@ namespace Texturometer {
         #endregion
 
         #region Botoes_Funcao
-        private void configuraçõesToolStripMenuItem_Click(object sender,EventArgs e) {
+        private void configuracoesToolStripMenuItem_Click(object sender,EventArgs e) {
             ConfiguracaoPrograma confP = new ConfiguracaoPrograma(this);
             confP.ShowDialog();
         }
@@ -238,7 +250,17 @@ namespace Texturometer {
         #endregion
 
         private void TexturometroForms_FormClosing(object sender,FormClosingEventArgs e) {
+            if(tex.Produto.Resultado.Count!=0&&!salvo) {
+                var res =  MessageBox.Show("Há resultados não salvos, deseja descartá-los?","Resultados não salvos",MessageBoxButtons.OKCancel,MessageBoxIcon.Information);
+
+                if(res==DialogResult.Cancel) {
+                    e.Cancel = true;
+                    return;
+                }
+            }
+
             try {
+                tex.Motor.Stop();
                 tex.Serial.LoadCellDetected=null;
                 tex.Serial.EncoderDetected=null;
                 tex.Serial.MotorDetected=null;
@@ -266,27 +288,29 @@ namespace Texturometer {
                 this.Invoke(new Action(() => {
                     GC.Collect();
                     Graph.SuspendLayout();
-                    try {
-                        series.Points.DataBindXY(tex.Produto.Resultado.GetZvalues(),tex.Produto.Resultado.GetXvalues());
+                   // if(tex.Produto.Resultado.Count!=0) {
+                        try {
+                            series.Points.DataBindXY(tex.Produto.Resultado.GetZvalues(),tex.Produto.Resultado.GetXvalues());
 
-                    } finally { }
+                        } finally { }
 
-                    if(Graph.ChartAreas[0].AxisX.Maximum<=100&&tex.testRunning) {
-                        var tempo = tex.Produto.Resultado.GetZvalues();
-                        if(tempo.Count!=0) {
-                            var lTempo = tempo.Last();
-                            if(lTempo>=100) {
-                                Graph.ChartAreas[0].AxisX.Maximum=Double.NaN;
-                                Graph.ChartAreas[0].RecalculateAxesScale();
+                        if(Graph.ChartAreas[0].AxisX.Maximum<=100&&tex.testRunning) {
+                            var tempo = tex.Produto.Resultado.GetZvalues();
+                            if(tempo.Count!=0) {
+                                var lTempo = tempo.Last();
+                                if(lTempo>=100) {
+                                    Graph.ChartAreas[0].AxisX.Maximum=Double.NaN;
+                                    Graph.ChartAreas[0].RecalculateAxesScale();
+                                } else {
+                                    Graph.ChartAreas[0].AxisX.Maximum=100;
+                                    Graph.ChartAreas[0].RecalculateAxesScale();
+                                }
                             } else {
                                 Graph.ChartAreas[0].AxisX.Maximum=100;
                                 Graph.ChartAreas[0].RecalculateAxesScale();
                             }
-                        } else {
-                            Graph.ChartAreas[0].AxisX.Maximum=100;
-                            Graph.ChartAreas[0].RecalculateAxesScale();
                         }
-                    }
+                  //  }
 
                     Graph.Invalidate();
                     Graph.ResumeLayout();
@@ -374,7 +398,7 @@ namespace Texturometer {
                 lbPosition.Text=e.doubleValue1.ToString()+" mm";
             }
         }
-        #if DEBUG //------------------------------------
+#if DEBUG //------------------------------------
         public void atualizaLbVel(object sender,SerialMessageArgument e) {
             if(lbVel.InvokeRequired) {
                 lbVel.BeginInvoke((MethodInvoker)delegate {
@@ -384,7 +408,7 @@ namespace Texturometer {
                 lbVel.Text=e.doubleValue.ToString()+" mm";
             }
         }
-        #endif
+#endif
 #endregion
 
         #region Funcoes_Especiais
@@ -401,6 +425,16 @@ namespace Texturometer {
 
             return base.ProcessCmdKey(ref msg,keyData);
         }
+
+        public void controlsEnabled(bool enabled) {
+            btnDN.Enabled = enabled;
+            btnUP.Enabled = enabled;
+            btnFast.Enabled = enabled;
+            configuracoesToolStripMenuItem.Enabled = enabled;
+            TAStripMenu.Enabled= enabled;
+            arquivoStripMenu.Enabled= enabled;
+        }
+
 
         public void reconfigura() {
             try {
@@ -434,39 +468,46 @@ namespace Texturometer {
             Properties.Settings.Default.Save();
         }
 
-        private void execFimTeste(object sender, EventArgs e) {
+        private void execFimTeste(object sender,EventArgs e) {
             tex.StopAddResults();
 
             var tb = tex.Produto.Resultado;
 
-            Task.Run(() => {
-                this.Invoke(new Action(() => {
-                    Graph.ChartAreas[0].AxisX.Maximum=Math.Ceiling(tex.Produto.Resultado.GetZvalues().Last());
-                    Graph.ChartAreas[0].RecalculateAxesScale();
-                }));
-            });
-
-            if(tex.DadosTeste.Tipo==TipoDeTeste.TPA) {
-
-                ResultadosTPA res = ResultadosTPA.CalcTPA(tb,5); //OU OUTRO VALOR ARBITRÁRIO 
-                
+            if(tb.Count!=0) {
+                salvo=false;
                 Task.Run(() => {
                     this.Invoke(new Action(() => {
-
-                        WriteLineLabel("Resultados:","\n");
-                        WriteLineLabel("Tamanho do produto: ",$"{Math.Round(res.TamProd,2)} mm");
-                        WriteLineLabel("Dureza: ",$"{Math.Round(res.Hardness,2)} g");
-                        WriteLineLabel("Elasticidade: ",$"{Math.Round(res.Springiness*100,2)} %");
-                        WriteLineLabel("Coesividade: ",$"{Math.Round(res.Cohesiveness*100,2)} %");
-                        WriteLineLabel("Resiliência: ",$"{Math.Round(res.Resilience*100,2)} %");
-                        WriteLineLabel("Adesividade : ",$"{Math.Round(res.Adhesiveness,2)} g.s");
-                        WriteLineLabel("Gomosidade: ",$"{Math.Round(res.Gumminess,2)}");
-                        WriteLineLabel("Mastigabilidade: ",$"{Math.Round(res.Chewiness,2)}");
-
+                        Graph.ChartAreas[0].AxisX.Maximum=Math.Ceiling(tex.Produto.Resultado.GetZvalues().Last());
+                        Graph.ChartAreas[0].RecalculateAxesScale();
                     }));
                 });
-            }
 
+                if(tex.DadosTeste.Tipo==TipoDeTeste.TPA) {
+
+                    ResultadosTPA res = ResultadosTPA.CalcTPA(tb,5); //OU OUTRO VALOR ARBITRÁRIO 
+
+                    Task.Run(() => {
+                        this.Invoke(new Action(() => {
+
+                            WriteLineLabel("Resultados:","\n");
+                            WriteLineLabel("Tamanho do produto: ",$"{Math.Round(res.TamProd,2)} mm");
+                            WriteLineLabel("Dureza: ",$"{Math.Round(res.Hardness,2)} g");
+                            WriteLineLabel("Elasticidade: ",$"{Math.Round(res.Springiness*100,2)} %");
+                            WriteLineLabel("Coesividade: ",$"{Math.Round(res.Cohesiveness*100,2)} %");
+                            WriteLineLabel("Resiliência: ",$"{Math.Round(res.Resilience*100,2)} %");
+                            WriteLineLabel("Adesividade : ",$"{Math.Round(res.Adhesiveness,2)} g.s");
+                            WriteLineLabel("Gomosidade: ",$"{Math.Round(res.Gumminess,2)}");
+                            WriteLineLabel("Mastigabilidade: ",$"{Math.Round(res.Chewiness,2)}");
+
+                        }));
+                    });
+                }
+            }
+            Task.Run(() => {
+                this.Invoke(new Action(() => {
+                    controlsEnabled(true);
+                }));
+            });
         }
 
         private void AtInfoLabel(DataTest DadosDeEnsaio) {

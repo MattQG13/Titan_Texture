@@ -137,10 +137,12 @@ namespace TexturometroClass {
 
         public void TesteStop(){
             DadosTeste=null;
-            Teste=null; 
-            Produto=null;
+            Teste=null;
+            StopAddResults();
+            Produto.Resultado.Clear();
             testRunning=false;
             RemoveEvento(NextSender);
+            fimTeste?.Invoke(this,new EventArgs());
         }
 
         private void ExecTeste(object sender,EventArgs args) {
@@ -309,6 +311,11 @@ namespace TexturometroClass {
 
 		private void _atualizaLoadCell(object sender,SerialMessageArgument e) {
             LoadCell.ValorLoad=e.doubleValue1;
+            if(!Warning) {
+                if(e.doubleValue1<10000) {
+                    Warning=true;
+                }
+            }
         }
         private void _atualizaEncoder(object sender,SerialMessageArgument e) {
             Encoder.Position=e.doubleValue1;
@@ -359,12 +366,6 @@ namespace TexturometroClass {
                 Produto.Resultado.AddXZvalue(e.doubleValue1*(Teste.DirecaoTeste?1:-1),e.doubleValue2);
             else
                 Produto.Resultado.AddXZvalue(e.doubleValue1,e.doubleValue2);
-
-            if(!Warning) {
-                if(e.doubleValue1<10000) {
-                    Warning = true;
-                }
-            }
         }
         private void _atualizaResultadoE(object sender,SerialMessageArgument e) {
             Produto.Resultado.AddYZvalue(e.doubleValue1,e.doubleValue2);
@@ -414,6 +415,7 @@ namespace TexturometroClass {
             if(Warning) {
                 MessageBox.Show(args.stringValue,"Aviso!",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 Warning= false;
+                //Warning= false;
             }
         }
 
