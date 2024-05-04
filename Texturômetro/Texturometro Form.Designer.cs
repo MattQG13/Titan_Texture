@@ -35,15 +35,13 @@
             this.pnBackground = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
-#if DEBUG
             this.btnEnv = new System.Windows.Forms.Button();
             this.txbMensEnv = new System.Windows.Forms.RichTextBox();
             this.txbMensRecebida = new System.Windows.Forms.RichTextBox();
-            this.button2=new System.Windows.Forms.Button();
-            this.lbVel=new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-#endif
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.lbVel = new System.Windows.Forms.Label();
             this.btnUP = new System.Windows.Forms.Button();
             this.btnDN = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
@@ -109,11 +107,9 @@
             // 
             // panel2
             // 
-#if DEBUG
             this.panel2.Controls.Add(this.btnEnv);
             this.panel2.Controls.Add(this.txbMensEnv);
             this.panel2.Controls.Add(this.txbMensRecebida);
-#endif
             this.panel2.Controls.Add(this.panel1);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.lbPosition);
@@ -124,10 +120,9 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(766, 194);
             this.panel2.TabIndex = 1;
-#if DEBUG
             // 
             // btnEnv
-            //
+            // 
             this.btnEnv.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.btnEnv.Location = new System.Drawing.Point(332, 31);
             this.btnEnv.Name = "btnEnv";
@@ -164,47 +159,11 @@
             this.txbMensRecebida.TabStop = false;
             this.txbMensRecebida.Text = "";
             // 
-            // button1
-            // 
-            this.button1.Font=new System.Drawing.Font("Times New Roman",9F,System.Drawing.FontStyle.Regular,System.Drawing.GraphicsUnit.Point,((byte)(0)));
-            this.button1.Location=new System.Drawing.Point(9,165);
-            this.button1.Name="button1";
-            this.button1.Size=new System.Drawing.Size(27,26);
-            this.button1.TabIndex=13;
-            this.button1.TabStop=false;
-            this.button1.Text="γ";
-            this.button1.UseVisualStyleBackColor=true;
-            this.button1.Click+=new System.EventHandler(this.button1_Click_1);
-            // 
-            // button2
-            // 
-            this.button2.Font=new System.Drawing.Font("Times New Roman",9F,System.Drawing.FontStyle.Regular,System.Drawing.GraphicsUnit.Point,((byte)(0)));
-            this.button2.Location=new System.Drawing.Point(42,165);
-            this.button2.Name="button2";
-            this.button2.Size=new System.Drawing.Size(27,26);
-            this.button2.TabIndex=14;
-            this.button2.TabStop=false;
-            this.button2.Text="Ω";
-            this.button2.UseVisualStyleBackColor=true;
-            this.button2.Click+=new System.EventHandler(this.button2_Click);
-            // 
-            // lbVel
-            // 
-            this.lbVel.AutoSize=true;
-            this.lbVel.Location=new System.Drawing.Point(75,175);
-            this.lbVel.Name="lbVel";
-            this.lbVel.Size=new System.Drawing.Size(51,13);
-            this.lbVel.TabIndex=11;
-            this.lbVel.Text="0.0 mm/s";
-#endif
-            // 
             // panel1
             // 
-#if DEBUG
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.lbVel);
-#endif
             this.panel1.Controls.Add(this.btnUP);
             this.panel1.Controls.Add(this.btnDN);
             this.panel1.Controls.Add(this.btnStop);
@@ -213,9 +172,39 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(166, 194);
             this.panel1.TabIndex = 14;
-            
-
-
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(42, 165);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(27, 26);
+            this.button2.TabIndex = 14;
+            this.button2.TabStop = false;
+            this.button2.Text = "Ω";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(9, 165);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(27, 26);
+            this.button1.TabIndex = 13;
+            this.button1.TabStop = false;
+            this.button1.Text = "γ";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // lbVel
+            // 
+            this.lbVel.AutoSize = true;
+            this.lbVel.Location = new System.Drawing.Point(75, 175);
+            this.lbVel.Name = "lbVel";
+            this.lbVel.Size = new System.Drawing.Size(51, 13);
+            this.lbVel.TabIndex = 11;
+            this.lbVel.Text = "0.0 mm/s";
             // 
             // btnUP
             // 
@@ -296,7 +285,7 @@
             this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label1.Size = new System.Drawing.Size(120, 18);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Carga";
+            this.label1.Text = "Força";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lbLoad
@@ -364,10 +353,9 @@
             chartArea1.AxisY.LabelStyle.Format = "0.0";
             chartArea1.AxisY.MaximumAutoSize = 90F;
             chartArea1.AxisY.MinorGrid.Enabled = true;
-            chartArea1.AxisY.MinorGrid.LineColor = System.Drawing.Color.Gray;
-            chartArea1.AxisY.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            chartArea1.AxisY.MinorGrid.LineColor = System.Drawing.Color.LightGray;
             chartArea1.AxisY.ScaleView.SmallScrollMinSize = 10D;
-            chartArea1.AxisY.Title = "F(g)";
+            chartArea1.AxisY.Title = "F(gf)";
             chartArea1.AxisY.TitleAlignment = System.Drawing.StringAlignment.Far;
             chartArea1.AxisY.TitleFont = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             chartArea1.Name = "ChartArea1";
@@ -487,28 +475,28 @@
             // rodarTesteStripMenu
             // 
             this.rodarTesteStripMenu.Name = "rodarTesteStripMenu";
-            this.rodarTesteStripMenu.Size = new System.Drawing.Size(157, 22);
+            this.rodarTesteStripMenu.Size = new System.Drawing.Size(180, 22);
             this.rodarTesteStripMenu.Text = "Rodar teste...";
             this.rodarTesteStripMenu.Click += new System.EventHandler(this.rodarTesteToolStripMenuItem_Click);
             // 
             // calibrarToolStripMenuItem
             // 
             this.calibrarToolStripMenuItem.Name = "calibrarToolStripMenuItem";
-            this.calibrarToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.calibrarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.calibrarToolStripMenuItem.Text = "Calibrar...";
             this.calibrarToolStripMenuItem.Click += new System.EventHandler(this.calibrarToolStripMenuItem_Click);
             // 
             // tararToolStripMenuItem
             // 
             this.tararToolStripMenuItem.Name = "tararToolStripMenuItem";
-            this.tararToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.tararToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.tararToolStripMenuItem.Text = "Tarar...";
             this.tararToolStripMenuItem.Click += new System.EventHandler(this.tararToolStripMenuItem_Click);
             // 
             // zeroMáquinaToolStripMenuItem
             // 
             this.zeroMáquinaToolStripMenuItem.Name = "zeroMáquinaToolStripMenuItem";
-            this.zeroMáquinaToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.zeroMáquinaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.zeroMáquinaToolStripMenuItem.Text = "Zero Máquina...";
             this.zeroMáquinaToolStripMenuItem.Click += new System.EventHandler(this.zeroMáquinaToolStripMenuItem_Click);
             // 

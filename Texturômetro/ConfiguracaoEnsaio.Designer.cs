@@ -171,9 +171,9 @@
             this.label14.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label14.Location = new System.Drawing.Point(12, 95);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(127, 12);
+            this.label14.Size = new System.Drawing.Size(128, 12);
             this.label14.TabIndex = 47;
-            this.label14.Text = "Velocidade pós teste:......";
+            this.label14.Text = "Velocidade pós-teste:......";
             // 
             // txVelPosTeste
             // 
@@ -291,9 +291,9 @@
             this.lbUnTrigger.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.lbUnTrigger.Location = new System.Drawing.Point(333, 235);
             this.lbUnTrigger.Name = "lbUnTrigger";
-            this.lbUnTrigger.Size = new System.Drawing.Size(11, 12);
+            this.lbUnTrigger.Size = new System.Drawing.Size(14, 12);
             this.lbUnTrigger.TabIndex = 35;
-            this.lbUnTrigger.Text = "g";
+            this.lbUnTrigger.Text = "gf";
             // 
             // label13
             // 
@@ -467,9 +467,9 @@
             this.label1.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label1.Location = new System.Drawing.Point(12, 41);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(128, 12);
+            this.label1.Size = new System.Drawing.Size(129, 12);
             this.label1.TabIndex = 16;
-            this.label1.Text = "Velocidade pré teste:.......";
+            this.label1.Text = "Velocidade pré-teste:.......";
             // 
             // cbTara
             // 

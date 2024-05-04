@@ -127,8 +127,8 @@ namespace Texturometer {
             //CorpoDeProva cp = Dados.getCP();
             //tex.Produto.Resultado=cp.Resultado;
             if(tex.Produto.Resultado.Count!=0) {
-                ExportacaoCSV.exportarCSV(tex.Produto);
-                salvo=true;
+                if(ExportacaoCSV.exportarCSV(tex.Produto))salvo=true;
+
 
             } else {
                 MessageBox.Show("Não há resultados para serem exportados","Erro de exportação",MessageBoxButtons.OK,MessageBoxIcon.Information);
@@ -139,8 +139,7 @@ namespace Texturometer {
             //CorpoDeProva cp = Dados.getCP();
             //tex.Produto.Resultado=cp.Resultado;
             if(tex.Produto.Resultado.Count!=0) {
-                ExportacaoExcel.exportarExcel(tex.Produto,tex.DadosTeste);
-                salvo=true;
+                if(ExportacaoExcel.exportarExcel(tex.Produto,tex.DadosTeste)) salvo=true;
             } else {
                 MessageBox.Show("Não há resultados para serem exportados","Erro de exportação",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
@@ -148,12 +147,10 @@ namespace Texturometer {
 
         private void ToolStripMenuExportPDF_Click(object sender,EventArgs e) {
 
-            //CorpoDeProva cp = Dados.getCP();
-            //tex.Produto.Resultado=cp.Resultado;
+            CorpoDeProva cp = Dados.getCP();
+            tex.Produto.Resultado=cp.Resultado;
             if(tex.Produto.Resultado.Count!=0) {
-                ExportacaoRelatorioPDF.exportaPDF(tex.Produto,tex.DadosTeste,getImgGrafico(panelGraph));
-                salvo=true;
-
+                if(ExportacaoRelatorioPDF.exportaPDF(tex.Produto,tex.DadosTeste,getImgGrafico(panelGraph))) salvo=true;
             } else {
                 MessageBox.Show("Não há resultados para serem exportados","Erro de exportação",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
@@ -164,7 +161,13 @@ namespace Texturometer {
         #region Botoes_Controle_TA
 
         private void rodarTesteToolStripMenuItem_Click(object sender,EventArgs e) {
+            if(tex.Produto.Resultado.Count!=0&&!salvo) {
+                var res = MessageBox.Show("Há resultados não salvos, deseja descartá-los?","Resultados não salvos",MessageBoxButtons.OKCancel,MessageBoxIcon.Information);
 
+                if(res==DialogResult.Cancel) {
+                    return;
+                }
+            }
 #if DEBUG
             if(true) {
 #else
@@ -382,10 +385,10 @@ namespace Texturometer {
         private void atualizaLbLoad(object sender,SerialMessageArgument e) {
             if(lbLoad.InvokeRequired) {
                 lbLoad.BeginInvoke((MethodInvoker)delegate {
-                    lbLoad.Text=e.doubleValue1.ToString()+" g";
+                    lbLoad.Text=e.doubleValue1.ToString()+" gf";
                 });
             } else {
-                lbLoad.Text=e.doubleValue1.ToString()+" g";
+                lbLoad.Text=e.doubleValue1.ToString()+" gf";
             }
         }
 
@@ -491,13 +494,13 @@ namespace Texturometer {
 
                             WriteLineLabel("Resultados:","\n");
                             WriteLineLabel("Tamanho do produto: ",$"{Math.Round(res.TamProd,2)} mm");
-                            WriteLineLabel("Dureza: ",$"{Math.Round(res.Hardness,2)} g");
+                            WriteLineLabel("Dureza: ",$"{Math.Round(res.Hardness,2)} gf");
                             WriteLineLabel("Elasticidade: ",$"{Math.Round(res.Springiness*100,2)} %");
                             WriteLineLabel("Coesividade: ",$"{Math.Round(res.Cohesiveness*100,2)} %");
                             WriteLineLabel("Resiliência: ",$"{Math.Round(res.Resilience*100,2)} %");
-                            WriteLineLabel("Adesividade : ",$"{Math.Round(res.Adhesiveness,2)} g.s");
-                            WriteLineLabel("Gomosidade: ",$"{Math.Round(res.Gumminess,2)}");
-                            WriteLineLabel("Mastigabilidade: ",$"{Math.Round(res.Chewiness,2)}");
+                            WriteLineLabel("Adesividade : ",$"{Math.Round(res.Adhesiveness,2)} gf.s");
+                            WriteLineLabel("Gomosidade: ",$"{Math.Round(res.Gumminess,2)} gf");
+                            WriteLineLabel("Mastigabilidade: ",$"{Math.Round(res.Chewiness,2)} gf");
 
                         }));
                     });
@@ -517,18 +520,19 @@ namespace Texturometer {
             WriteLineLabel("Informações do Teste:","\n");
 
             WriteLineLabel("Tipo de Ensaio: ",$"{DadosDeEnsaio.Tipo}");
-            WriteLineLabel("Velocidade de pré-teste: ",$"{DadosDeEnsaio.VelPreTeste} mm/s");
+            WriteLineLabel("Velocidade pré-teste: ",$"{DadosDeEnsaio.VelPreTeste} mm/s");
             WriteLineLabel("Velocidade de Teste: ",$"{DadosDeEnsaio.VelTeste} mm/s");
+            WriteLineLabel("Velocidade pós-teste: ",$"{DadosDeEnsaio.VelPosTeste} mm/s");
             WriteLineLabel("Tipo de Alvo: ",$"{DadosDeEnsaio.TipoLimite}");
 
-            un=DadosDeEnsaio.TipoLimite==TipoTarget.Distancia ? "mm" : DadosDeEnsaio.TipoLimite==TipoTarget.Deformacao ? "%" : "g";
+            un=DadosDeEnsaio.TipoLimite==TipoTarget.Distancia ? "mm" : DadosDeEnsaio.TipoLimite==TipoTarget.Deformacao ? "%" : "gf";
             var valAlvo = DadosDeEnsaio.TipoLimite==TipoTarget.Deformacao ? DadosDeEnsaio.ValorLimite*100 : DadosDeEnsaio.ValorLimite;
 
             WriteLineLabel("Valor Alvo: ",$"{valAlvo} {un}");
             WriteLineLabel("Tempo de Intervalo: ",$"{DadosDeEnsaio.Tempo} s");
             WriteLineLabel("Tipo de Detecção: ",$"{DadosDeEnsaio.TipoDeteccao}");
 
-            un=DadosDeEnsaio.TipoDeteccao==TipoTrigger.Distancia ? "mm" : DadosDeEnsaio.TipoDeteccao==TipoTrigger.Forca ? "g" : String.Empty;
+            un=DadosDeEnsaio.TipoDeteccao==TipoTrigger.Distancia ? "mm" : DadosDeEnsaio.TipoDeteccao==TipoTrigger.Forca ? "gf" : String.Empty;
 
             WriteLineLabel("Valor de Detecção: ",$"{DadosDeEnsaio.ValorDeteccao} {un}");
             WriteLineLabel("Tipo de Tara: ",$"{DadosDeEnsaio.TipoTara}");

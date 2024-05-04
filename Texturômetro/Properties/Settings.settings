@@ -12,7 +12,7 @@
       <Value Profile="(Default)">s</Value>
     </Setting>
     <Setting Name="UnForce" Type="System.String" Scope="User">
-      <Value Profile="(Default)">g</Value>
+      <Value Profile="(Default)">gf</Value>
     </Setting>
     <Setting Name="UnDistance" Type="System.String" Scope="User">
       <Value Profile="(Default)">mm</Value>

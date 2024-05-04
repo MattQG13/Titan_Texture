@@ -210,9 +210,9 @@
             this.label5.Font = new System.Drawing.Font("SansSerif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label5.Location = new System.Drawing.Point(170, 70);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(11, 12);
+            this.label5.Size = new System.Drawing.Size(14, 12);
             this.label5.TabIndex = 15;
-            this.label5.Text = "g";
+            this.label5.Text = "gf";
             // 
             // txbFinalPosition
             // 

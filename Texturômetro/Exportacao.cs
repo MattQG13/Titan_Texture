@@ -22,6 +22,7 @@ using OfficeOpenXml;
 #endif
 using Color = System.Drawing.Color;
 using Image = System.Drawing.Image;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace ExportacaoResultado {
 
@@ -105,7 +106,7 @@ namespace ExportacaoResultado {
 
         }
 
-        public static void exportarExcel(in CorpoDeProva corpoDeProva,in DataTest Test) {
+        public static bool exportarExcel(in CorpoDeProva corpoDeProva,in DataTest Test) {
 
 
             var dados = corpoDeProva.Resultado.GetTable();
@@ -124,7 +125,7 @@ namespace ExportacaoResultado {
                 var worksheet = ExcelArquivo.Worksheets.Add("Dados do Ensaio");
 
                 worksheet.Cell("A1").Value="Tempo (s)";
-                worksheet.Cell("B1").Value="Carga (g)";
+                worksheet.Cell("B1").Value="Carga (gf)";
                 worksheet.Cell("C1").Value="Posicao (mm)";
 
                 int linha = 2;
@@ -142,7 +143,7 @@ namespace ExportacaoResultado {
 
                     worksheet.Cell("E1").Value="Altura(mm)";
                     worksheet.Cell("E2").Value=resTPA.TamProd;
-                    worksheet.Cell("F1").Value="Dureza(g)";
+                    worksheet.Cell("F1").Value="Dureza(gf)";
                     worksheet.Cell("F2").Value=resTPA.Hardness;
                     worksheet.Cell("G1").Value="Elasticidade(%)";
                     worksheet.Cell("G2").Value=resTPA.Springiness;
@@ -153,17 +154,35 @@ namespace ExportacaoResultado {
                     worksheet.Cell("I1").Value="Resiliência(%)";
                     worksheet.Cell("I2").Value=resTPA.Resilience;
                     worksheet.Cell("I2").Style.NumberFormat.Format="0.00%";
-                    worksheet.Cell("J1").Value="Adesividade(g.s)";
+                    worksheet.Cell("J1").Value="Adesividade(gf.s)";
                     worksheet.Cell("J2").Value=resTPA.Adhesiveness;
-                    worksheet.Cell("K1").Value="Gomosidade";
+                    worksheet.Cell("K1").Value="Gomosidade(gf)";
                     worksheet.Cell("K2").Value=resTPA.Gumminess;
-                    worksheet.Cell("L1").Value="Mastigabilidade";
+                    worksheet.Cell("L1").Value="Mastigabilidade(gf)";
                     worksheet.Cell("L2").Value=resTPA.Chewiness;
-                    
+
+                    worksheet.Cell("E4").Value="Area 1:2(gf.s)";
+                    worksheet.Cell("E5").Value=resTPA.A12;
+                    worksheet.Cell("F4").Value="Area 2:3(gf.s)";
+                    worksheet.Cell("F5").Value=resTPA.A23;
+                    worksheet.Cell("G4").Value="Area 1:3(gf.s)";
+                    worksheet.Cell("G5").Value=resTPA.A13;
+                    worksheet.Cell("H4").Value="Area 4:5(gf.s)";
+                    worksheet.Cell("H5").Value=resTPA.A45;
+                    worksheet.Cell("I4").Value="Area 5:6(gf.s)";
+                    worksheet.Cell("I5").Value=resTPA.A56;
+                    worksheet.Cell("J4").Value="Area 4:6(gf.s)";
+                    worksheet.Cell("J5").Value=resTPA.A46;
+
+                    worksheet.Cell("E7").Value="Tempo dif. 1:2(s)";
+                    worksheet.Cell("E8").Value=resTPA.T1;
+                    worksheet.Cell("F7").Value="Tempo dif. 4:5(s)";
+                    worksheet.Cell("F8").Value=resTPA.T2;
                 }
                 ExcelArquivo.SaveAs(SalvarArquivo.FileName);
-
+                return true;
             }
+            return false;
         }
     }
 #endif
@@ -172,7 +191,7 @@ namespace ExportacaoResultado {
         public ExportacaoRelatorioPDF() { }
 
 
-        public static void exportaPDF(in CorpoDeProva corpoDeProva,in DataTest Teste,Image image) {
+        public static bool exportaPDF(in CorpoDeProva corpoDeProva,in DataTest Teste,Image image) {
             Document doc = new Document(PageSize.A4);
             doc.SetMargins(45,45,64,45);
             
@@ -258,7 +277,7 @@ namespace ExportacaoResultado {
                         InfsEnsaio.Add(new Chunk(Teste.Nome,FontFactory.GetFont("Arial",9)));
                         InfsEnsaio.Add("\n");
                         InfsEnsaio.Add(new Chunk("Data e Hora: ",FontFactory.GetFont("Arial",9,(int)FontStyle.Bold)));
-                        InfsEnsaio.Add(new Chunk("N/A"/*Teste.DataHora.ToString("yyyy-MM-dd HH:mm:ss")*/,FontFactory.GetFont("Arial",9)));
+                        InfsEnsaio.Add(new Chunk(Teste.DataHora.ToString("yyyy-MM-dd HH:mm:ss"),FontFactory.GetFont("Arial",9)));
                         InfsEnsaio.Add("\n");
                         InfsEnsaio.Add(new Chunk("Tipo de Ensaio: ",FontFactory.GetFont("Arial",9,(int)FontStyle.Bold)));
                         InfsEnsaio.Add(new Chunk(Teste.Tipo.ToString(),FontFactory.GetFont("Arial",9)));
@@ -295,17 +314,19 @@ namespace ExportacaoResultado {
                             pars1.SetLeading(0,1.2f);
                             pars1.Alignment=Element.ALIGN_LEFT;
                             pars1.IndentationRight=1;
-                            pars1.Add(new Chunk("Velocidade de pré-teste: ",FontFactory.GetFont("Arial",9,(int)FontStyle.Bold)));
-                            pars1.Add(new Chunk(Teste.VelPreTeste.ToString(),FontFactory.GetFont("Arial",9)));
+                            pars1.Add(new Chunk("Velocidade pré-teste: ",FontFactory.GetFont("Arial",9,(int)FontStyle.Bold)));
+                            pars1.Add(new Chunk(Teste.VelPreTeste.ToString()+" mm/s",FontFactory.GetFont("Arial",9)));
                             pars1.Add("\n");
                             pars1.Add(new Chunk("Velocidade de Teste: ",FontFactory.GetFont("Arial",9,(int)FontStyle.Bold)));
-                            pars1.Add(new Chunk(Teste.VelTeste.ToString(),FontFactory.GetFont("Arial",9)));
-                            ;
+                            pars1.Add(new Chunk(Teste.VelTeste.ToString()+" mm/s",FontFactory.GetFont("Arial",9)));
+                            pars1.Add("\n");
+                            pars1.Add(new Chunk("Velocidade pós-teste: ",FontFactory.GetFont("Arial",9,(int)FontStyle.Bold)));
+                            pars1.Add(new Chunk(Teste.VelPosTeste.ToString()+"m m/s",FontFactory.GetFont("Arial",9)));
                             pars1.Add("\n");
                             pars1.Add(new Chunk("Tipo de Alvo: ",FontFactory.GetFont("Arial",9,(int)FontStyle.Bold)));
                             pars1.Add(new Chunk(Teste.TipoLimite.ToString(),FontFactory.GetFont("Arial",9)));
                             pars1.Add("\n");
-                            var un=Teste.TipoLimite==TipoTarget.Distancia ? "mm" : Teste.TipoLimite==TipoTarget.Deformacao ? "%" : "g";
+                            var un=Teste.TipoLimite==TipoTarget.Distancia ? "mm" : Teste.TipoLimite==TipoTarget.Deformacao ? "%" : "gf";
                             var valAlvo = Teste.TipoLimite==TipoTarget.Deformacao ? Teste.ValorLimite*100 : Teste.ValorLimite;
 
                             pars1.Add(new Chunk("Valor Alvo: ",FontFactory.GetFont("Arial",9,(int)FontStyle.Bold)));
@@ -326,7 +347,7 @@ namespace ExportacaoResultado {
                             pars2.Add(new Chunk("Tipo de Detecção: ",FontFactory.GetFont("Arial",9,(int)FontStyle.Bold)));
                             pars2.Add(new Chunk(Teste.TipoDeteccao.ToString(),FontFactory.GetFont("Arial",9)));
                             pars2.Add("\n");
-                             var un=Teste.TipoDeteccao==TipoTrigger.Distancia ? "mm" : Teste.TipoDeteccao==TipoTrigger.Forca ? "g" : String.Empty;
+                             var un=Teste.TipoDeteccao==TipoTrigger.Distancia ? "mm" : Teste.TipoDeteccao==TipoTrigger.Forca ? "gf" : String.Empty;
 
                             pars2.Add(new Chunk("Valor de Detecção: ",FontFactory.GetFont("Arial",9,(int)FontStyle.Bold)));
                             pars2.Add(new Chunk(Teste.ValorDeteccao.ToString()+ " "+un,FontFactory.GetFont("Arial",9)));
@@ -405,7 +426,7 @@ namespace ExportacaoResultado {
                                 pars1.Add(new Chunk(resTPA.TamProd.ToString()+ " mm",FontFactory.GetFont("Arial",9)));
                                 pars1.Add("\n");
                                 pars1.Add(new Chunk("Dureza: ",FontFactory.GetFont("Arial",9,(int)FontStyle.Bold)));
-                                pars1.Add(new Chunk(Math.Round(resTPA.Hardness,2).ToString()+ " g",FontFactory.GetFont("Arial",9)));
+                                pars1.Add(new Chunk(Math.Round(resTPA.Hardness,2).ToString()+ " gf",FontFactory.GetFont("Arial",9)));
                                 pars1.Add("\n");
                                 pars1.Add(new Chunk("Elasticidade: ",FontFactory.GetFont("Arial",9,(int)FontStyle.Bold)));
                                 pars1.Add(new Chunk(Math.Round(resTPA.Springiness*100,2).ToString() +" %",FontFactory.GetFont("Arial",9)));
@@ -429,15 +450,15 @@ namespace ExportacaoResultado {
                                 pars2.Add("\n");
 
                                 pars2.Add(new Chunk("Adesividade: ",FontFactory.GetFont("Arial",9,(int)FontStyle.Bold)));
-                                pars2.Add(new Chunk(Math.Round(resTPA.Adhesiveness,2).ToString() +" g.s",FontFactory.GetFont("Arial",9)));
+                                pars2.Add(new Chunk(Math.Round(resTPA.Adhesiveness,2).ToString() +" gf.s",FontFactory.GetFont("Arial",9)));
                                 pars2.Add("\n");
 
                                 pars2.Add(new Chunk("Gomosidade: ",FontFactory.GetFont("Arial",9,(int)FontStyle.Bold)));
-                                pars2.Add(new Chunk(Math.Round(resTPA.Gumminess,2).ToString(),FontFactory.GetFont("Arial",9)));
+                                pars2.Add(new Chunk(Math.Round(resTPA.Gumminess,2).ToString()+" gf",FontFactory.GetFont("Arial",9)));
                                 pars2.Add("\n");
 
                                 pars2.Add(new Chunk("Mastigabilidade: ",FontFactory.GetFont("Arial",9,(int)FontStyle.Bold)));
-                                pars2.Add(new Chunk(Math.Round(resTPA.Chewiness,2).ToString(),FontFactory.GetFont("Arial",9)));
+                                pars2.Add(new Chunk(Math.Round(resTPA.Chewiness,2).ToString()+" gf",FontFactory.GetFont("Arial",9)));
 
 
                                 infsRight.AddElement(pars2);
@@ -493,7 +514,9 @@ namespace ExportacaoResultado {
                 }catch(Exception ex){
                     MessageBox.Show(ex.Message,"Erro ao salvar!",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 }
+                return true;
             }
+            return false;
         
         }
     }
@@ -503,7 +526,7 @@ namespace ExportacaoResultado {
         
         }
 
-        public static void exportarCSV(in CorpoDeProva corpoDeProva) {
+        public static bool exportarCSV(in CorpoDeProva corpoDeProva) {
 
             var dados = corpoDeProva.Resultado.GetTable();
 
@@ -524,7 +547,7 @@ namespace ExportacaoResultado {
 
                     // Escreve o cabeçalho
                     csv.WriteField("Tempo (s)");
-                    csv.WriteField("Carga (g)");
+                    csv.WriteField("Carga (gf)");
                     csv.WriteField("Posicao (mm)");
                     csv.NextRecord();
 
@@ -538,8 +561,9 @@ namespace ExportacaoResultado {
                     }
                     dl=csv.Configuration.Delimiter;
                 }
-                
+                return true;
             }
+            return false;
 
         }
     }

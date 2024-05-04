@@ -213,7 +213,7 @@
             this.cbForca.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbForca.FormattingEnabled = true;
             this.cbForca.Items.AddRange(new object[] {
-            "g"});
+            "gf"});
             this.cbForca.Location = new System.Drawing.Point(6, 35);
             this.cbForca.Name = "cbForca";
             this.cbForca.Size = new System.Drawing.Size(188, 21);

@@ -72,7 +72,7 @@ namespace Texturometer {
                     break;
                 case "Força":
                     lbTarget.Text="Força:...............................";
-                    lbUnTarget.Text="g";
+                    lbUnTarget.Text="gf";
                     break;
                 case "Deformação":
                     lbTarget.Text="Deformação:.....................";
@@ -83,12 +83,12 @@ namespace Texturometer {
             }
             switch(cbTrigger.SelectedItem) {
                 case "Distância":
-                    lbTrigger.Text="Distância de detecção:......";
+                    lbTrigger.Text="Distância de detecção:.....";
                     lbUnTrigger.Text="mm";
                     break;
-                case "Auto (força)":
+                case "Auto (Força)":
                     lbTrigger.Text="Força de detecção...........";
-                    lbUnTrigger.Text="g";
+                    lbUnTrigger.Text="gf";
                     break;
                 default:
                     break;

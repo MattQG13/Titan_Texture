@@ -311,11 +311,6 @@ namespace TexturometroClass {
 
 		private void _atualizaLoadCell(object sender,SerialMessageArgument e) {
             LoadCell.ValorLoad=e.doubleValue1;
-            if(!Warning) {
-                if(e.doubleValue1<10000) {
-                    Warning=true;
-                }
-            }
         }
         private void _atualizaEncoder(object sender,SerialMessageArgument e) {
             Encoder.Position=e.doubleValue1;
@@ -412,11 +407,8 @@ namespace TexturometroClass {
         }
 
         public void ShowWarning(object sender, SerialMessageArgument args) {
-            if(Warning) {
-                MessageBox.Show(args.stringValue,"Aviso!",MessageBoxButtons.OK,MessageBoxIcon.Warning);
-                Warning= false;
-                //Warning= false;
-            }
+            MessageBox.Show(args.stringValue,"Aviso!",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            TesteStop();
         }
 
         #endregion

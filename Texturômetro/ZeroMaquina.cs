@@ -49,7 +49,7 @@ namespace Texturometer {
         }
 
         private void btnOk_Click(object sender,EventArgs e) {
-            tex.Motor.ZerarPosicao(1,Convert.ToDouble(txbCargaLimite.Text.Trim()));
+            tex.Motor.ZerarPosicao(0.5,Convert.ToDouble(txbCargaLimite.Text.Trim()));
             zerando =true;
         }
 
