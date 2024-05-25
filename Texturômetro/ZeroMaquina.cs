@@ -1,6 +1,7 @@
 ﻿using ClassesSuporteTexturometro;
 using System;
 using System.Drawing;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TexturometroClass;
@@ -55,6 +56,7 @@ namespace Texturometer {
 
         private void goToFinalPosition(object sender,SerialMessageArgument e) {
             try {
+                Thread.Sleep(100);
                 tex.Motor.GoTo(ModoMotor.Subir,Convert.ToDouble(txbVelociadeZero.Text),Convert.ToDouble(txbFinalPosition.Text));
                 tex.Motor.ZeroSeated=true;
             } finally { }

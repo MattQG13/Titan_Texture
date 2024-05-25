@@ -35,13 +35,18 @@
             this.pnBackground = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+#if DEBUG
             this.btnEnv = new System.Windows.Forms.Button();
             this.txbMensEnv = new System.Windows.Forms.RichTextBox();
             this.txbMensRecebida = new System.Windows.Forms.RichTextBox();
+#endif
             this.panel1 = new System.Windows.Forms.Panel();
+#if DEBUG
+
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.lbVel = new System.Windows.Forms.Label();
+#endif
             this.btnUP = new System.Windows.Forms.Button();
             this.btnDN = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
@@ -107,9 +112,11 @@
             // 
             // panel2
             // 
+#if DEBUG
             this.panel2.Controls.Add(this.btnEnv);
             this.panel2.Controls.Add(this.txbMensEnv);
             this.panel2.Controls.Add(this.txbMensRecebida);
+#endif
             this.panel2.Controls.Add(this.panel1);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.lbPosition);
@@ -120,6 +127,7 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(766, 194);
             this.panel2.TabIndex = 1;
+#if DEBUG
             // 
             // btnEnv
             // 
@@ -158,12 +166,15 @@
             this.txbMensRecebida.TabIndex = 15;
             this.txbMensRecebida.TabStop = false;
             this.txbMensRecebida.Text = "";
-            // 
-            // panel1
-            // 
+#endif
+// 
+// panel1
+// 
+#if DEBUG
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.lbVel);
+#endif
             this.panel1.Controls.Add(this.btnUP);
             this.panel1.Controls.Add(this.btnDN);
             this.panel1.Controls.Add(this.btnStop);
@@ -172,6 +183,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(166, 194);
             this.panel1.TabIndex = 14;
+#if DEBUG
             // 
             // button2
             // 
@@ -205,6 +217,7 @@
             this.lbVel.Size = new System.Drawing.Size(51, 13);
             this.lbVel.TabIndex = 11;
             this.lbVel.Text = "0.0 mm/s";
+#endif
             // 
             // btnUP
             // 

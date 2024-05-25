@@ -147,10 +147,12 @@ namespace Texturometer {
 
         private void ToolStripMenuExportPDF_Click(object sender,EventArgs e) {
 
-            CorpoDeProva cp = Dados.getCP();
-            tex.Produto.Resultado=cp.Resultado;
+            //CorpoDeProva cp = Dados.getCP();
+            //tex.Produto.Resultado=cp.Resultado;
             if(tex.Produto.Resultado.Count!=0) {
                 if(ExportacaoRelatorioPDF.exportaPDF(tex.Produto,tex.DadosTeste,getImgGrafico(panelGraph))) salvo=true;
+                tex.testRunning=false;
+                execFimTeste(this,EventArgs.Empty);
             } else {
                 MessageBox.Show("Não há resultados para serem exportados","Erro de exportação",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
@@ -171,7 +173,7 @@ namespace Texturometer {
 #if DEBUG
             if(true) {
 #else
-            if(tex.Motor.ZeroSeated) {
+            if(true){//if(tex.Motor.ZeroSeated) {
 #endif
                 ConfiguracaoEnsaio ConfigEnsaio = new ConfiguracaoEnsaio();
 

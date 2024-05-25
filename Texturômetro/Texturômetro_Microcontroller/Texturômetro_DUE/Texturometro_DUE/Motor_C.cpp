@@ -33,7 +33,6 @@ void setInterval(double intervaloMS){
     }else{
       Timer1.stop();
     }
-  
 }
 
 void ISR_TIMER1_COMPA_vect() {    
