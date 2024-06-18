@@ -194,6 +194,7 @@
             this.txbCargaLimite.Name = "txbCargaLimite";
             this.txbCargaLimite.Size = new System.Drawing.Size(164, 20);
             this.txbCargaLimite.TabIndex = 10;
+            this.txbCargaLimite.Text = "3";
             this.txbCargaLimite.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.number_KeyPress);
             // 
             // txbVelociadeZero
@@ -202,6 +203,7 @@
             this.txbVelociadeZero.Name = "txbVelociadeZero";
             this.txbVelociadeZero.Size = new System.Drawing.Size(164, 20);
             this.txbVelociadeZero.TabIndex = 9;
+            this.txbVelociadeZero.Text = "5";
             this.txbVelociadeZero.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.number_KeyPress);
             // 
             // label5
@@ -220,6 +222,7 @@
             this.txbFinalPosition.Name = "txbFinalPosition";
             this.txbFinalPosition.Size = new System.Drawing.Size(164, 20);
             this.txbFinalPosition.TabIndex = 11;
+            this.txbFinalPosition.Text = "35";
             this.txbFinalPosition.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.number_KeyPress);
             // 
             // label4

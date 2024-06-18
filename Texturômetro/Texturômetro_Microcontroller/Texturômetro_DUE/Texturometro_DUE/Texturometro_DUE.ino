@@ -15,11 +15,14 @@ static long iniTimer = 0;
 SerialInterpreter Mensagem;
 
 Filter FMM(8, 0.1);
-Filter FFMM (16, 0.1);
+Filter FFMM (8, 0.1);
 Filter FMMV (5, 0.01);
 
 bool travaLI = false;
 bool travaLS = false;
+bool travaportSTOP = false;
+bool travaportUP = false;
+bool travaportDN = false;
 
 double filtredload = 0;
 
@@ -34,6 +37,9 @@ void setup() {
   //configEnv();
   pinMode(LI, INPUT_PULLUP);
   pinMode(LS, INPUT_PULLUP);
+  pinMode(portSTOP, INPUT_PULLUP);
+  pinMode(portUP, INPUT_PULLUP);
+  pinMode(portDN, INPUT_PULLUP);
 
   while (!Serial);
 }
@@ -54,22 +60,75 @@ void loop() {
     digitalWrite(pulso, 0);
     digitalWrite(enMotor, 1);
     travaLS=true;
-    Serial.print("[LS;1]"+endChar);
-  }else if(travaLS){
+
+    String mens = "[LS;1]";
+    mens+=endChar;
+    Serial.print(mens);
+  }else if(digitalRead(LS)&&travaLS){
     travaLS=false;
-    Serial.print("[LS;0]"+endChar);
+    String mens = "[LS;0]";
+    mens+=endChar;
+    Serial.print(mens);
   }
 
-  if (!digitalRead(LI)&&travaLI) {
+  if (!digitalRead(LI)&&!travaLI) {
     Timer1.stop();
     digitalWrite(pulso, 0);
     digitalWrite(enMotor, 1);
-    Serial.print("[LI;1]"+endChar);
-    travaLS=true;
-  }else if(travaLI){
+    String mens = "[LI;1]";
+    mens+=endChar;
+    Serial.print(mens);
+    travaLI=true;
+  }else if(digitalRead(LI)&&travaLI){
     travaLI=false;
-    Serial.print("[LI;0]"+endChar);
+    String mens = "[LI;0]";
+    mens+=endChar;
+    Serial.print(mens);
   }
+
+if (!digitalRead(portSTOP)&&!travaportSTOP) {
+    Timer1.stop();
+    digitalWrite(pulso, 0);
+    digitalWrite(enMotor, 1);
+    String mens = "[STOP;1]";
+    mens+=endChar;
+    mens+= "[W;S]";
+    mens+=endChar;
+    Serial.print(mens);
+    travaportSTOP=true;
+  }else if(digitalRead(portSTOP)&&travaportSTOP){
+    travaportSTOP=false;
+    String mens = "[STOP;0]";
+    mens+=endChar;
+    Serial.print(mens);
+  }
+
+
+if (!digitalRead(portUP)&&!travaportUP) {
+    travaportUP=true;
+    String mens = "[UP;1]";
+    mens+=endChar;
+    Serial.print(mens);
+  }else if(digitalRead(portUP)&&travaportUP){
+    atualizaMotor(0);
+    travaportUP=false;
+    String mens = "[UP;0]";
+    mens+=endChar;
+    Serial.print(mens);  }
+  
+if (!digitalRead(portDN)&&!travaportDN) {
+    travaportDN=true;
+    String mens = "[DN;1]";
+    mens+=endChar;
+    Serial.print(mens);
+  }else if(digitalRead(portDN)&&travaportDN){
+    atualizaMotor(0);
+    travaportDN=false;
+    String mens = "[DN;0]";
+    mens+=endChar;
+    Serial.print(mens);
+  }
+
   envMens();
   //PID(FMMV.filtrar(getVel()));
   delay(10);

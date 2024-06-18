@@ -7,11 +7,11 @@ using System.Runtime.InteropServices;
 // conjunto de atributos. Altere estes valores de atributo para modificar as informações
 // associadas a um assembly.
 [assembly: AssemblyTitle("Titan Texture")]
-[assembly: AssemblyDescription("Software de análise de textura desenvolvido para o projeto de TCC do curso de Engenharia de Controle e Automação.")]
+[assembly: AssemblyDescription("Software de análise de textura desenvolvido para o projeto de TCC do curso de Engenharia de Controle e Automação. Henrique Pavin Pereira; Marcio Felipe Pires Mendonça; Mateus Quintino Gama; Matheus Atanazio Pereira; Otavio Aristides Lima; Menção honrosa: Bruno Fernandes dos Reus")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("BH3MO")]
 [assembly: AssemblyProduct("Titan Texture")]
-[assembly: AssemblyCopyright("Copyright ©  2024")]
+[assembly: AssemblyCopyright("Copyright © 2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -121,7 +121,7 @@ namespace SerialManagerTexturometro{
                 try {
                         string mensagem = _serialPort.ReadTo("!");
                         MessageRecieved?.Invoke(this,new SerialMessageArgument() {stringValue =mensagem });
-                    if(mensagem.Contains("V"))
+                    if(mensagem.Contains("LI")||mensagem.Contains("STO")||mensagem.Contains("UP"))
                         mensagem=mensagem;
                     string[] partesDaMensagem = _processaSerial(mensagem);
                     _interpretaMensagem(partesDaMensagem);
@@ -147,6 +147,12 @@ namespace SerialManagerTexturometro{
                         if(args.Objeto=="LS"||args.Objeto=="LI") {
                             args.boolValue=partesDaMensagem[1]=="1" ? true : false;
                         }
+                        if(args.Objeto=="UP"||args.Objeto=="DN") {
+                            args.boolValue=partesDaMensagem[1]=="1" ? true : false;
+                        }
+                        if(args.Objeto=="STOP") {
+                            args.boolValue=partesDaMensagem[1]=="1" ? true : false;
+                        }
                         if(args.Objeto=="E") {
                             args.doubleValue1=double.Parse(partesDaMensagem[1],culture);
                         }
@@ -166,6 +172,9 @@ namespace SerialManagerTexturometro{
                             switch(partesDaMensagem[1]) {
                                 case "O":
                                     args.stringValue="Limite de carga atingido!";
+                                    break;
+                                case "S":
+                                    args.stringValue= "Botão de emergência foi acionado!";
                                     break;
                                 default: 
                                     break;
@@ -199,6 +208,15 @@ namespace SerialManagerTexturometro{
                         break;
                     case "LI":
                         LIDetected?.Invoke(this,args);
+                        break;
+                    case "STOP":
+                        STOPDetected?.Invoke(this,args);
+                        break;
+                    case "UP":
+                        UPDetected?.Invoke(this,args);
+                        break;
+                    case "DN":
+                        DNDetected?.Invoke(this,args);
                         break;
                     case "L":
                         LoadCellDetected?.Invoke(this,args);

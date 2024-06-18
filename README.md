@@ -58,6 +58,10 @@ Padrões de protocolo:
 * __[LS;valor]__ - Valor do sensor de limite superior [bool] 
 * __[LI;valor]__ - Valor do sensor de limite inferior [bool]
 
+* __[UP;valor]__ - Valor do botão de subir [bool]
+* __[DN;valor]__ - Valor do botão de descer [bool]
+* __[STOP;valor]__ - Valor do botão de emergência [bool]
+
 * __[M;comando;velocidade]__ - Controle do motor com direção e velocidade [mm/s]
 * __[M;comando;velocidade;posição]__ - Controle do motor com direção, velocidade e posição final [mm/s][mm]
   * __UP__ para subir			
@@ -71,4 +75,6 @@ Padrões de protocolo:
 * __[CAL;valor]__ - Envia comando para calibração da célula de carga com valor do peso padrão [g]
 * __[W;tipo]__ - Define um alarme e o tipo
 	* Tipos de alarme:
-		* __O__ (Overweight) - Excesso de peso 
+		* __O__ (Overweight) - Excesso de peso
+    * __S__ (STOP) - Botão de Stop acionado 
+    

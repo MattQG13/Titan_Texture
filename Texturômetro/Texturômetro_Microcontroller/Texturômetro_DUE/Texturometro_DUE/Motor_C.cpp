@@ -3,6 +3,10 @@
 #include "Encoder_C.h"
 #include <DueTimer.h>
 
+   
+bool zerandoMaquina = false;
+double zeroMaquinaLoad = 0;
+  
 void atualizaMotor(double vel) {
   if (vel > 0.001 || vel < -0.001) {
     SPVel = vel;
@@ -52,14 +56,14 @@ void ISR_TIMER1_COMPA_vect() {
      }
   }
   if(zerandoMaquina){
-    if(filtredload>=zeroMaquinaLoad){
+    if(abs(filtredload)>=abs(zeroMaquinaLoad)){
+      zerandoMaquina=false;
       atualizaMotor(0);
       #ifndef WITH_ENCODER
         contador=0;
       #else
         zeraCont();
       #endif
-      zerandoMaquina=false;
       Serial.print("[ZERO]!");
     }
   }

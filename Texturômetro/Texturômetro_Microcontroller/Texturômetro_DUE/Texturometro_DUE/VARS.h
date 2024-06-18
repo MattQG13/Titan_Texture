@@ -20,10 +20,15 @@
 #define pulso 10 //PB2 //10 Pulso 
 #define direcao 11 //PB3 //11
 #define enMotor 12 //PB4 //12
-
+  
 //=====PORTAS IO FIM DE CURSO====
 #define LI 6 
 #define LS 7 
+
+//======PORTAS IO DOS BOTOES=====
+#define portSTOP 14
+#define portUP 15  
+#define portDN 16 
 
 //=======PORTAS IO ENCODER=======
 #define A 18

@@ -109,7 +109,7 @@ namespace Texturometer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("224.419")]
+        [global::System.Configuration.DefaultSettingValueAttribute("144.7732018")]
         public double CalLoadCell {
             get {
                 return ((double)(this["CalLoadCell"]));

@@ -103,6 +103,9 @@ namespace Texturometer {
             tex.Serial.LoadCellDetected+=atualizaLbLoad;
             tex.Serial.EncoderDetected+=atualizaLbPosition;
             tex.Serial.LoadCalibrated+=LoadCelCalibrated;
+            tex.Serial.UPDetected+=_UPdetected;
+            tex.Serial.DNDetected+=_DNdetected;
+            tex.Serial.STOPDetected+=_STOPdetected;
 
             Thread.Sleep(100);
             #if DEBUG
@@ -151,8 +154,8 @@ namespace Texturometer {
             //tex.Produto.Resultado=cp.Resultado;
             if(tex.Produto.Resultado.Count!=0) {
                 if(ExportacaoRelatorioPDF.exportaPDF(tex.Produto,tex.DadosTeste,getImgGrafico(panelGraph))) salvo=true;
-                tex.testRunning=false;
-                execFimTeste(this,EventArgs.Empty);
+                //tex.testRunning=false;
+                //execFimTeste(this,EventArgs.Empty);
             } else {
                 MessageBox.Show("Não há resultados para serem exportados","Erro de exportação",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
@@ -213,11 +216,12 @@ namespace Texturometer {
 
         #region Botoes_Controle_JOG
         private void btnUP_Click(object sender,EventArgs e) {
-            tex.Motor.ModoMotor=ModoMotor.Subir;
-            tex.Motor.Start(ModoMotor.Subir,Properties.Settings.Default.VelManual);
+            if(!tex.testRunning)
+                tex.Motor.Start(ModoMotor.Subir,Properties.Settings.Default.VelManual);
         }
         private void btnDN_Click(object sender,EventArgs e) {
-            tex.Motor.Start(ModoMotor.Descer,Properties.Settings.Default.VelManual);
+            if(!tex.testRunning)
+                tex.Motor.Start(ModoMotor.Descer,Properties.Settings.Default.VelManual);
         }
         private void btnStop_Click(object sender,EventArgs e) {
             if(tex.testRunning) {
@@ -227,7 +231,8 @@ namespace Texturometer {
             
         }
         private void btnFast_Click(object sender,EventArgs e) {
-            switch(tex.Motor.ModoMotor) {
+            if(!tex.testRunning)
+                switch(tex.Motor.ModoMotor) {
                 case ModoMotor.Subir:
                     tex.Motor.Start(ModoMotor.Subir,Properties.Settings.Default.VelManualRapida);
                     break;
@@ -472,7 +477,38 @@ namespace Texturometer {
             Properties.Settings.Default.CalLoadCell=args.doubleValue;
             Properties.Settings.Default.Save();
         }
+        private void _UPdetected(object sender,SerialMessageArgument args) {
+            if(args.boolValue) {
+                if(!tex.testRunning)
+                    tex.Motor.Start(ModoMotor.Subir,Properties.Settings.Default.VelManual);
+            } else {
+                if(tex.testRunning) {
+                    tex.TesteStop();
+                }
+                tex.Motor.Stop();
+            }
+        }
 
+        private void _DNdetected(object sender,SerialMessageArgument args) {
+            if(args.boolValue) {
+                if(!tex.testRunning)
+                tex.Motor.Start(ModoMotor.Descer,Properties.Settings.Default.VelManual);
+            } else {
+                if(tex.testRunning) {
+                    tex.TesteStop();
+                }
+                tex.Motor.Stop();
+            }
+            
+        }
+        private void _STOPdetected(object sender,SerialMessageArgument args) {
+            if(args.boolValue) {
+                if(tex.testRunning) {
+                    tex.TesteStop();
+                }
+                tex.Motor.Stop();
+            }
+        }
         private void execFimTeste(object sender,EventArgs e) {
             tex.StopAddResults();
 
