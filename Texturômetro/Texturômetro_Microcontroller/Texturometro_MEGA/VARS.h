@@ -12,8 +12,8 @@
 
 //========DEFINE MODULO ADC========
   //#define WITH_ADC_HX711
-  #define WITH_ADC_CS5530
-  //#define WITH_NO_ADC
+  //#define WITH_ADC_CS5530
+  #define WITH_NO_ADC
 //=================================
 
 //========PORTAS IO MOTOR========

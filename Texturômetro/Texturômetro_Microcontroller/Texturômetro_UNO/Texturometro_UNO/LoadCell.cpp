@@ -3,9 +3,9 @@
 #include "CS5530.h"
 
 //========DEFINE MODULO ADC========
-  #define WITH_ADC_HX711
+  //#define WITH_ADC_HX711
   //#define WITH_ADC_CS5530
-  //#define WITH_NO_ADC
+  #define WITH_NO_ADC
 //=================================
 
 #ifdef WITH_ADC_CS5530
@@ -56,7 +56,7 @@ void configADC(){
 
 #ifdef WITH_NO_ADC
    long double ReadLoad(){
-      return analogRead(A0)*10; 
+      return analogRead(A0); 
    }  
 #endif
 

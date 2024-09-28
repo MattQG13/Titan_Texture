@@ -12,4 +12,4 @@ double timerValue = 0;
 double SPVel = 0;
 
 //LoadCell 
-double scale = 224.419;
+double scale = -144.77320180;

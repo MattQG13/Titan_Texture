@@ -1,6 +1,6 @@
 #ifndef variaveis
 #define variaveis
-
+ 
 #include <Arduino.h>
 #include "Filter_MM.h"
 #include "CS5530.h"
@@ -22,8 +22,8 @@
 #define enMotor 12 //PB4 //12
   
 //=====PORTAS IO FIM DE CURSO====
-#define LI 6 
-#define LS 7 
+#define LI 8 
+#define LS 9 
 
 //======PORTAS IO DOS BOTOES=====
 #define portSTOP 14

@@ -18,11 +18,11 @@ Filter FMM(8, 0.1);
 Filter FFMM (8, 0.1);
 Filter FMMV (5, 0.01);
 
-bool travaLI = false;
-bool travaLS = false;
-bool travaportSTOP = false;
-bool travaportUP = false;
-bool travaportDN = false;
+static bool travaLI = false;
+static bool travaLS = false;
+static bool travaportSTOP = false;
+static bool travaportUP = false;
+static bool travaportDN = false;
 
 double filtredload = 0;
 
@@ -56,14 +56,13 @@ void loop() {
   }
 
   if (!digitalRead(LS)&&!travaLS) {
-    Timer1.stop();
+    atualizaMotor(0);
     digitalWrite(pulso, 0);
     digitalWrite(enMotor, 1);
-    travaLS=true;
-
     String mens = "[LS;1]";
     mens+=endChar;
     Serial.print(mens);
+    travaLS=true;
   }else if(digitalRead(LS)&&travaLS){
     travaLS=false;
     String mens = "[LS;0]";
@@ -72,7 +71,7 @@ void loop() {
   }
 
   if (!digitalRead(LI)&&!travaLI) {
-    Timer1.stop();
+    atualizaMotor(0);
     digitalWrite(pulso, 0);
     digitalWrite(enMotor, 1);
     String mens = "[LI;1]";
@@ -87,7 +86,7 @@ void loop() {
   }
 
 if (!digitalRead(portSTOP)&&!travaportSTOP) {
-    Timer1.stop();
+    atualizaMotor(0);
     digitalWrite(pulso, 0);
     digitalWrite(enMotor, 1);
     String mens = "[STOP;1]";

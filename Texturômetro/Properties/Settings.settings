@@ -24,7 +24,7 @@
       <Value Profile="(Default)">5</Value>
     </Setting>
     <Setting Name="CalLoadCell" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">144.7732018</Value>
+      <Value Profile="(Default)">-144.7732018</Value>
     </Setting>
   </Settings>
 </SettingsFile>

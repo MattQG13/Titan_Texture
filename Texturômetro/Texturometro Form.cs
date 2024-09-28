@@ -150,7 +150,6 @@ namespace Texturometer {
 
         private void ToolStripMenuExportPDF_Click(object sender,EventArgs e) {
 
-            //CorpoDeProva cp = Dados.getCP();
             //tex.Produto.Resultado=cp.Resultado;
             if(tex.Produto.Resultado.Count!=0) {
                 if(ExportacaoRelatorioPDF.exportaPDF(tex.Produto,tex.DadosTeste,getImgGrafico(panelGraph))) salvo=true;
@@ -176,7 +175,7 @@ namespace Texturometer {
 #if DEBUG
             if(true) {
 #else
-            if(true){//if(tex.Motor.ZeroSeated) {
+            if(tex.Motor.ZeroSeated) {
 #endif
                 ConfiguracaoEnsaio ConfigEnsaio = new ConfiguracaoEnsaio();
 

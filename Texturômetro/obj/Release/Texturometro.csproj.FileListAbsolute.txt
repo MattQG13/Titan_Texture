@@ -115,6 +115,6 @@ C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3- Softw
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3- Software\1-Software IHM\Texturômetro\Texturômetro\obj\Release\Texturometer.ZeroMaquina.resources
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3- Software\1-Software IHM\Texturômetro\Texturômetro\obj\Release\Texturometro.csproj.GenerateResource.cache
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3- Software\1-Software IHM\Texturômetro\Texturômetro\obj\Release\Texturometro.csproj.CoreCompileInputs.cache
-C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3- Software\1-Software IHM\Texturômetro\Texturômetro\obj\Release\Texturom.A4BAA14A.Up2Date
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3- Software\1-Software IHM\Texturômetro\Texturômetro\obj\Release\Titan Texture.exe
 C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3- Software\1-Software IHM\Texturômetro\Texturômetro\obj\Release\Titan Texture.pdb
+C:\Users\mateus\OneDrive - Fundação Salvador Arena\#TCC Texturômetro\3- Software\1-Software IHM\Texturômetro\Texturômetro\obj\Release\Texturom.A4BAA14A.Up2Date

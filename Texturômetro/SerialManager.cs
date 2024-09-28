@@ -119,10 +119,8 @@ namespace SerialManagerTexturometro{
             if(_serialPort.IsOpen)
                 while(_serialPort.BytesToRead>0) {
                 try {
-                        string mensagem = _serialPort.ReadTo("!");
-                        MessageRecieved?.Invoke(this,new SerialMessageArgument() {stringValue =mensagem });
-                    if(mensagem.Contains("LI")||mensagem.Contains("STO")||mensagem.Contains("UP"))
-                        mensagem=mensagem;
+                    string mensagem = _serialPort.ReadTo("!");
+                    MessageRecieved?.Invoke(this,new SerialMessageArgument() {stringValue =mensagem });
                     string[] partesDaMensagem = _processaSerial(mensagem);
                     _interpretaMensagem(partesDaMensagem);
                 } catch(TimeoutException) { _serialPort.Close(); }
